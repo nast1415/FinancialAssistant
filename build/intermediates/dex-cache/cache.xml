@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/igorl/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="/Users/igorl/Documents/au/java/2.1/FinancialAssistant/FinancialAssistant/FinancialAssistant/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-91ca771615d9b9d21b6bee616fc44e73edb96cb1.jar" />
+    </item>
+    <item
+        jar="/Users/igorl/Documents/au/java/2.1/FinancialAssistant/FinancialAssistant/FinancialAssistant/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="/Users/igorl/Documents/au/java/2.1/FinancialAssistant/FinancialAssistant/FinancialAssistant/app/build/intermediates/pre-dexed/debug/classes-a3c567a92788063e147505f5d5a3b1b2abab8c8e.jar" />
+    </item>
+    <item
+        jar="/Users/igorl/Documents/au/java/2.1/FinancialAssistant/FinancialAssistant/FinancialAssistant/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/Users/igorl/Documents/au/java/2.1/FinancialAssistant/FinancialAssistant/FinancialAssistant/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-d0a431e524cae61f8c180f5cfe056e422bcc1d21.jar" />
+    </item>
+    <item
+        jar="/Users/igorl/Documents/au/java/2.1/FinancialAssistant/FinancialAssistant/FinancialAssistant/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/Users/igorl/Documents/au/java/2.1/FinancialAssistant/FinancialAssistant/FinancialAssistant/app/build/intermediates/pre-dexed/debug/classes-1ece8b68ec14a5aeabee6a5023db86908be129ca.jar" />
+    </item>
+
+</items>
