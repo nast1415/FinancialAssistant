@@ -16,6 +16,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ExpensesActivity"
+            android:label="@string/title_activity_expenses"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ru.spbau.mit.starlab.financialassistant.MainActivity" />
+        </activity>
+        <activity
+            android:name=".IncomingActivity"
+            android:label="@string/title_activity_incoming"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ru.spbau.mit.starlab.financialassistant.MainActivity" />
+        </activity>
+        <activity
+            android:name=".OtherFunctionsActivity"
+            android:label="@string/title_activity_other_functions"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ru.spbau.mit.starlab.financialassistant.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

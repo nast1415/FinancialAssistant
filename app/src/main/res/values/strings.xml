@@ -3,4 +3,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_expenses">ExpensesActivity</string>
+    <string name="title_activity_incoming">IncomingActivity</string>
+    <string name="title_activity_other_functions">OtherFunctionsActivity</string>
 </resources>

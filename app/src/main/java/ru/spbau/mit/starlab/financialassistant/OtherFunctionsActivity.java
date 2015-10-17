@@ -1,24 +1,22 @@
 package ru.spbau.mit.starlab.financialassistant;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class OtherFunctionsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_other_functions);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_other_functions, menu);
         return true;
     }
 
@@ -35,20 +33,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void onBtnExpensesClick(View view) {
-        Intent intent = new Intent(MainActivity.this, ExpensesActivity.class);
-        startActivity(intent);
-    }
-
-    public void onBtnIncomingClick(View view) {
-        Intent intent = new Intent(MainActivity.this, IncomingActivity.class);
-        startActivity(intent);
-    }
-
-    public void onBtnOtherClick(View view) {
-        Intent intent = new Intent(MainActivity.this, OtherFunctionsActivity.class);
-        startActivity(intent);
     }
 }
