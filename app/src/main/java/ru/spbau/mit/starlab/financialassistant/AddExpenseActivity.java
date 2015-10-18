@@ -13,13 +13,9 @@ public class AddExpenseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         String name = getIntent().getExtras().getString("name");
 
-        TextView t = (TextView) findViewById(R.id.txtExpenseAdd);
-
-        if (t != null) {
-            t.setText("Добавить трату на " + name);
-        }
-
         setContentView(R.layout.activity_add_expense);
+        TextView text_view = (TextView) findViewById(R.id.txtExpenseAdd);
+        text_view.setText("Добавить трату на " + name);
     }
 
     @Override
