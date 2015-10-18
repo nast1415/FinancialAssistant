@@ -1,9 +1,11 @@
 package ru.spbau.mit.starlab.financialassistant;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class ExpensesActivity extends AppCompatActivity {
 
@@ -33,5 +35,26 @@ public class ExpensesActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBtnExpense1Click(View view) {
+        Intent intent = new Intent(ExpensesActivity.this, AddExpenseActivity.class);
+        intent.putExtra("name", "first");
+        startActivity(intent);
+    }
+    public void onBtnExpense2Click(View view) {
+        Intent intent = new Intent(ExpensesActivity.this, AddExpenseActivity.class);
+        intent.putExtra("name", "second");
+        startActivity(intent);
+    }
+    public void onBtnExpense3Click(View view) {
+        Intent intent = new Intent(ExpensesActivity.this, AddExpenseActivity.class);
+        intent.putExtra("name", "third");
+        startActivity(intent);
+    }
+    public void onBtnExpenseOtherClick(View view) {
+        Intent intent = new Intent(ExpensesActivity.this, AddExpenseActivity.class);
+        intent.putExtra("name", "other");
+        startActivity(intent);
     }
 }

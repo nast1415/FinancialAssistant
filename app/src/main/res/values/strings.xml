@@ -6,4 +6,5 @@
     <string name="title_activity_expenses">ExpensesActivity</string>
     <string name="title_activity_incoming">IncomingActivity</string>
     <string name="title_activity_other_functions">OtherFunctionsActivity</string>
+    <string name="title_activity_add_expense">AddExpense</string>
 </resources>
