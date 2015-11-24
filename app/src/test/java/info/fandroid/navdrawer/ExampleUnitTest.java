@@ -1,4 +1,4 @@
-package info.fandroid.navdrawer;
+package info.fandroid.finansialassistant;
 
 import org.junit.Test;
 

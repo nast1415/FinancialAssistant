@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import info.fandroid.finansialassistant.R;
+import ru.spbau.mit.starlab.finansialassistant.R;
 
 
 /**
