@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_expenses"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="@string/expenses_fragment" />
+        <item
+            android:id="@+id/nav_incomes"
+            android:icon="@android:drawable/ic_menu_gallery"
+            android:title="@string/incomes_fragment" />
+        <item
+            android:id="@+id/nav_regular_expenses"
+            android:icon="@android:drawable/ic_menu_slideshow"
+            android:title="@string/regular_expenses_fragment" />
+        <item
+            android:id="@+id/nav_wanted_expenses"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/wanted_expenses_fragment" />
+        <item
+            android:id="@+id/nav_credits"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/credits_fragment" />
+        <item
+            android:id="@+id/nav_statistics"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/statistics_fragment" />
+        <item
+            android:id="@+id/nav_recent_actions"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/recent_actions_fragment" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/help_fragment" />
+        <item
+            android:id="@+id/nav_tools"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/tools_fragment" />
+    </group>
+
+</menu>
