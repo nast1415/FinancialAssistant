@@ -1,4 +1,4 @@
-package info.fandroid.navdrawer;
+package ru.spbau.mit.starlab.finansialassistant;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -11,12 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import info.fandroid.navdrawer.fragments.FragmentHelp;
-import info.fandroid.navdrawer.fragments.FragmentRecent;
-import info.fandroid.navdrawer.fragments.FragmentRegularExpenses;
-import info.fandroid.navdrawer.fragments.FragmentSend;
-import info.fandroid.navdrawer.fragments.FragmentSettings;
-import info.fandroid.navdrawer.fragments.FragmentShare;
+import ru.spbau.mit.starlab.finansialassistant.fragments.FragmentHelp;
+import ru.spbau.mit.starlab.finansialassistant.fragments.FragmentRecent;
+import ru.spbau.mit.starlab.finansialassistant.fragments.FragmentRegularExpenses;
+import ru.spbau.mit.starlab.finansialassistant.fragments.FragmentSend;
+import ru.spbau.mit.starlab.finansialassistant.fragments.FragmentSettings;
+import ru.spbau.mit.starlab.finansialassistant.fragments.FragmentShare;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

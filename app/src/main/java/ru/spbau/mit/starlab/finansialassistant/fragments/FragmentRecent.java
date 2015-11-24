@@ -1,6 +1,5 @@
-package info.fandroid.navdrawer.fragments;
+package ru.spbau.mit.starlab.finansialassistant.fragments;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -8,18 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import info.fandroid.navdrawer.R;
-
+import info.fandroid.finansialassistant.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentRegularExpenses.OnFragmentInteractionListener} interface
+ * {@link FragmentRecent.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentRegularExpenses#newInstance} factory method to
+ * Use the {@link FragmentRecent#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentRegularExpenses extends Fragment {
+public class FragmentRecent extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,11 +35,11 @@ public class FragmentRegularExpenses extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentRegularExpenses.
+     * @return A new instance of fragment FragmentRecent.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentRegularExpenses newInstance(String param1, String param2) {
-        FragmentRegularExpenses fragment = new FragmentRegularExpenses();
+    public static FragmentRecent newInstance(String param1, String param2) {
+        FragmentRecent fragment = new FragmentRecent();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -49,7 +47,7 @@ public class FragmentRegularExpenses extends Fragment {
         return fragment;
     }
 
-    public FragmentRegularExpenses() {
+    public FragmentRecent() {
         // Required empty public constructor
     }
 
@@ -66,7 +64,7 @@ public class FragmentRegularExpenses extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_regular_expenses, container, false);
+        return inflater.inflate(R.layout.fragment_recent, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

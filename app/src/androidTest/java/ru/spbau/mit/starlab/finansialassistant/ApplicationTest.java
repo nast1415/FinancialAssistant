@@ -1,4 +1,4 @@
-package info.fandroid.navdrawer;
+package ru.spbau.mit.starlab.finansialassistant;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
