@@ -26,7 +26,7 @@ import ru.spbau.mit.starlab.financialassistant.fragments.WantedExpensesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    
     private CreditsFragment creditsFragment;
     private ExpensesFragment expensesFragment;
     private HelpFragment helpFragment;
