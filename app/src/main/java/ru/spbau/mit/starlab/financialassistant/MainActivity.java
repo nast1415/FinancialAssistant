@@ -44,15 +44,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        creditsFragment = new CreditsFragment();
-        expensesFragment = new ExpensesFragment();
-        helpFragment = new HelpFragment();
-        incomesFragment = new IncomesFragment();
-        recentActionsFragment = new RecentActionsFragment();
-        regularExpensesFragment = new RegularExpensesFragment();
-        statisticsFragment = new StatisticsFragment();
-        toolsFragment = new ToolsFragment();
-        wantedExpensesFragment = new WantedExpensesFragment();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -62,6 +53,17 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        creditsFragment = new CreditsFragment();
+        expensesFragment = new ExpensesFragment();
+        helpFragment = new HelpFragment();
+        incomesFragment = new IncomesFragment();
+        recentActionsFragment = new RecentActionsFragment();
+        regularExpensesFragment = new RegularExpensesFragment();
+        statisticsFragment = new StatisticsFragment();
+        toolsFragment = new ToolsFragment();
+        wantedExpensesFragment = new WantedExpensesFragment();
     }
 
     @Override
@@ -123,6 +125,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_wanted_expenses) {
             fragmentTransaction.replace(R.id.container, wantedExpensesFragment);
         }
+        fragmentTransaction.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
