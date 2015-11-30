@@ -1,10 +1,138 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.spbau.mit.starlab.financialassistant.fragments.ExpensesFragment">
+    tools:context="ru.spbau.mit.starlab.financialassistant.fragments.CreditsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/button"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
+        android:text="Записать" />
+
+
+    <TextView
+        android:id="@+id/txtCreditInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Создать расход"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="24dp" />
+
+    <TextView
+        android:id="@+id/txtStartPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtCreditInfo"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp"
+        android:text="Период"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/txtPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtCreditInfo"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="136dp"
+        android:text="Ставка"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/txtFirstDeposit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtCreditInfo"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="186dp"
+        android:text="Первый взнос"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/txtSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtCreditInfo"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="236dp"
+        android:text="Сумма"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/eTxtStartPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtCreditInfo"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/eTxtEndPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/eTxtStartPeriod"
+        android:layout_alignStart="@+id/eTxtStartPeriod"
+        android:layout_below="@+id/eTxtStartPeriod"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/eTxtPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtPercent"
+        android:layout_alignLeft="@+id/eTxtStartPeriod"
+        android:layout_alignStart="@+id/eTxtStartPeriod"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/eTxtDeposit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtFirstDeposit"
+        android:layout_alignLeft="@+id/eTxtStartPeriod"
+        android:layout_alignStart="@+id/eTxtStartPeriod"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/eTxtSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtSum"
+        android:layout_alignLeft="@+id/eTxtStartPeriod"
+        android:layout_alignStart="@+id/eTxtStartPeriod"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:inputType="number" />
+
+</RelativeLayout>

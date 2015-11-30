@@ -25,8 +25,7 @@
         android:id="@+id/txtCreditInfo"
         android:textSize="24dp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/txtStartPeriod"
-        android:layout_toEndOf="@+id/txtStartPeriod"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
 
     <TextView
