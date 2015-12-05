@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="40dp"
         android:text="Записать" />
 
 
@@ -109,20 +109,27 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtIncomeInfo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="220dp"
         android:text="Комментарий"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="20dp" />
 
-
-    <EditText
-        android:id="@+id/eTxtComment"
+    <ScrollView
+        android:layout_height="60dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="350dp"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
-        android:inputType="textMultiLine" />
+        android:layout_below="@+id/txtComment"
+        android:layout_marginTop="20dp"
+        >
+
+        <EditText
+            android:id="@+id/eTxtComment"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:background="@drawable/edit_text_design"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:minLines="3" />
+    </ScrollView>
 
 </RelativeLayout>
