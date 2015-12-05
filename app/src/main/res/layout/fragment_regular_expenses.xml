@@ -1,10 +1,168 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ru.spbau.mit.starlab.financialassistant.fragments.RegularExpensesFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Записать"
+        style="@style/Base.TextAppearance.AppCompat.Large"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Добавить регулярную трату/доход"
+        android:id="@+id/txtRegularExpense"
+        android:textSize="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Период"
+        android:id="@+id/txtStartPeriod"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/txtRegularExpense"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Название"
+        android:id="@+id/txtName"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/txtRegularExpense"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Категория"
+        android:id="@+id/txtCategory"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/txtRegularExpense"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Сумма"
+        android:id="@+id/txtSum"
+        android:layout_marginTop="190dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/txtRegularExpense"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:id="@+id/eTxtStartPeriod"
+        android:layout_below="@+id/txtRegularExpense"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="160dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:id="@+id/eTxtEndPeriod"
+        android:layout_below="@+id/eTxtStartPeriod"
+        android:layout_alignLeft="@+id/eTxtStartPeriod"
+        android:layout_alignStart="@+id/eTxtStartPeriod"
+        android:layout_marginTop="5dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:id="@+id/eTxtName"
+        android:layout_alignBottom="@+id/txtName"
+        android:layout_alignStart="@+id/eTxtStartPeriod"
+        android:layout_alignLeft="@+id/eTxtStartPeriod" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:id="@+id/eTxtDeposit"
+        android:layout_alignBottom="@+id/txtCategory"
+        android:layout_alignLeft="@+id/eTxtStartPeriod"
+        android:layout_alignStart="@+id/eTxtStartPeriod" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:id="@+id/eTxtSum"
+        android:layout_alignBottom="@+id/txtSum"
+        android:layout_alignLeft="@+id/eTxtStartPeriod"
+        android:layout_alignStart="@+id/eTxtStartPeriod" />
+
+    <TextView
+        android:id="@+id/txtComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtRegularExpense"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="240dp"
+        android:text="Комментарий"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20dp" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_below="@+id/txtComment"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/eTxtComment"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:background="@drawable/edit_text_design"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:minLines="3" />
+    </ScrollView>
+
+</RelativeLayout>

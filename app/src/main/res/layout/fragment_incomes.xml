@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:text="Добавить доход"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -112,14 +113,14 @@
         android:layout_marginTop="220dp"
         android:text="Комментарий"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_below="@+id/txtComment"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp">
+        android:layout_marginTop="10dp">
 
         <EditText
             android:id="@+id/eTxtComment"
