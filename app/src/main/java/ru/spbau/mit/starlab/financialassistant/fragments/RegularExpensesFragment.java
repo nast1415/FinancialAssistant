@@ -1,6 +1,5 @@
 package ru.spbau.mit.starlab.financialassistant.fragments;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;

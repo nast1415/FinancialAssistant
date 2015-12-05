@@ -16,9 +16,7 @@ import ru.spbau.mit.starlab.financialassistant.R;
 import ru.spbau.mit.starlab.financialassistant.multicolumnlistview.ListViewAdapter;
 
 import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.FIRST_COLUMN;
-import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.FOURTH_COLUMN;
 import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.SECOND_COLUMN;
-import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.THIRD_COLUMN;
 
 /**
  * A simple {@link Fragment} subclass.

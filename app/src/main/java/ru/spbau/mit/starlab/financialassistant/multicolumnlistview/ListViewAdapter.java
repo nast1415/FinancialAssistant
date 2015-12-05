@@ -1,8 +1,6 @@
 package ru.spbau.mit.starlab.financialassistant.multicolumnlistview;
 import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.FIRST_COLUMN;
 import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.SECOND_COLUMN;
-import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.THIRD_COLUMN;
-import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.FOURTH_COLUMN;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,8 +20,6 @@ public class ListViewAdapter extends BaseAdapter{
     Activity activity;
     TextView txtFirst;
     TextView txtSecond;
-    TextView txtThird;
-    TextView txtFourth;
     public ListViewAdapter(Activity activity,ArrayList<HashMap<String, String>> list){
         super();
         this.activity=activity;
