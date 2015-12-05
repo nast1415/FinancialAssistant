@@ -7,8 +7,18 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import ru.spbau.mit.starlab.financialassistant.R;
+import ru.spbau.mit.starlab.financialassistant.multicolumnlistview.ListViewAdapter;
+
+import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.FIRST_COLUMN;
+import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.FOURTH_COLUMN;
+import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.SECOND_COLUMN;
+import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.THIRD_COLUMN;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +33,10 @@ public class RecentActionsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+
+    public ArrayList<HashMap<String, String>> list;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -59,13 +73,48 @@ public class RecentActionsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recent_actions, container, false);
+
+        View ll = inflater.inflate(R.layout.fragment_recent_actions, container, false);
+
+
+
+        ListView listView = (ListView) ll.findViewById(R.id.listView1);
+
+        list=new ArrayList<>();
+
+        HashMap<String,String> temp = new HashMap<>();
+        temp.put(FIRST_COLUMN, "Name1");
+        temp.put(SECOND_COLUMN, "100");
+        list.add(temp);
+
+        HashMap<String,String> temp2 = new HashMap<>();
+        temp2.put(FIRST_COLUMN, "Name2");
+        temp2.put(SECOND_COLUMN, "200");
+        list.add(temp2);
+
+        HashMap<String,String> temp3=new HashMap<>();
+        temp3.put(FIRST_COLUMN, "Name3");
+        temp3.put(SECOND_COLUMN, "300");
+        list.add(temp3);
+
+        HashMap<String,String> temp4=new HashMap<>();
+        temp4.put(FIRST_COLUMN, "Name4");
+        temp4.put(SECOND_COLUMN, "400");
+        list.add(temp4);
+
+        ListViewAdapter adapter = new ListViewAdapter(getActivity(), list);
+        listView.setAdapter(adapter);
+
+
+
+        return ll;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -1,10 +1,32 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ru.spbau.mit.starlab.financialassistant.fragments.RecentActionsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+
+    <TextView
+        android:id="@+id/txtRecentActions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Последние действия"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="24sp" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtRecentActions"
+        android:layout_marginTop="20dp"
+        android:divider="@color/colorAccent"
+        android:dividerHeight="2dp">
+
+    </ListView>
+
+</RelativeLayout>
