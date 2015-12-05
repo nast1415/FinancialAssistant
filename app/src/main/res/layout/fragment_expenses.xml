@@ -13,58 +13,59 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="40dp"
         android:text="Записать" />
 
 
     <TextView
-        android:id="@+id/txtCreditInfo"
+        android:id="@+id/txtIncomeInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="Создать расход"
+        android:text="Добавить трату"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="24dp" />
 
     <TextView
-        android:id="@+id/txtStartPeriod"
+        android:id="@+id/txtCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtCreditInfo"
+        android:layout_below="@+id/txtIncomeInfo"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="60dp"
-        android:text="Период"
+        android:layout_marginTop="30dp"
+        android:text="Категория"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/txtPercent"
+        android:id="@+id/txtDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtCreditInfo"
+        android:layout_below="@+id/txtIncomeInfo"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="136dp"
-        android:text="Ставка"
+        android:layout_marginTop="70dp"
+        android:text="Дата"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/txtFirstDeposit"
+        android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtCreditInfo"
+        android:layout_below="@+id/txtIncomeInfo"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="186dp"
-        android:text="Первый взнос"
+        android:layout_marginTop="110dp"
+        android:text="Название"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="20dp" />
+
 
     <TextView
         android:id="@+id/txtSum"
@@ -72,67 +73,86 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtCreditInfo"
+        android:layout_below="@+id/txtIncomeInfo"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="236dp"
+        android:layout_marginTop="150dp"
         android:text="Сумма"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="20dp" />
 
     <EditText
-        android:id="@+id/eTxtStartPeriod"
+        android:id="@+id/eCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtCreditInfo"
+        android:layout_alignBottom="@+id/txtCategory"
         android:layout_marginLeft="160dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/eDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtDate"
+        android:layout_alignLeft="@+id/eCategory"
+        android:layout_alignStart="@+id/eCategory"
         android:background="@drawable/edit_text_design"
         android:ems="10"
         android:inputType="date" />
 
-    <EditText
-        android:id="@+id/eTxtEndPeriod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/eTxtStartPeriod"
-        android:layout_alignStart="@+id/eTxtStartPeriod"
-        android:layout_below="@+id/eTxtStartPeriod"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
-        android:inputType="date" />
 
     <EditText
-        android:id="@+id/eTxtPercent"
+        android:id="@+id/eTxtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtPercent"
-        android:layout_alignLeft="@+id/eTxtStartPeriod"
-        android:layout_alignStart="@+id/eTxtStartPeriod"
+        android:layout_alignBottom="@+id/txtName"
+        android:layout_alignLeft="@+id/eCategory"
+        android:layout_alignStart="@+id/eCategory"
         android:background="@drawable/edit_text_design"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="text" />
 
-    <EditText
-        android:id="@+id/eTxtDeposit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtFirstDeposit"
-        android:layout_alignLeft="@+id/eTxtStartPeriod"
-        android:layout_alignStart="@+id/eTxtStartPeriod"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
-        android:inputType="number" />
 
     <EditText
         android:id="@+id/eTxtSum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/txtSum"
-        android:layout_alignLeft="@+id/eTxtStartPeriod"
-        android:layout_alignStart="@+id/eTxtStartPeriod"
+        android:layout_alignLeft="@+id/eDate"
+        android:layout_alignStart="@+id/eDate"
         android:background="@drawable/edit_text_design"
         android:ems="10"
         android:inputType="number" />
+
+
+    <TextView
+        android:id="@+id/txtComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtIncomeInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
+        android:text="Комментарий"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20dp" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_below="@+id/txtComment"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/eTxtComment"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:background="@drawable/edit_text_design"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:minLines="3" />
+    </ScrollView>
 
 </RelativeLayout>
