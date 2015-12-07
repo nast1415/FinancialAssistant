@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/button"
         style="@style/Base.TextAppearance.AppCompat.Medium"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -22,24 +22,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:text="Добавить доход"
+        android:text="@string/add_income"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignLeft="@+id/txtName"
+        android:layout_alignStart="@+id/txtName"
         android:layout_below="@+id/txtIncomeInfo"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="60dp"
-        android:text="Дата"
+        android:layout_marginTop="25dp"
+        android:text="@string/date"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20dp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/txtName"
@@ -48,11 +47,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/txtIncomeInfo"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="85dp"
         android:text="Название"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20dp" />
+        android:textSize="18sp" />
 
 
     <TextView
@@ -62,31 +61,38 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/txtIncomeInfo"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="145dp"
         android:text="Сумма"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20dp" />
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/eDate"
-        android:layout_width="wrap_content"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtIncomeInfo"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="60dp"
+        android:layout_below="@id/txtIncomeInfo"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/edit_text_design"
         android:ems="10"
         android:inputType="date" />
 
 
     <EditText
-        android:id="@+id/etxtName"
-        android:layout_width="wrap_content"
+        android:id="@+id/eTxtName"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtName"
-        android:layout_alignLeft="@+id/eDate"
-        android:layout_alignStart="@+id/eDate"
+        android:layout_below="@id/txtIncomeInfo"
+        android:layout_marginEnd="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="110dp"
         android:background="@drawable/edit_text_design"
         android:ems="10"
         android:inputType="text" />
@@ -94,11 +100,14 @@
 
     <EditText
         android:id="@+id/eTxtSum"
-        android:layout_width="wrap_content"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtSum"
-        android:layout_alignLeft="@+id/eDate"
-        android:layout_alignStart="@+id/eDate"
+        android:layout_below="@id/txtIncomeInfo"
+        android:layout_marginEnd="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="170dp"
         android:background="@drawable/edit_text_design"
         android:ems="10"
         android:inputType="number" />
@@ -108,28 +117,36 @@
         android:id="@+id/txtComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/eTxtSum"
+        android:layout_alignStart="@+id/eTxtSum"
         android:layout_below="@+id/txtIncomeInfo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="235dp"
         android:text="Комментарий"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_width="300dp"
         android:layout_height="60dp"
-        android:layout_below="@+id/txtComment"
+        android:layout_below="@+id/txtIncomeInfo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp">
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="260dp">
 
-        <EditText
-            android:id="@+id/eTxtComment"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:background="@drawable/edit_text_design"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:minLines="3" />
     </ScrollView>
+
+    <EditText
+        android:id="@+id/eTxtComment"
+        android:layout_width="400dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/txtIncomeInfo"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="260dp"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:minLines="3" />
 
 </RelativeLayout>
