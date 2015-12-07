@@ -14,7 +14,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
-        android:text="Записать" />
+        android:text="@string/add" />
 
 
     <TextView
@@ -38,7 +38,7 @@
         android:layout_alignLeft="@+id/txtDate"
         android:layout_alignStart="@+id/txtDate"
         android:layout_marginTop="40dp"
-        android:text="Название" />
+        android:text="@string/name" />
 
 
     <TextView
@@ -48,7 +48,7 @@
         android:layout_alignLeft="@+id/txtDate"
         android:layout_alignStart="@+id/txtDate"
         android:layout_marginTop="105dp"
-        android:text="Сумма" />
+        android:text="@string/sum" />
 
     <EditText
         android:id="@+id/eTxtDate"
@@ -93,7 +93,7 @@
         android:layout_alignStart="@+id/txtDate"
         android:layout_below="@+id/txtDate"
         android:layout_marginTop="200dp"
-        android:text="Комментарий" />
+        android:text="@string/comment" />
 
     <ScrollView
         android:id="@+id/scrollView"

@@ -22,6 +22,11 @@
     <!-- Strings related to fragments -->
     <string name="add_income">Добавить доход</string>
     <string name="date">Дата</string>
+    <string name="name">Название</string>
+    <string name="sum">Сумма</string>
+    <string name="comment">Комментарий</string>
+    <string name="add">Записать</string>
+
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
