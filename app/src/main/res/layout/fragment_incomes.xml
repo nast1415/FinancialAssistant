@@ -7,13 +7,8 @@
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:id="@+id/button"
-        style="@style/Base.TextAppearance.AppCompat.Medium"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
+        android:id="@+id/btnAdd"
+        style="@style/ButtonStyle"
         android:text="@string/add" />
 
 
@@ -25,18 +20,18 @@
     <TextView
         android:id="@+id/txtDate"
         style="@style/UsualTextStyle"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
         android:layout_below="@+id/txtIncomeInfo"
-        android:layout_marginTop="25dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
         android:text="@string/date" />
 
     <TextView
         android:id="@+id/txtName"
         style="@style/UsualTextStyle"
-        android:layout_below="@+id/txtDate"
         android:layout_alignLeft="@+id/txtDate"
         android:layout_alignStart="@+id/txtDate"
+        android:layout_below="@+id/txtDate"
         android:layout_marginTop="40dp"
         android:text="@string/name" />
 
@@ -44,18 +39,18 @@
     <TextView
         android:id="@+id/txtSum"
         style="@style/UsualTextStyle"
-        android:layout_below="@+id/txtDate"
         android:layout_alignLeft="@+id/txtDate"
         android:layout_alignStart="@+id/txtDate"
+        android:layout_below="@+id/txtDate"
         android:layout_marginTop="105dp"
         android:text="@string/sum" />
 
     <EditText
         android:id="@+id/eTxtDate"
         style="@style/TextBoxesStyle"
-        android:layout_below="@id/txtDate"
         android:layout_alignLeft="@+id/txtDate"
         android:layout_alignStart="@+id/txtDate"
+        android:layout_below="@id/txtDate"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
@@ -65,9 +60,9 @@
     <EditText
         android:id="@+id/eTxtName"
         style="@style/TextBoxesStyle"
-        android:layout_below="@id/txtName"
         android:layout_alignLeft="@+id/txtDate"
         android:layout_alignStart="@+id/txtDate"
+        android:layout_below="@id/txtName"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
@@ -77,9 +72,9 @@
     <EditText
         android:id="@+id/eTxtSum"
         style="@style/TextBoxesStyle"
-        android:layout_below="@id/txtSum"
         android:layout_alignLeft="@+id/txtDate"
         android:layout_alignStart="@+id/txtDate"
+        android:layout_below="@id/txtSum"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
@@ -98,23 +93,18 @@
     <ScrollView
         android:id="@+id/scrollView"
         style="@style/ScrollViewStyle"
-        android:layout_below="@+id/txtComment"
         android:layout_alignLeft="@+id/txtDate"
         android:layout_alignStart="@+id/txtDate"
+        android:layout_below="@+id/txtComment"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp">
 
+        <EditText
+            android:id="@+id/eTxtComment"
+            style="@style/CommentBoxStyle"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp" />
     </ScrollView>
-
-    <EditText
-        android:id="@+id/eTxtComment"
-        style="@style/CommentBoxStyle"
-        android:layout_below="@id/txtComment"
-        android:layout_alignLeft="@+id/txtDate"
-        android:layout_alignStart="@+id/txtDate"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp" />
 
 </RelativeLayout>

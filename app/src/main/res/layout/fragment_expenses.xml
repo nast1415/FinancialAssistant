@@ -8,152 +8,124 @@
 
     <Button
         android:id="@+id/button"
-        style="@style/Base.TextAppearance.AppCompat.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="40dp"
+        style="@style/ButtonStyle"
         android:text="Записать" />
 
 
     <TextView
         android:id="@+id/txtIncomeInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="Добавить трату"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="24dp" />
+        style="@style/FragmentHeader"
+        android:text="Добавить трату" />
 
     <TextView
         android:id="@+id/txtCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        style="@style/UsualTextStyle"
         android:layout_below="@+id/txtIncomeInfo"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
-        android:text="Категория"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20dp" />
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:text="Категория" />
 
     <TextView
         android:id="@+id/txtDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtIncomeInfo"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="70dp"
-        android:text="Дата"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20dp" />
+        style="@style/UsualTextStyle"
+        android:layout_alignLeft="@+id/txtCategory"
+        android:layout_alignStart="@+id/txtCategory"
+        android:layout_below="@+id/txtCategory"
+        android:layout_marginTop="40dp"
+        android:text="Дата" />
 
     <TextView
         android:id="@+id/txtName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtIncomeInfo"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="110dp"
-        android:text="Название"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20dp" />
+        style="@style/UsualTextStyle"
+        android:layout_alignLeft="@+id/txtCategory"
+        android:layout_alignStart="@+id/txtCategory"
+        android:layout_below="@+id/txtCategory"
+        android:layout_marginTop="105dp"
+        android:text="Название" />
 
 
     <TextView
         android:id="@+id/txtSum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtIncomeInfo"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="150dp"
-        android:text="Сумма"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20dp" />
+        style="@style/UsualTextStyle"
+        android:layout_alignLeft="@+id/txtCategory"
+        android:layout_alignStart="@+id/txtCategory"
+        android:layout_below="@+id/txtCategory"
+        android:layout_marginTop="170dp"
+        android:text="Сумма" />
 
     <EditText
-        android:id="@+id/eCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtCategory"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
+        android:id="@+id/eTxtCategory"
+        style="@style/TextBoxesStyle"
+        android:layout_alignLeft="@+id/txtCategory"
+        android:layout_alignStart="@+id/txtCategory"
+        android:layout_below="@id/txtCategory"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/eDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtDate"
-        android:layout_alignLeft="@+id/eCategory"
-        android:layout_alignStart="@+id/eCategory"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
+        style="@style/TextBoxesStyle"
+        android:layout_alignLeft="@+id/txtCategory"
+        android:layout_alignStart="@+id/txtCategory"
+        android:layout_below="@id/txtDate"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
         android:inputType="date" />
 
 
     <EditText
         android:id="@+id/eTxtName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtName"
-        android:layout_alignLeft="@+id/eCategory"
-        android:layout_alignStart="@+id/eCategory"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
+        style="@style/TextBoxesStyle"
+        android:layout_alignLeft="@+id/txtCategory"
+        android:layout_alignStart="@+id/txtCategory"
+        android:layout_below="@id/txtName"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
         android:inputType="text" />
 
 
     <EditText
         android:id="@+id/eTxtSum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtSum"
-        android:layout_alignLeft="@+id/eDate"
-        android:layout_alignStart="@+id/eDate"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
+        style="@style/TextBoxesStyle"
+        android:layout_alignLeft="@+id/txtCategory"
+        android:layout_alignStart="@+id/txtCategory"
+        android:layout_below="@id/txtSum"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
         android:inputType="number" />
 
 
     <TextView
         android:id="@+id/txtComment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtIncomeInfo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="220dp"
-        android:text="Комментарий"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20dp" />
+        style="@style/UsualTextStyle"
+        android:layout_alignLeft="@+id/txtCategory"
+        android:layout_alignStart="@+id/txtCategory"
+        android:layout_below="@+id/txtCategory"
+        android:layout_marginTop="235dp"
+        android:text="Комментарий" />
 
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        style="@style/ScrollViewStyle"
+        android:layout_alignLeft="@+id/txtCategory"
+        android:layout_alignStart="@+id/txtCategory"
         android:layout_below="@+id/txtComment"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp">
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp">
+
 
         <EditText
             android:id="@+id/eTxtComment"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:background="@drawable/edit_text_design"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:minLines="3" />
+            style="@style/CommentBoxStyle"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp" />
     </ScrollView>
+
 
 </RelativeLayout>
