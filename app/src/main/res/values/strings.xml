@@ -19,6 +19,10 @@
     <string name="tools_fragment">Настройки</string>
     <string name="title_activity_login">Следить за финансами легко!</string>
 
+    <!-- Strings related to fragments -->
+    <string name="add_income">Добавить доход</string>
+    <string name="date">Дата</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
