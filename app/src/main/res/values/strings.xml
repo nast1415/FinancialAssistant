@@ -28,9 +28,11 @@
     <string name="tools">Настройки</string>
     <string name="main_header">Рады вас видеть!</string>
     <string name="advices_header">Нет советов на сегодня</string>
+    <string name="statistics_header">Статистика и прогнозы</string>
 
     <!-- Strings related to buttons -->
     <string name="add">Записать</string>
+    <string name="show">Показать</string>
 
 
     <!-- Strings related to fragments' content -->
@@ -44,6 +46,7 @@
     <string name="category">Категория</string>
     <string name="percent">Ставка</string>
     <string name="first">Первый взнос</string>
+    <string name="view">Вид</string>
 
 
     <!-- Strings related to login -->
