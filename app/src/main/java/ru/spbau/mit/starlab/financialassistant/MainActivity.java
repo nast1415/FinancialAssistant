@@ -1,7 +1,6 @@
 package ru.spbau.mit.starlab.financialassistant;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,23 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import java.util.Calendar;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.FragmentManager;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-
-import org.w3c.dom.Text;
 
 import ru.spbau.mit.starlab.financialassistant.fragments.CreditsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.ExpensesFragment;
@@ -55,6 +41,9 @@ public class MainActivity extends AppCompatActivity
 
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new ru.spbau.mit.starlab.financialassistant.fragments.DatePicker();
+        Bundle args = new Bundle();
+        args.putInt("txtDateId", v.getId());
+        newFragment.setArguments(args);
         newFragment.show(getFragmentManager(), "datePicker");
     }
 

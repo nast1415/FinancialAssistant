@@ -16,6 +16,7 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
     private int pYear;
     private int pMonth;
     private int pDay;
+    private int txtDateId;
     private static TextView pDisplayDate;
 
 
@@ -32,12 +33,9 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
     }
 
     public void onDateSet(android.widget.DatePicker view, int year, int month, int day) {
-        pDisplayDate = (TextView) getActivity().findViewById(R.id.eTxtStartPeriod);
+        txtDateId = getArguments().getInt("txtDateId", 0);
+        pDisplayDate = (TextView) getActivity().findViewById(txtDateId);
 
-        if (pDisplayDate == null) {
-            System.err.println("Oy! I'm null!!)");
-            //System.exit(1);
-        }
         pYear = year;
         pMonth = month;
         pDay = day;

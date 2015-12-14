@@ -53,7 +53,7 @@
         android:layout_marginTop="170dp"
         android:text="@string/sum" />
 
-    <EditText
+    <TextView
         android:id="@+id/eTxtStartPeriod"
         style="@style/SmallTextBoxesStyle"
         android:layout_below="@id/txtPeriod"
@@ -62,19 +62,19 @@
         android:onClick="showDatePickerDialog"
         android:hint="@string/startDate"
         android:layout_marginTop="5dp"
-        android:inputType="text"
-        android:clickable="true" />
+        android:inputType="none" />
 
-    <EditText
+    <TextView
         android:id="@+id/eTxtEndPeriod"
         style="@style/SmallTextBoxesStyle"
         android:layout_below="@id/txtPeriod"
         android:hint="@string/endDate"
         android:layout_marginRight="5dp"
         android:layout_marginEnd="5dp"
+        android:onClick="showDatePickerDialog"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="180dp"
-        android:layout_marginStart="180dp"
+        android:layout_marginLeft="170dp"
+        android:layout_marginStart="170dp"
         android:inputType="date" />
 
     <EditText
@@ -136,13 +136,5 @@
             android:layout_marginRight="5dp" />
     </ScrollView>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:id="@+id/button2"
-        android:layout_alignTop="@+id/button"
-        android:layout_alignLeft="@+id/scrollView2"
-        android:layout_alignStart="@+id/scrollView2" />
 
 </RelativeLayout>

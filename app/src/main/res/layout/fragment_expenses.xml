@@ -65,12 +65,13 @@
         android:layout_marginTop="5dp"
         android:inputType="text" />
 
-    <EditText
+    <TextView
         android:id="@+id/eDate"
         style="@style/TextBoxesStyle"
         android:layout_alignLeft="@+id/txtCategory"
         android:layout_alignStart="@+id/txtCategory"
         android:layout_below="@id/txtDate"
+        android:onClick="showDatePickerDialog"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
