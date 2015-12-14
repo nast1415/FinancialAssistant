@@ -44,15 +44,7 @@
     </style>
 
     <style name="SmallTextBoxesStyle" parent="TextBoxesStyle">
-        <item name="android:layout_width">120dp</item>
-    </style>
-    <style name="LoginTextBoxesStyle">
-        <item name="android:layout_width">400dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="colorControlNormal">#c5c5c5</item>
-        <item name="colorControlActivated">@color/colorPrimaryDark</item>
-        <item name="colorControlHighlight">@color/colorPrimary</item>
-        <item name="android:ems">10</item>
+        <item name="android:layout_width">150dp</item>
     </style>
 
     <style name="CommentBoxStyle">
@@ -75,6 +67,15 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="SecondHeaderTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">100dp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="ButtonStyle" parent="@style/Base.TextAppearance.AppCompat.Medium">

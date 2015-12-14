@@ -6,7 +6,7 @@
 
     <string name="action_settings">Settings</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- Strings related to fragments' names -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="expenses_fragment">Траты</string>
     <string name="incomes_fragment">Доходы</string>
@@ -19,13 +19,31 @@
     <string name="tools_fragment">Настройки</string>
     <string name="title_activity_login">Следить за финансами легко!</string>
 
-    <!-- Strings related to fragments -->
+
+    <!-- Headers for fragments -->
     <string name="add_income">Добавить доход</string>
+    <string name="add_regular_exp">Добавить регулярную трату</string>
+    <string name="add_wanted">Добавить желаемую покупку</string>
+    <string name="add_credit">Добавить кредит</string>
+    <string name="tools">Настройки</string>
+    <string name="main_header">Рады вас видеть!</string>
+    <string name="advices_header">Нет советов на сегодня</string>
+
+    <!-- Strings related to buttons -->
+    <string name="add">Записать</string>
+
+
+    <!-- Strings related to fragments' content -->
     <string name="date">Дата</string>
     <string name="name">Название</string>
     <string name="sum">Сумма</string>
     <string name="comment">Комментарий</string>
-    <string name="add">Записать</string>
+    <string name="period">Период</string>
+    <string name="startDate">Дата начала</string>
+    <string name="endDate">Дата окончания</string>
+    <string name="category">Категория</string>
+    <string name="percent">Ставка</string>
+    <string name="first">Первый взнос</string>
 
 
     <!-- Strings related to login -->

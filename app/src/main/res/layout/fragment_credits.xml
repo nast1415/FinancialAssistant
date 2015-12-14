@@ -8,132 +8,106 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Записать"
-        style="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="48dp" />
+        style="@style/ButtonStyle"
+        android:text="@string/add" />
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Добавить кредит"
-        android:id="@+id/txtCreditInfo"
-        android:textSize="24dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:id="@+id/txtRegularExpense"
+        style="@style/FragmentHeader"
+        android:text="@string/add_credit" />
+
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Период"
-        android:id="@+id/txtStartPeriod"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/txtCreditInfo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20dp"/>
+        android:id="@+id/txtPeriod"
+        style="@style/UsualTextStyle"
+        android:layout_below="@+id/txtRegularExpense"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/period" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Ставка"
-        android:id="@+id/txtPercent"
-        android:layout_marginTop="136dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/txtCreditInfo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20dp"/>
+        android:id="@+id/txtName"
+        style="@style/UsualTextStyle"
+        android:layout_alignLeft="@id/txtPeriod"
+        android:layout_alignStart="@+id/txtPeriod"
+        android:layout_below="@+id/txtPeriod"
+        android:layout_marginTop="40dp"
+        android:text="@string/percent" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Первый взнос"
-        android:id="@+id/txtFirstDeposit"
-        android:layout_marginTop="186dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/txtCreditInfo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20dp"/>
+        android:id="@+id/txtCategory"
+        style="@style/UsualTextStyle"
+        android:layout_alignLeft="@id/txtPeriod"
+        android:layout_alignStart="@+id/txtPeriod"
+        android:layout_below="@+id/txtPeriod"
+        android:layout_marginTop="105dp"
+        android:text="@string/first" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Сумма"
         android:id="@+id/txtSum"
-        android:layout_marginTop="236dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/txtCreditInfo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20dp"/>
+        style="@style/UsualTextStyle"
+        android:layout_alignLeft="@id/txtPeriod"
+        android:layout_alignStart="@+id/txtPeriod"
+        android:layout_below="@+id/txtPeriod"
+        android:layout_marginTop="170dp"
+        android:text="@string/sum" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
         android:id="@+id/eTxtStartPeriod"
-        android:layout_below="@+id/txtCreditInfo"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="160dp" />
+        style="@style/SmallTextBoxesStyle"
+        android:layout_below="@id/txtPeriod"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:hint="@string/startDate"
+        android:layout_marginTop="5dp"
+        android:inputType="text"
+        android:clickable="true" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
         android:id="@+id/eTxtEndPeriod"
-        android:layout_below="@+id/eTxtStartPeriod"
-        android:layout_alignLeft="@+id/eTxtStartPeriod"
-        android:layout_alignStart="@+id/eTxtStartPeriod"
-        android:layout_marginTop="5dp" />
+        style="@style/SmallTextBoxesStyle"
+        android:layout_below="@id/txtPeriod"
+        android:hint="@string/endDate"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="180dp"
+        android:layout_marginStart="180dp"
+        android:inputType="date" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
-        android:id="@+id/eTxtPercent"
-        android:layout_alignBottom="@+id/txtPercent"
-        android:layout_alignStart="@+id/eTxtStartPeriod"
-        android:layout_alignLeft="@+id/eTxtStartPeriod" />
+        android:id="@+id/eTxtName"
+        style="@style/TextBoxesStyle"
+        android:layout_alignLeft="@+id/txtPeriod"
+        android:layout_alignStart="@+id/txtPeriod"
+        android:layout_below="@id/txtName"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:inputType="text" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
         android:id="@+id/eTxtDeposit"
-        android:layout_alignBottom="@+id/txtFirstDeposit"
-        android:layout_alignLeft="@+id/eTxtStartPeriod"
-        android:layout_alignStart="@+id/eTxtStartPeriod" />
+        style="@style/TextBoxesStyle"
+        android:layout_alignLeft="@+id/txtPeriod"
+        android:layout_alignStart="@+id/txtPeriod"
+        android:layout_below="@id/txtCategory"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:inputType="text" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
         android:id="@+id/eTxtSum"
-        android:layout_alignBottom="@+id/txtSum"
-        android:layout_alignLeft="@+id/eTxtStartPeriod"
-        android:layout_alignStart="@+id/eTxtStartPeriod" />
+        style="@style/TextBoxesStyle"
+        android:layout_alignLeft="@+id/txtPeriod"
+        android:layout_alignStart="@+id/txtPeriod"
+        android:layout_below="@id/txtSum"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:inputType="number" />
 
 </RelativeLayout>

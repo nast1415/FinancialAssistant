@@ -3,37 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ru.spbau.mit.starlab.financialassistant.fragments.RegularExpensesFragment">
-
     <!-- TODO: Update blank fragment layout -->
 
     <Button
         android:id="@+id/button"
         style="@style/ButtonStyle"
-        android:text="Записать" />
+        android:text="@string/add" />
 
 
     <TextView
         android:id="@+id/txtRegularExpense"
         style="@style/FragmentHeader"
-        android:text="Добавить регулярную трату" />
+        android:text="@string/add_regular_exp" />
 
-    <TextView
-        android:id="@+id/txtFrom"
-        style="@style/UsualTextStyle"
-        android:layout_below="@+id/txtPeriod"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:text="с" />
-
-    <TextView
-        android:id="@+id/txtTo"
-        style="@style/UsualTextStyle"
-        android:layout_below="@+id/txtPeriod"
-        android:layout_marginLeft="195dp"
-        android:layout_marginStart="195dp"
-        android:layout_marginTop="5dp"
-        android:text="по" />
 
     <TextView
         android:id="@+id/txtPeriod"
@@ -42,7 +24,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
-        android:text="Период (выберите даты начала и конца)" />
+        android:text="@string/period" />
 
     <TextView
         android:id="@+id/txtName"
@@ -51,7 +33,7 @@
         android:layout_alignStart="@+id/txtPeriod"
         android:layout_below="@+id/txtPeriod"
         android:layout_marginTop="40dp"
-        android:text="Название" />
+        android:text="@string/name" />
 
     <TextView
         android:id="@+id/txtCategory"
@@ -60,7 +42,7 @@
         android:layout_alignStart="@+id/txtPeriod"
         android:layout_below="@+id/txtPeriod"
         android:layout_marginTop="105dp"
-        android:text="Категория" />
+        android:text="@string/category" />
 
     <TextView
         android:id="@+id/txtSum"
@@ -69,22 +51,30 @@
         android:layout_alignStart="@+id/txtPeriod"
         android:layout_below="@+id/txtPeriod"
         android:layout_marginTop="170dp"
-        android:text="Сумма" />
+        android:text="@string/sum" />
 
     <EditText
         android:id="@+id/eTxtStartPeriod"
         style="@style/SmallTextBoxesStyle"
         android:layout_below="@id/txtPeriod"
-        android:layout_marginLeft="35dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:onClick="showDatePickerDialog"
+        android:hint="@string/startDate"
         android:layout_marginTop="5dp"
-        android:inputType="date" />
+        android:inputType="text"
+        android:clickable="true" />
 
     <EditText
         android:id="@+id/eTxtEndPeriod"
         style="@style/SmallTextBoxesStyle"
         android:layout_below="@id/txtPeriod"
-        android:layout_marginLeft="235dp"
+        android:hint="@string/endDate"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginTop="5dp"
+        android:layout_marginLeft="180dp"
+        android:layout_marginStart="180dp"
         android:inputType="date" />
 
     <EditText
@@ -127,7 +117,7 @@
         android:layout_alignStart="@+id/txtPeriod"
         android:layout_below="@+id/txtPeriod"
         android:layout_marginTop="235dp"
-        android:text="Комментарий" />
+        android:text="@string/comment" />
 
     <ScrollView
         style="@style/ScrollViewStyle"
@@ -136,7 +126,8 @@
         android:layout_below="@+id/txtComment"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:id="@+id/scrollView2">
 
         <EditText
             android:id="@+id/eTxtComment"
@@ -144,5 +135,14 @@
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp" />
     </ScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:id="@+id/button2"
+        android:layout_alignTop="@+id/button"
+        android:layout_alignLeft="@+id/scrollView2"
+        android:layout_alignStart="@+id/scrollView2" />
 
 </RelativeLayout>

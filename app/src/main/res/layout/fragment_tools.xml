@@ -7,22 +7,15 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Настройки"
-        android:id="@+id/txtStatistics"
-        android:textSize="24dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:id="@+id/txtTools"
+        style="@style/FragmentHeader"
+        android:text="@string/tools" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Включить оповещения"
-        android:id="@+id/txtShowGraphics"
+        android:id="@+id/txt"
         android:layout_marginTop="100dp"
         android:layout_marginLeft="10dp"
         android:layout_below="@+id/txtStatistics"
