@@ -28,6 +28,7 @@
     <string name="tools">Настройки</string>
     <string name="main_header">Рады вас видеть!</string>
     <string name="advices_header">Нет советов на сегодня</string>
+    <string name="show_statistics">Статистика</string>
 
     <!-- Strings related to buttons -->
     <string name="add">Записать</string>

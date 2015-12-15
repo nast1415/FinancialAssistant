@@ -1,6 +1,7 @@
 package ru.spbau.mit.starlab.financialassistant;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -22,6 +23,7 @@ import ru.spbau.mit.starlab.financialassistant.fragments.HelpFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.IncomesFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.RecentActionsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.RegularExpensesFragment;
+import ru.spbau.mit.starlab.financialassistant.fragments.ShowStatisticsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.StatisticsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.ToolsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.WantedExpensesFragment;
@@ -45,6 +47,11 @@ public class MainActivity extends AppCompatActivity
         args.putInt("txtDateId", v.getId());
         newFragment.setArguments(args);
         newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    public void onShowStatisticsBtnClick(View v) {
+        DialogFragment fragment = new ShowStatisticsFragment();
+        fragment.show(getFragmentManager(), "showStatistics");
     }
 
     @Override
