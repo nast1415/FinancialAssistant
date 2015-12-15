@@ -7,121 +7,104 @@
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Показать"
-        style="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
+        style="@style/ButtonStyle"
+        android:text="@string/show"
         android:onClick="onShowStatisticsBtnClick"/>
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Статистика и прогнозы"
-        android:id="@+id/txtStatistics"
-        android:textSize="24dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:id="@+id/txtStatisticsHeader"
+        style="@style/FragmentHeader"
+        android:text="@string/statistics_header" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Вид"
-        android:id="@+id/txtType"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/txtStatistics"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20sp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Период"
-        android:id="@+id/txtStartPeriod"
+        android:id="@+id/txtView"
+        style="@style/UsualTextStyle"
+        android:layout_below="@+id/txtStatisticsHeader"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="130dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/txtStatistics"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20sp"/>
+        android:text="@string/view" />
+
+    <TextView
+        android:id="@+id/txtStatisticsPeriod"
+        style="@style/UsualTextStyle"
+        android:layout_alignLeft="@+id/txtView"
+        android:layout_alignStart="@+id/txtView"
+        android:layout_below="@+id/txtStatisticsHeader"
+        android:layout_marginTop="15dp"
+        android:text="@string/period" />
 
     <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Показать диаграмму"
         android:id="@+id/txtShowDiagram"
-        android:layout_marginTop="200dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/txtStatistics"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20sp"/>
+        style="@style/UsualTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtStatisticsHeader"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="215dp"
+        android:text="Показать диаграмму" />
 
     <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Показать график"
         android:id="@+id/txtShowGraphics"
-        android:layout_marginTop="240dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/txtStatistics"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20sp"/>
-
-    <EditText
+        style="@style/UsualTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/txtStatisticsHeader"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="255dp"
+        android:text="Показать график" />
+
+    <TextView
+        android:id="@+id/eTxtStatisticsStartPeriod"
+        style="@style/SmallTextBoxesStyle"
+        android:layout_below="@id/txtStatisticsPeriod"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:hint="@string/startDate"
+        android:inputType="none"
+        android:onClick="showDatePickerDialog" />
+
+
+    <TextView
+        android:id="@+id/eTxtStatisticsEndPeriod"
+        style="@style/SmallTextBoxesStyle"
+        android:layout_below="@id/txtStatisticsPeriod"
+        android:layout_marginEnd="5dp"
+        android:layout_marginLeft="170dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="5dp"
+        android:hint="@string/endDate"
         android:inputType="date"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
-        android:id="@+id/eTxtStartPeriod"
-        android:layout_below="@+id/txtStatistics"
-        android:layout_marginTop="120dp"
-        android:layout_marginLeft="160dp" />
+        android:onClick="showDatePickerDialog" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:background="@drawable/edit_text_design"
-        android:ems="10"
-        android:id="@+id/eTxtEndPeriod"
-        android:layout_below="@+id/eTxtStartPeriod"
-        android:layout_alignLeft="@+id/eTxtStartPeriod"
-        android:layout_alignStart="@+id/eTxtStartPeriod"
-        android:layout_marginTop="5dp" />
+    <FrameLayout
+        android:layout_width="200dp"
+        android:layout_height="110dp"
+        android:layout_below="@+id/txtStatisticsHeader"
+        android:layout_marginLeft="170dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="105dp">
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Статистика"
-        android:id="@+id/radioButton"
-        android:layout_below="@+id/txtStatistics"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="160dp" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Прогнозы"
-        android:id="@+id/radioButton2"
-        android:layout_below="@+id/radioButton"
-        android:layout_alignLeft="@+id/eTxtStartPeriod"
-        android:layout_alignStart="@+id/eTxtStartPeriod"
-        android:layout_marginTop="0dp" />
+        <RadioButton
+            android:id="@+id/rBtnStatistics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:text="Прогнозы" />
+
+        <RadioButton
+            android:id="@+id/rBtnPredicts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top"
+            android:text="Статистика" />
+    </FrameLayout>
 
 
 </RelativeLayout>
