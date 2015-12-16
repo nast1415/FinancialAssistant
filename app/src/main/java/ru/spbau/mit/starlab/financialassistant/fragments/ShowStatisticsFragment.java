@@ -82,10 +82,12 @@ public class ShowStatisticsFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View ll = inflater.inflate(R.layout.fragment_show_statistics, container, false);
 
-        LineChart chart = (LineChart) ll.findViewById(R.id.chart);
-
-        List<Entry> values = new ArrayList<>();
         Random r = new Random();
+
+        getDialog().setTitle("Статистика");
+
+        LineChart chart = (LineChart) ll.findViewById(R.id.chart);
+        List<Entry> values = new ArrayList<>();
         List<String> xVals = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
@@ -101,7 +103,7 @@ public class ShowStatisticsFragment extends DialogFragment {
 
         LineData data = new LineData(xVals, dataSets);
         chart.setData(data);
-        chart.setDescription("График каких-то рандомных значений");
+        chart.setDescription("График рандомных значений");
 
         chart.invalidate();
 
@@ -118,7 +120,7 @@ public class ShowStatisticsFragment extends DialogFragment {
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieData.addDataSet(pieDataSet);
 
-        pieChart.setDescription("Диаграмма каких-то рандомных значений");
+        pieChart.setDescription("Диаграмма рандомных значений");
         pieChart.setData(pieData);
 
         pieChart.invalidate();
