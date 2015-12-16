@@ -21,6 +21,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -40,6 +41,7 @@ public class ShowStatisticsFragment extends DialogFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int CUR_MONTH = Calendar.getInstance().get(Calendar.MONTH);
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -88,19 +90,11 @@ public class ShowStatisticsFragment extends DialogFragment {
         if (args.getBoolean("isStatistics")) {
             getDialog().setTitle("Статистика");
 
-            System.err.println("OK");
-            System.err.println(args.getString("dateBegin"));
-
             String[] begin = args.getString("dateBegin").concat(".").split("\\.| ");
-
-            System.err.println(begin[0]);
 
             int beginDay = Integer.valueOf(begin[0]);
             int beginMonth = Integer.valueOf(begin[1]);
             int beginYear = Integer.valueOf(begin[2]);
-
-            System.err.println("OK");
-            System.err.println(args.getString("dateEnd"));
 
             String[] end = args.getString("dateEnd").concat(".").split("\\.| ");
             int endDay = Integer.valueOf(end[0]);
@@ -113,13 +107,13 @@ public class ShowStatisticsFragment extends DialogFragment {
             List<String> xVals = new ArrayList<>();
 
 
-            if (duration < 150) {
+            if (duration < 90) {
                 for (int i = 0; i < duration + 1; i++) {
                     values.add(new Entry(r.nextFloat() * 1000, i));
-                    xVals.add(i, "");
+                    xVals.add(i, String.valueOf(getDay(i)));
                 }
 
-                LineDataSet dataSet = new LineDataSet(values, "дни");
+                LineDataSet dataSet = new LineDataSet(values, "расходы по дням");
                 dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
 
                 ArrayList<LineDataSet> dataSets = new ArrayList<>();
@@ -127,7 +121,7 @@ public class ShowStatisticsFragment extends DialogFragment {
 
                 LineData data = new LineData(xVals, dataSets);
                 chart.setData(data);
-                chart.setDescription("График рандомных значений");
+                chart.setDescription("");
 
                 chart.invalidate();
 
@@ -135,7 +129,7 @@ public class ShowStatisticsFragment extends DialogFragment {
 
                 List<Entry> values2 = new ArrayList<>();
 
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 7; i++) {
                     values2.add(new Entry(r.nextFloat() * 1000 + 50, i));
                 }
 
@@ -144,17 +138,17 @@ public class ShowStatisticsFragment extends DialogFragment {
                 pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
                 pieData.addDataSet(pieDataSet);
 
-                pieChart.setDescription("Диаграмма рандомных значений");
+                pieChart.setDescription("");
                 pieChart.setData(pieData);
 
                 pieChart.invalidate();
             } else {
                 for (int i = 0; i < endMonth - beginMonth + (endYear - beginYear) * 12 + 1; i++) {
                     values.add(new Entry(r.nextFloat() * 1000 + 1000, i));
-                    xVals.add(i, "");
+                    xVals.add(i, String.valueOf(getMonth(beginMonth + i)));
                 }
 
-                LineDataSet dataSet = new LineDataSet(values, "месяцы");
+                LineDataSet dataSet = new LineDataSet(values, "расходы по месяцам");
                 dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
 
                 ArrayList<LineDataSet> dataSets = new ArrayList<>();
@@ -162,7 +156,7 @@ public class ShowStatisticsFragment extends DialogFragment {
 
                 LineData data = new LineData(xVals, dataSets);
                 chart.setData(data);
-                chart.setDescription("График рандомных значений");
+                chart.setDescription("");
 
                 chart.invalidate();
 
@@ -179,7 +173,7 @@ public class ShowStatisticsFragment extends DialogFragment {
                 pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
                 pieData.addDataSet(pieDataSet);
 
-                pieChart.setDescription("Диаграмма рандомных значений");
+                pieChart.setDescription("");
                 pieChart.setData(pieData);
 
                 pieChart.invalidate();
@@ -191,12 +185,21 @@ public class ShowStatisticsFragment extends DialogFragment {
             List<Entry> values = new ArrayList<>();
             List<String> xVals = new ArrayList<>();
 
-            for (int i = 0; i < 12; i++) {
-                values.add(new Entry(r.nextFloat() * 10000 + 1000, i));
-                xVals.add(i, "");
+            List<Double> prevExpenses = new ArrayList<>();
+            for (int i = 0; i < 50; i++) {
+                if (i % 2 == 0) {
+                    prevExpenses.add((double) i * i);
+                } else {
+                    prevExpenses.add((double) Math.max(10, 1000 - i * i));
+                }
             }
 
-            LineDataSet dataSet = new LineDataSet(values, "");
+            for (int i = 0; i < 12; i++) {
+                values.add(new Entry(extrapolate(prevExpenses), i));
+                xVals.add(i, getMonth(CUR_MONTH + i));
+            }
+
+            LineDataSet dataSet = new LineDataSet(values, "прогноз расходов по месяцам");
             dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
 
             ArrayList<LineDataSet> dataSets = new ArrayList<>();
@@ -204,7 +207,7 @@ public class ShowStatisticsFragment extends DialogFragment {
 
             LineData data = new LineData(xVals, dataSets);
             chart.setData(data);
-            chart.setDescription("График рандомных значений");
+            chart.setDescription("");
 
             chart.invalidate();
 
@@ -212,7 +215,7 @@ public class ShowStatisticsFragment extends DialogFragment {
 
             List<Entry> values2 = new ArrayList<>();
 
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < 7; i++) {
                 values2.add(new Entry(r.nextFloat() * 1000 + 50, i));
             }
 
@@ -221,7 +224,7 @@ public class ShowStatisticsFragment extends DialogFragment {
             pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
             pieData.addDataSet(pieDataSet);
 
-            pieChart.setDescription("Диаграмма рандомных значений");
+            pieChart.setDescription("");
             pieChart.setData(pieData);
 
             pieChart.invalidate();
@@ -229,6 +232,71 @@ public class ShowStatisticsFragment extends DialogFragment {
 
         // Inflate the layout for this fragment
         return ll;
+    }
+
+    private int extrapolate(List<Double> list) {
+        int x = list.size();
+        double res;
+
+        List<Double> prefSums = new ArrayList<>();
+        prefSums.add(0.0);
+        for (int i = 1; i < x; i++) {
+            prefSums.add(prefSums.get(i - 1) + list.get(i));
+        }
+
+        if (x <= 1) {
+            res = 0;
+        } else {
+            if (x <= 13) {
+                res = (prefSums.get(x - 1)) / (x - 1);
+            } else {
+                if (x <= 26) {
+                    res = (prefSums.get(x - 1) - prefSums.get(12)) * (list.get(x - 12)) / (prefSums.get(x - 13));
+                } else {
+                    if (x <= 39) {
+                        res = (prefSums.get(x - 1) - prefSums.get(24)) *
+                                ((list.get(x - 24)) / (prefSums.get(x - 25)) +
+                                        (list.get(x - 12)) / (prefSums.get(x - 13) - prefSums.get(12))) / 2;
+                    } else {
+                        if (x <= 52) {
+                            res = (prefSums.get(x - 1) - prefSums.get(36)) *
+                                    ((list.get(x - 36)) / (prefSums.get(x - 37)) +
+                                            (list.get(x - 24)) / (prefSums.get(x - 25) - prefSums.get(12)) +
+                                            (list.get(x - 12)) / (prefSums.get(x - 13) - prefSums.get(24))) / 3;
+                        } else {
+                            if (x <= 65) {
+                                res = (prefSums.get(x - 1) - prefSums.get(48)) *
+                                        ((list.get(x - 48)) / (prefSums.get(x - 49)) +
+                                                (list.get(x - 36)) / (prefSums.get(x - 37) - prefSums.get(12)) +
+                                                (list.get(x - 24)) / (prefSums.get(x - 25) - prefSums.get(24)) +
+                                                (list.get(x - 12)) / (prefSums.get(x - 13) - prefSums.get(36))) / 4;
+                            } else {
+                                res = (prefSums.get(x - 1) - prefSums.get(60)) *
+                                        ((list.get(x - 60)) / (prefSums.get(x - 61)) +
+                                                (list.get(x - 48)) / (prefSums.get(x - 49) - prefSums.get(12)) +
+                                                (list.get(x - 36)) / (prefSums.get(x - 37) - prefSums.get(24)) +
+                                                (list.get(x - 24)) / (prefSums.get(x - 25) - prefSums.get(36)) +
+                                                (list.get(x - 12)) / (prefSums.get(x - 13) - prefSums.get(48))) / 5;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        list.add(res);
+        return (int) res;
+    }
+
+    private String getMonth(int x) {
+        String[] months = {"дек", "янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя"};
+        return months[x % 12];
+    }
+
+    private String getDay(int x) {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, x);
+        return String.valueOf(c.get(Calendar.DAY_OF_MONTH)) + getMonth(c.get(Calendar.MONTH) + 1);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
