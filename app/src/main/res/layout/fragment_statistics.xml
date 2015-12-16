@@ -8,8 +8,8 @@
 
     <Button
         style="@style/ButtonStyle"
-        android:text="@string/show"
-        android:onClick="onShowStatisticsBtnClick"/>
+        android:onClick="onShowStatisticsBtnClick"
+        android:text="@string/show" />
 
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_below="@+id/txtStatisticsHeader"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="60dp"
         android:text="@string/view" />
 
     <TextView
@@ -32,30 +32,9 @@
         android:layout_alignLeft="@+id/txtView"
         android:layout_alignStart="@+id/txtView"
         android:layout_below="@+id/txtStatisticsHeader"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="170dp"
         android:text="@string/period" />
 
-    <CheckBox
-        android:id="@+id/txtShowDiagram"
-        style="@style/UsualTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtStatisticsHeader"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="215dp"
-        android:text="Показать диаграмму" />
-
-    <CheckBox
-        android:id="@+id/txtShowGraphics"
-        style="@style/UsualTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtStatisticsHeader"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="255dp"
-        android:text="Показать график" />
 
     <TextView
         android:id="@+id/eTxtStatisticsStartPeriod"
@@ -79,32 +58,32 @@
         android:layout_marginStart="170dp"
         android:layout_marginTop="5dp"
         android:hint="@string/endDate"
-        android:inputType="date"
         android:onClick="showDatePickerDialog" />
 
-    <FrameLayout
+    <RadioGroup
         android:layout_width="200dp"
         android:layout_height="110dp"
         android:layout_below="@+id/txtStatisticsHeader"
         android:layout_marginLeft="170dp"
         android:layout_marginStart="170dp"
-        android:layout_marginTop="105dp">
+        android:layout_marginTop="35dp">
 
 
         <RadioButton
             android:id="@+id/rBtnStatistics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|center_vertical"
-            android:text="Прогнозы" />
+            android:checked="true"
+            android:layout_gravity="start|center_vertical"
+            android:text="Статистика" />
 
         <RadioButton
             android:id="@+id/rBtnPredicts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|top"
-            android:text="Статистика" />
-    </FrameLayout>
+            android:layout_gravity="start|top"
+            android:text="Прогнозы" />
+    </RadioGroup>
 
 
 </RelativeLayout>

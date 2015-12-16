@@ -21,6 +21,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -83,47 +84,148 @@ public class ShowStatisticsFragment extends DialogFragment {
         View ll = inflater.inflate(R.layout.fragment_show_statistics, container, false);
 
         Random r = new Random();
+        Bundle args = getArguments();
+        if (args.getBoolean("isStatistics")) {
+            getDialog().setTitle("Статистика");
 
-        getDialog().setTitle("Статистика");
+            System.err.println("OK");
+            System.err.println(args.getString("dateBegin"));
 
-        LineChart chart = (LineChart) ll.findViewById(R.id.chart);
-        List<Entry> values = new ArrayList<>();
-        List<String> xVals = new ArrayList<>();
+            String[] begin = args.getString("dateBegin").concat(".").split("\\.| ");
 
-        for (int i = 0; i < 10; i++) {
-            values.add(new Entry(r.nextFloat() * 1000, i));
-            xVals.add(i, "");
+            System.err.println(begin[0]);
+
+            int beginDay = Integer.valueOf(begin[0]);
+            int beginMonth = Integer.valueOf(begin[1]);
+            int beginYear = Integer.valueOf(begin[2]);
+
+            System.err.println("OK");
+            System.err.println(args.getString("dateEnd"));
+
+            String[] end = args.getString("dateEnd").concat(".").split("\\.| ");
+            int endDay = Integer.valueOf(end[0]);
+            int endMonth = Integer.valueOf(end[1]);
+            int endYear = Integer.valueOf(end[2]);
+            int duration = endYear * 12 * 30 + endMonth * 30 + endDay - (beginYear * 12 * 30 + beginMonth * 30 + beginDay);
+
+            LineChart chart = (LineChart) ll.findViewById(R.id.chart);
+            List<Entry> values = new ArrayList<>();
+            List<String> xVals = new ArrayList<>();
+
+
+            if (duration < 150) {
+                for (int i = 0; i < 10; i++) {
+                    values.add(new Entry(r.nextFloat() * 1000, i));
+                    xVals.add(i, "");
+                }
+
+                LineDataSet dataSet = new LineDataSet(values, "дни");
+                dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+                ArrayList<LineDataSet> dataSets = new ArrayList<>();
+                dataSets.add(dataSet);
+
+                LineData data = new LineData(xVals, dataSets);
+                chart.setData(data);
+                chart.setDescription("График рандомных значений");
+
+                chart.invalidate();
+
+                PieChart pieChart = (PieChart) ll.findViewById(R.id.pie_chart);
+
+                List<Entry> values2 = new ArrayList<>();
+
+                for (int i = 0; i < 6; i++) {
+                    values2.add(new Entry(r.nextFloat() * 1000 + 50, i));
+                }
+
+                PieData pieData = new PieData();
+                PieDataSet pieDataSet = new PieDataSet(values2, "");
+                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                pieData.addDataSet(pieDataSet);
+
+                pieChart.setDescription("Диаграмма рандомных значений");
+                pieChart.setData(pieData);
+
+                pieChart.invalidate();
+            } else {
+                for (int i = 0; i < 10; i++) {
+                    values.add(new Entry(r.nextFloat() * 1000, i));
+                    xVals.add(i, "");
+                }
+
+                LineDataSet dataSet = new LineDataSet(values, "месяцы");
+                dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+                ArrayList<LineDataSet> dataSets = new ArrayList<>();
+                dataSets.add(dataSet);
+
+                LineData data = new LineData(xVals, dataSets);
+                chart.setData(data);
+                chart.setDescription("График рандомных значений");
+
+                chart.invalidate();
+
+                PieChart pieChart = (PieChart) ll.findViewById(R.id.pie_chart);
+
+                List<Entry> values2 = new ArrayList<>();
+
+                for (int i = 0; i < 6; i++) {
+                    values2.add(new Entry(r.nextFloat() * 1000 + 50, i));
+                }
+
+                PieData pieData = new PieData();
+                PieDataSet pieDataSet = new PieDataSet(values2, "");
+                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                pieData.addDataSet(pieDataSet);
+
+                pieChart.setDescription("Диаграмма рандомных значений");
+                pieChart.setData(pieData);
+
+                pieChart.invalidate();
+            }
+        } else {
+            getDialog().setTitle("Прогнозы");
+
+            LineChart chart = (LineChart) ll.findViewById(R.id.chart);
+            List<Entry> values = new ArrayList<>();
+            List<String> xVals = new ArrayList<>();
+
+            for (int i = 0; i < 10; i++) {
+                values.add(new Entry(r.nextFloat() * 1000, i));
+                xVals.add(i, "");
+            }
+
+            LineDataSet dataSet = new LineDataSet(values, "");
+            dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+            ArrayList<LineDataSet> dataSets = new ArrayList<>();
+            dataSets.add(dataSet);
+
+            LineData data = new LineData(xVals, dataSets);
+            chart.setData(data);
+            chart.setDescription("График рандомных значений");
+
+            chart.invalidate();
+
+            PieChart pieChart = (PieChart) ll.findViewById(R.id.pie_chart);
+
+            List<Entry> values2 = new ArrayList<>();
+
+            for (int i = 0; i < 6; i++) {
+                values2.add(new Entry(r.nextFloat() * 1000 + 50, i));
+            }
+
+            PieData pieData = new PieData();
+            PieDataSet pieDataSet = new PieDataSet(values2, "");
+            pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+            pieData.addDataSet(pieDataSet);
+
+            pieChart.setDescription("Диаграмма рандомных значений");
+            pieChart.setData(pieData);
+
+            pieChart.invalidate();
         }
-
-        LineDataSet dataSet = new LineDataSet(values, "");
-        dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-
-        ArrayList<LineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(dataSet);
-
-        LineData data = new LineData(xVals, dataSets);
-        chart.setData(data);
-        chart.setDescription("График рандомных значений");
-
-        chart.invalidate();
-
-        PieChart pieChart = (PieChart) ll.findViewById(R.id.pie_chart);
-
-        List<Entry> values2 = new ArrayList<>();
-
-        for (int i = 0; i < 6; i++) {
-            values2.add(new Entry(r.nextFloat() * 1000 + 50, i));
-        }
-
-        PieData pieData = new PieData();
-        PieDataSet pieDataSet = new PieDataSet(values2, "");
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieData.addDataSet(pieDataSet);
-
-        pieChart.setDescription("Диаграмма рандомных значений");
-        pieChart.setData(pieData);
-
-        pieChart.invalidate();
 
 
         // Inflate the layout for this fragment

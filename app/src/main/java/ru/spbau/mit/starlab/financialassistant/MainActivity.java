@@ -15,6 +15,8 @@ import android.view.MenuItem;
 
 import android.app.DialogFragment;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 
 import ru.spbau.mit.starlab.financialassistant.fragments.CreditsFragment;
@@ -51,6 +53,16 @@ public class MainActivity extends AppCompatActivity
 
     public void onShowStatisticsBtnClick(View v) {
         DialogFragment fragment = new ShowStatisticsFragment();
+        Bundle args = new Bundle();
+        RadioButton radioButton = (RadioButton) findViewById(R.id.rBtnStatistics);
+        TextView dateBegin = (TextView) findViewById(R.id.eTxtStatisticsStartPeriod);
+        TextView dateEnd = (TextView) findViewById(R.id.eTxtStatisticsEndPeriod);
+        args.putBoolean("isStatistics", radioButton.isChecked());
+        if (radioButton.isChecked()) {
+            args.putString("dateBegin", dateBegin.getText().toString());
+            args.putString("dateEnd", dateEnd.getText().toString());
+        }
+        fragment.setArguments(args);
         fragment.show(getFragmentManager(), "showStatistics");
     }
 
