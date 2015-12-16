@@ -7,8 +7,9 @@
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnAddExpense"
         style="@style/ButtonStyle"
+        android:onClick="onClick"
         android:text="Записать" />
 
 

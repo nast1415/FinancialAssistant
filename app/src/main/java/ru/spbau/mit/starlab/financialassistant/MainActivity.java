@@ -2,6 +2,9 @@ package ru.spbau.mit.starlab.financialassistant;
 
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +17,10 @@ import android.view.MenuItem;
 
 import android.app.DialogFragment;
 import android.view.View;
+import android.widget.TextView;
 
+
+import java.util.Calendar;
 
 import ru.spbau.mit.starlab.financialassistant.fragments.CreditsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.ExpensesFragment;
@@ -28,6 +34,9 @@ import ru.spbau.mit.starlab.financialassistant.fragments.WantedExpensesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private DatabaseHelper mDatabaseHelper;
+    private SQLiteDatabase mSqLiteDatabase;
 
     private CreditsFragment creditsFragment;
     private ExpensesFragment expensesFragment;
@@ -54,6 +63,16 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mDatabaseHelper = new DatabaseHelper(this, "finance.db", null, 1);
+
+        mSqLiteDatabase = mDatabaseHelper.getWritableDatabase();
+
+        ContentValues newValues = new ContentValues();
+        // Задайте значения для каждого столбца
+        newValues.put(DatabaseHelper.NAME_COLUMN, "Обеды");
+        // Вставляем данные в таблицу
+        mSqLiteDatabase.insert("categories", null, newValues);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -74,6 +93,23 @@ public class MainActivity extends AppCompatActivity
         toolsFragment = new ToolsFragment();
         wantedExpensesFragment = new WantedExpensesFragment();
 
+    }
+
+    public void onClick(View v) {
+        Cursor cursor = mSqLiteDatabase.query("categories", new String[] {DatabaseHelper.NAME_COLUMN},
+                null, null,
+                null, null, null) ;
+
+        cursor.moveToFirst();
+
+        String categoryName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.NAME_COLUMN));
+
+
+        TextView infoTextView = (TextView)findViewById(R.id.txtComment);
+        infoTextView.setText("Категория " + categoryName);
+
+        // не забываем закрывать курсор
+        cursor.close();
     }
 
     @Override
