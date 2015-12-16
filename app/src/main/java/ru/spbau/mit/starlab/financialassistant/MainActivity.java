@@ -1,6 +1,7 @@
 package ru.spbau.mit.starlab.financialassistant;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 
 import android.app.DialogFragment;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 
@@ -28,6 +30,7 @@ import ru.spbau.mit.starlab.financialassistant.fragments.HelpFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.IncomesFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.RecentActionsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.RegularExpensesFragment;
+import ru.spbau.mit.starlab.financialassistant.fragments.ShowStatisticsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.StatisticsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.ToolsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.WantedExpensesFragment;
@@ -54,6 +57,21 @@ public class MainActivity extends AppCompatActivity
         args.putInt("txtDateId", v.getId());
         newFragment.setArguments(args);
         newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    public void onShowStatisticsBtnClick(View v) {
+        DialogFragment fragment = new ShowStatisticsFragment();
+        Bundle args = new Bundle();
+        RadioButton radioButton = (RadioButton) findViewById(R.id.rBtnStatistics);
+        TextView dateBegin = (TextView) findViewById(R.id.eTxtStatisticsStartPeriod);
+        TextView dateEnd = (TextView) findViewById(R.id.eTxtStatisticsEndPeriod);
+        args.putBoolean("isStatistics", radioButton.isChecked());
+        if (radioButton.isChecked()) {
+            args.putString("dateBegin", dateBegin.getText().toString());
+            args.putString("dateEnd", dateEnd.getText().toString());
+        }
+        fragment.setArguments(args);
+        fragment.show(getFragmentManager(), "showStatistics");
     }
 
     @Override

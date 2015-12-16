@@ -17,7 +17,7 @@
         android:id="@+id/txtIncomeInfo"
         style="@style/FragmentHeader"
         android:text="Добавить трату" />
-
+    
     <TextView
         android:id="@+id/txtCategory"
         style="@style/UsualTextStyle"
