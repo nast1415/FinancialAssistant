@@ -114,7 +114,7 @@ public class ShowStatisticsFragment extends DialogFragment {
 
 
             if (duration < 150) {
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < duration + 1; i++) {
                     values.add(new Entry(r.nextFloat() * 1000, i));
                     xVals.add(i, "");
                 }
@@ -149,8 +149,8 @@ public class ShowStatisticsFragment extends DialogFragment {
 
                 pieChart.invalidate();
             } else {
-                for (int i = 0; i < 10; i++) {
-                    values.add(new Entry(r.nextFloat() * 1000, i));
+                for (int i = 0; i < endMonth - beginMonth + (endYear - beginYear) * 12 + 1; i++) {
+                    values.add(new Entry(r.nextFloat() * 1000 + 1000, i));
                     xVals.add(i, "");
                 }
 
@@ -191,8 +191,8 @@ public class ShowStatisticsFragment extends DialogFragment {
             List<Entry> values = new ArrayList<>();
             List<String> xVals = new ArrayList<>();
 
-            for (int i = 0; i < 10; i++) {
-                values.add(new Entry(r.nextFloat() * 1000, i));
+            for (int i = 0; i < 12; i++) {
+                values.add(new Entry(r.nextFloat() * 10000 + 1000, i));
                 xVals.add(i, "");
             }
 
@@ -226,7 +226,6 @@ public class ShowStatisticsFragment extends DialogFragment {
 
             pieChart.invalidate();
         }
-
 
         // Inflate the layout for this fragment
         return ll;
