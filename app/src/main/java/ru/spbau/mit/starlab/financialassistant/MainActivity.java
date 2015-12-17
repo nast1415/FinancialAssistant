@@ -56,10 +56,6 @@ public class MainActivity extends AppCompatActivity
     private ToolsFragment toolsFragment;
     private WantedExpensesFragment wantedExpensesFragment;
 
-    List<String> dateList = new ArrayList<>();
-    List<String> categoryNameList = new ArrayList<>();
-    List<Double> sumList = new ArrayList<>();
-
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new ru.spbau.mit.starlab.financialassistant.fragments.DatePicker();
         Bundle args = new Bundle();
@@ -78,13 +74,29 @@ public class MainActivity extends AppCompatActivity
         if (radioButton.isChecked()) {
             args.putString("dateBegin", dateBegin.getText().toString());
             args.putString("dateEnd", dateEnd.getText().toString());
-
         }
+        ArrayList<String> dateList = new ArrayList<>();
+        List<String> categoryNameList = new ArrayList<>();
+        List<Double> sumList = new ArrayList<>();
+        getDataForStatistics(dateList, categoryNameList, sumList);
+
+        String[] dates = new String[sumList.size()];
+        String[] categories = new String[sumList.size()];
+        double[] sums = new double[sumList.size()];
+        for (int i = 0; i < sumList.size(); i++) {
+            dates[i] = dateList.get(i);
+            categories[i] = categoryNameList.get(i);
+            sums[i] = sumList.get(i);
+        }
+        args.putStringArray("dateList", dates);
+        args.putStringArray("categoryNameList", categories);
+        args.putDoubleArray("sumList", sums);
+
         fragment.setArguments(args);
         fragment.show(getFragmentManager(), "showStatistics");
     }
 
-    public void getDataForStatistics(View v) {
+    public void getDataForStatistics(List<String> dateList, List<String> categoryNameList, List<Double> sumList) {
         List<Integer> categoryIdList = new ArrayList<>();
         String query = "SELECT " + DatabaseHelper._ID + ", "
                 + DatabaseHelper.EXPENSE_DATE_COLUMN + ", "
