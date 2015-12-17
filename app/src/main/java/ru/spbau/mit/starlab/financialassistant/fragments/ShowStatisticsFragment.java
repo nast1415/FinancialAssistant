@@ -87,6 +87,15 @@ public class ShowStatisticsFragment extends DialogFragment {
 
         Random r = new Random();
         Bundle args = getArguments();
+
+        LineChart chart = (LineChart) ll.findViewById(R.id.chart);
+        List<Entry> values = new ArrayList<>();
+        List<String> xVals = new ArrayList<>();
+
+        PieChart pieChart = (PieChart) ll.findViewById(R.id.pie_chart);
+        List<Entry> values2 = new ArrayList<>();
+        List<String> xVals2 = new ArrayList<>();
+
         if (args.getBoolean("isStatistics")) {
             getDialog().setTitle("Статистика");
 
@@ -102,88 +111,43 @@ public class ShowStatisticsFragment extends DialogFragment {
             int endYear = Integer.valueOf(end[2]);
             int duration = endYear * 12 * 30 + endMonth * 30 + endDay - (beginYear * 12 * 30 + beginMonth * 30 + beginDay);
 
-            LineChart chart = (LineChart) ll.findViewById(R.id.chart);
-            List<Entry> values = new ArrayList<>();
-            List<String> xVals = new ArrayList<>();
-
-
             if (duration < 90) {
                 for (int i = 0; i < duration + 1; i++) {
                     values.add(new Entry(r.nextFloat() * 1000, i));
                     xVals.add(i, String.valueOf(getDay(i)));
                 }
 
-                LineDataSet dataSet = new LineDataSet(values, "расходы по дням");
-                dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-
-                ArrayList<LineDataSet> dataSets = new ArrayList<>();
-                dataSets.add(dataSet);
-
-                LineData data = new LineData(xVals, dataSets);
-                chart.setData(data);
-                chart.setDescription("");
-
-                chart.invalidate();
-
-                PieChart pieChart = (PieChart) ll.findViewById(R.id.pie_chart);
-
-                List<Entry> values2 = new ArrayList<>();
-
-                for (int i = 0; i < 7; i++) {
+                for (int i = 0; i < 5; i++) {
                     values2.add(new Entry(r.nextFloat() * 1000 + 50, i));
                 }
+                xVals2.add("еда");
+                xVals2.add("кот");
+                xVals2.add("железо");
+                xVals2.add("транспорт");
+                xVals2.add("что-то еще");
 
-                PieData pieData = new PieData();
-                PieDataSet pieDataSet = new PieDataSet(values2, "");
-                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                pieData.addDataSet(pieDataSet);
-
-                pieChart.setDescription("");
-                pieChart.setData(pieData);
-
-                pieChart.invalidate();
+                updateLineChart(chart, values, xVals, "расходы по дням");
+                updatePieChart(pieChart, values2, xVals2, "");
             } else {
                 for (int i = 0; i < endMonth - beginMonth + (endYear - beginYear) * 12 + 1; i++) {
                     values.add(new Entry(r.nextFloat() * 1000 + 1000, i));
                     xVals.add(i, String.valueOf(getMonth(beginMonth + i)));
                 }
 
-                LineDataSet dataSet = new LineDataSet(values, "расходы по месяцам");
-                dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-
-                ArrayList<LineDataSet> dataSets = new ArrayList<>();
-                dataSets.add(dataSet);
-
-                LineData data = new LineData(xVals, dataSets);
-                chart.setData(data);
-                chart.setDescription("");
-
-                chart.invalidate();
-
-                PieChart pieChart = (PieChart) ll.findViewById(R.id.pie_chart);
-
-                List<Entry> values2 = new ArrayList<>();
-
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 5; i++) {
                     values2.add(new Entry(r.nextFloat() * 1000 + 50, i));
                 }
+                xVals2.add("еда");
+                xVals2.add("кот");
+                xVals2.add("железо");
+                xVals2.add("транспорт");
+                xVals2.add("что-то еще");
 
-                PieData pieData = new PieData();
-                PieDataSet pieDataSet = new PieDataSet(values2, "");
-                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                pieData.addDataSet(pieDataSet);
-
-                pieChart.setDescription("");
-                pieChart.setData(pieData);
-
-                pieChart.invalidate();
+                updateLineChart(chart, values, xVals, "расходы по месяцам");
+                updatePieChart(pieChart, values2, xVals2, "");
             }
         } else {
             getDialog().setTitle("Прогнозы");
-
-            LineChart chart = (LineChart) ll.findViewById(R.id.chart);
-            List<Entry> values = new ArrayList<>();
-            List<String> xVals = new ArrayList<>();
 
             List<Double> prevExpenses = new ArrayList<>();
             for (int i = 0; i < 50; i++) {
@@ -193,45 +157,60 @@ public class ShowStatisticsFragment extends DialogFragment {
                     prevExpenses.add((double) Math.max(10, 1000 - i * i));
                 }
             }
+            List<List<Double>> categories = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                List<Double> list = new ArrayList<>();
+                for (int j = 0; j < 100; j++) {
+                    list.add((double) Math.max(100, 10 * i + j * (i % 2) - j * ((i + 1) % 2)));
+                }
+                categories.add(list);
+            }
 
             for (int i = 0; i < 12; i++) {
                 values.add(new Entry(extrapolate(prevExpenses), i));
                 xVals.add(i, getMonth(CUR_MONTH + i));
             }
-
-            LineDataSet dataSet = new LineDataSet(values, "прогноз расходов по месяцам");
-            dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-
-            ArrayList<LineDataSet> dataSets = new ArrayList<>();
-            dataSets.add(dataSet);
-
-            LineData data = new LineData(xVals, dataSets);
-            chart.setData(data);
-            chart.setDescription("");
-
-            chart.invalidate();
-
-            PieChart pieChart = (PieChart) ll.findViewById(R.id.pie_chart);
-
-            List<Entry> values2 = new ArrayList<>();
-
-            for (int i = 0; i < 7; i++) {
-                values2.add(new Entry(r.nextFloat() * 1000 + 50, i));
+            for (int i = 0; i < 5; i++) {
+                values2.add(new Entry(extrapolate(categories.get(i)), i));
             }
+            xVals2.add("еда");
+            xVals2.add("кот");
+            xVals2.add("железо");
+            xVals2.add("транспорт");
+            xVals2.add("что-то еще");
 
-            PieData pieData = new PieData();
-            PieDataSet pieDataSet = new PieDataSet(values2, "");
-            pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-            pieData.addDataSet(pieDataSet);
-
-            pieChart.setDescription("");
-            pieChart.setData(pieData);
-
-            pieChart.invalidate();
+            updateLineChart(chart, values, xVals, "прогноз расходов по месяцам");
+            updatePieChart(pieChart, values2, xVals2, "");
         }
 
         // Inflate the layout for this fragment
         return ll;
+    }
+
+    private void updateLineChart(LineChart chart, List<Entry> values, List<String> xValues, String name) {
+        LineDataSet dataSet = new LineDataSet(values, name);
+        dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+        ArrayList<LineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(dataSet);
+
+        LineData data = new LineData(xValues, dataSets);
+        chart.setData(data);
+        chart.setDescription("");
+
+        chart.invalidate();
+    }
+
+    private void updatePieChart(PieChart chart, List<Entry> values, List<String> xValues, String name) {
+        PieDataSet pieDataSet = new PieDataSet(values, "");
+        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        PieData pieData = new PieData(xValues, pieDataSet);
+
+        chart.setDescription(name);
+        chart.setHoleRadius(40);
+        chart.setData(pieData);
+
+        chart.invalidate();
     }
 
     private int extrapolate(List<Double> list) {
