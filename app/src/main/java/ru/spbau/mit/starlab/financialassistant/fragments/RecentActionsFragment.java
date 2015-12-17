@@ -1,22 +1,31 @@
 package ru.spbau.mit.starlab.financialassistant.fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import ru.spbau.mit.starlab.financialassistant.EditActionActivity;
 import ru.spbau.mit.starlab.financialassistant.R;
 import ru.spbau.mit.starlab.financialassistant.multicolumnlistview.ListViewAdapter;
 
 import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.FIRST_COLUMN;
 import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.SECOND_COLUMN;
+import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.THIRD_COLUMN;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,12 +44,14 @@ public class RecentActionsFragment extends Fragment {
 
     public ArrayList<HashMap<String, String>> list;
 
+    private ProgressDialog pDialog;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    public ListView lv;
 
     /**
      * Use this factory method to create a new instance of
@@ -71,7 +82,6 @@ public class RecentActionsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -81,39 +91,104 @@ public class RecentActionsFragment extends Fragment {
 
         View ll = inflater.inflate(R.layout.fragment_recent_actions, container, false);
 
+        list = new ArrayList<>();
 
-
-        ListView listView = (ListView) ll.findViewById(R.id.listView1);
-
-        list=new ArrayList<>();
-
-        HashMap<String,String> temp = new HashMap<>();
-        temp.put(FIRST_COLUMN, "Name1");
-        temp.put(SECOND_COLUMN, "100");
-        list.add(temp);
-
-        HashMap<String,String> temp2 = new HashMap<>();
-        temp2.put(FIRST_COLUMN, "Name2");
-        temp2.put(SECOND_COLUMN, "200");
-        list.add(temp2);
-
-        HashMap<String,String> temp3=new HashMap<>();
-        temp3.put(FIRST_COLUMN, "Name3");
-        temp3.put(SECOND_COLUMN, "300");
-        list.add(temp3);
-
-        HashMap<String,String> temp4=new HashMap<>();
-        temp4.put(FIRST_COLUMN, "Name4");
-        temp4.put(SECOND_COLUMN, "400");
-        list.add(temp4);
+        lv = (ListView) ll.findViewById(R.id.listView1);
+        // Загружаем продукты в фоновом потоке
+        new LoadAllActions().execute();
 
         ListViewAdapter adapter = new ListViewAdapter(getActivity(), list);
-        listView.setAdapter(adapter);
+        lv.setAdapter(adapter);
 
+        // получаем ListView
+        //ListViewAdapter adapter = new ListViewAdapter(getActivity(), list);
+        //lv.setAdapter(adapter);
+
+        // на выбор одного продукта
+        // запускается Edit Product Screen
+
+
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // getting values from selected ListItem
+                String pid = ((TextView) view.findViewById(R.id.pid)).getText()
+                        .toString();
+
+                // Запускаем новый intent который покажет нам Activity
+                Intent in = new Intent(getActivity().getApplicationContext(), EditActionActivity.class);
+                // отправляем pid в следующий activity
+                in.putExtra("pid", pid);
+
+                // запуская новый Activity ожидаем ответ обратно
+                startActivityForResult(in, 100);
+            }
+        });
 
 
         return ll;
     }
+
+
+    class LoadAllActions extends AsyncTask<String, String, String> {
+
+        /**
+         * Перед началом фонового потока Show Progress Dialog
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Загрузка продуктов. Подождите...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        /**
+         * Получаем все продукт из url
+         * */
+        protected String doInBackground(String... args) {
+            // Будет хранить параметры
+
+            HashMap<String, String> temp = new HashMap<>();
+            temp.put(FIRST_COLUMN, "Расход");
+            temp.put(SECOND_COLUMN, "Железо");
+            temp.put(THIRD_COLUMN, "100");
+            list.add(temp);
+
+            HashMap<String, String> temp1 = new HashMap<>();
+            temp1.put(FIRST_COLUMN, "Расход");
+            temp1.put(SECOND_COLUMN, "Кот");
+            temp1.put(THIRD_COLUMN, "100500");
+            list.add(temp1);
+            return null;
+        }
+
+        /**
+         * После завершения фоновой задачи закрываем прогрес диалог
+         * **/
+        protected void onPostExecute(String file_url) {
+            // закрываем прогресс диалог после получение все продуктов
+            pDialog.dismiss();
+            // обновляем UI форму в фоновом потоке
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    /**
+                     * Обновляем распарсенные JSON данные в ListView
+                     * */
+                    ListViewAdapter adapter = new ListViewAdapter(getActivity(), list);
+                    lv.setAdapter(adapter);
+                }
+            });
+
+        }
+
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
