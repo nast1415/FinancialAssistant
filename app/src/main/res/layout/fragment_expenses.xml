@@ -9,15 +9,15 @@
     <Button
         android:id="@+id/btnAddExpense"
         style="@style/ButtonStyle"
-        android:onClick="onClick"
+        android:onClick="addNewExpense"
         android:text="Записать" />
 
 
     <TextView
         android:id="@+id/txtIncomeInfo"
         style="@style/FragmentHeader"
-        android:text="Добавить трату" />
-    
+        android:text="@string/add_expense" />
+
     <TextView
         android:id="@+id/txtCategory"
         style="@style/UsualTextStyle"
@@ -25,7 +25,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
-        android:text="Категория" />
+        android:text="@string/category" />
 
     <TextView
         android:id="@+id/txtDate"
@@ -34,16 +34,16 @@
         android:layout_alignStart="@+id/txtCategory"
         android:layout_below="@+id/txtCategory"
         android:layout_marginTop="40dp"
-        android:text="Дата" />
+        android:text="@string/date" />
 
     <TextView
-        android:id="@+id/txtName"
+        android:id="@+id/txtExpName"
         style="@style/UsualTextStyle"
         android:layout_alignLeft="@+id/txtCategory"
         android:layout_alignStart="@+id/txtCategory"
         android:layout_below="@+id/txtCategory"
         android:layout_marginTop="105dp"
-        android:text="Название" />
+        android:text="@string/name" />
 
 
     <TextView
@@ -53,10 +53,12 @@
         android:layout_alignStart="@+id/txtCategory"
         android:layout_below="@+id/txtCategory"
         android:layout_marginTop="170dp"
-        android:text="Сумма" />
+        android:text="@string/sum" />
+
+
 
     <EditText
-        android:id="@+id/eTxtCategory"
+        android:id="@+id/eTxtExpCategory"
         style="@style/TextBoxesStyle"
         android:layout_alignLeft="@+id/txtCategory"
         android:layout_alignStart="@+id/txtCategory"
@@ -64,35 +66,36 @@
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:inputType="text" />
+        android:inputType="text"
+        android:text="Обеды" />
 
     <TextView
-        android:id="@+id/eDate"
+        android:id="@+id/eTxtExpDate"
         style="@style/TextBoxesStyle"
         android:layout_alignLeft="@+id/txtCategory"
         android:layout_alignStart="@+id/txtCategory"
         android:layout_below="@id/txtDate"
-        android:onClick="showDatePickerDialog"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:inputType="date" />
+        android:onClick="showDatePickerDialog" />
 
 
     <EditText
-        android:id="@+id/eTxtName"
+        android:id="@+id/eTxtExpName"
         style="@style/TextBoxesStyle"
         android:layout_alignLeft="@+id/txtCategory"
         android:layout_alignStart="@+id/txtCategory"
-        android:layout_below="@id/txtName"
+        android:layout_below="@id/txtExpName"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:inputType="text" />
+        android:inputType="text"
+        android:text="Обед в столовке" />
 
 
     <EditText
-        android:id="@+id/eTxtSum"
+        android:id="@+id/eTxtExpSum"
         style="@style/TextBoxesStyle"
         android:layout_alignLeft="@+id/txtCategory"
         android:layout_alignStart="@+id/txtCategory"
@@ -100,7 +103,8 @@
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:inputType="number" />
+        android:inputType="number"
+        android:text="200" />
 
 
     <TextView
@@ -110,9 +114,10 @@
         android:layout_alignStart="@+id/txtCategory"
         android:layout_below="@+id/txtCategory"
         android:layout_marginTop="235dp"
-        android:text="Комментарий" />
+        android:text="@string/comment" />
 
     <ScrollView
+        android:id="@+id/scrollView3"
         style="@style/ScrollViewStyle"
         android:layout_alignLeft="@+id/txtCategory"
         android:layout_alignStart="@+id/txtCategory"
@@ -123,10 +128,11 @@
 
 
         <EditText
-            android:id="@+id/eTxtComment"
+            android:id="@+id/eTxtExpComment"
             style="@style/CommentBoxStyle"
             android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:text="Так себе" />
     </ScrollView>
 
 

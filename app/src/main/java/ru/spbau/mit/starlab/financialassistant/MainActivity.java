@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,6 +24,7 @@ import android.widget.TextView;
 
 
 import java.util.Calendar;
+import java.util.Date;
 
 import ru.spbau.mit.starlab.financialassistant.fragments.CreditsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.ExpensesFragment;
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity
         if (radioButton.isChecked()) {
             args.putString("dateBegin", dateBegin.getText().toString());
             args.putString("dateEnd", dateEnd.getText().toString());
+
         }
         fragment.setArguments(args);
         fragment.show(getFragmentManager(), "showStatistics");
@@ -81,15 +84,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mDatabaseHelper = new DatabaseHelper(this, "finance.db", null, 1);
-
+        mDatabaseHelper = new DatabaseHelper(this, "finance.db", null, 4);
         mSqLiteDatabase = mDatabaseHelper.getWritableDatabase();
-
-        ContentValues newValues = new ContentValues();
-        // Задайте значения для каждого столбца
-        newValues.put(DatabaseHelper.NAME_COLUMN, "Обеды");
-        // Вставляем данные в таблицу
-        mSqLiteDatabase.insert("categories", null, newValues);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -114,20 +110,190 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onClick(View v) {
-        Cursor cursor = mSqLiteDatabase.query("categories", new String[] {DatabaseHelper.NAME_COLUMN},
-                null, null,
-                null, null, null) ;
+        Cursor cursor = mSqLiteDatabase.query("expenses", new String[]{
+                        DatabaseHelper._ID, DatabaseHelper.EXPENSE_CATEGORY_COLUMN}, null,
+                null,
+                null,
+                null,
+                null
+        );
 
-        cursor.moveToFirst();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
+            int name = cursor.getInt(cursor
+                    .getColumnIndex(DatabaseHelper.EXPENSE_CATEGORY_COLUMN));
 
-        String categoryName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.NAME_COLUMN));
+            TextView infoTextView = (TextView) findViewById(R.id.txtComment);
+            infoTextView.setText("Категория траты: " + name);
 
-
-        TextView infoTextView = (TextView)findViewById(R.id.txtComment);
-        infoTextView.setText("Категория " + categoryName);
-
-        // не забываем закрывать курсор
+            Log.i("LOG_TAG", "Трата " + id + " имеет категорию " + name);
+        }
         cursor.close();
+        /**cursor.moveToFirst();
+
+         String categoryName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.NAME_COLUMN));
+
+
+         TextView infoTextView = (TextView)findViewById(R.id.txtComment);
+         infoTextView.setText("Категория " + categoryName);
+
+         // не забываем закрывать курсор
+         cursor.close();*/
+    }
+    public int parseCategory(String category) {
+        int category_id = 0;
+        Cursor cursor = mSqLiteDatabase.query("categories", new String[]{
+                        DatabaseHelper._ID, DatabaseHelper.CATEGORY_NAME_COLUMN}, null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
+            String name = cursor.getString(cursor
+                    .getColumnIndex(DatabaseHelper.CATEGORY_NAME_COLUMN));
+
+
+            if (category.equals(name)) {
+                Log.i("LOG_TAG", "Category " + name + " is in database and have id: " + id);
+                category_id = id;
+            }
+        }
+        cursor.close();
+        return category_id;
+    }
+
+    public int addCategory(String categoryName) {
+        int categoryId = 0;
+        ContentValues newValues = new ContentValues();
+        newValues.put(DatabaseHelper.CATEGORY_NAME_COLUMN, categoryName);
+
+        mSqLiteDatabase.insert("categories", null, newValues);
+
+        Cursor cursor = mSqLiteDatabase.query("categories", new String[]{
+                        DatabaseHelper._ID}, null, null,
+                null,
+                null,
+                null,
+                null
+        );
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
+            categoryId = id;
+        }
+        cursor.close();
+        return categoryId;
+    }
+
+    public void addNewExpense(View v) {
+
+        ContentValues newValues = new ContentValues();
+
+        TextView name = (TextView) findViewById(R.id.eTxtExpName);
+        String expenseName = name.getText().toString();
+
+        newValues.put(DatabaseHelper.EXPENSE_NAME_COLUMN, expenseName);
+
+        TextView categoryTextView = (TextView) findViewById(R.id.eTxtExpCategory);
+        String category = categoryTextView.getText().toString();
+
+        int categoryId = parseCategory(category);
+        if (categoryId == 0) {
+            categoryId = addCategory(category);
+        }
+        newValues.put(DatabaseHelper.EXPENSE_CATEGORY_COLUMN, categoryId);
+
+        TextView sum = (TextView) findViewById(R.id.eTxtExpSum);
+        String expenseSum = sum.getText().toString();
+
+        newValues.put(DatabaseHelper.EXPENSE_SUM_COLUMN, expenseSum);
+
+        TextView comment = (TextView) findViewById(R.id.eTxtExpComment);
+        String expenseComment = comment.getText().toString();
+        newValues.put(DatabaseHelper.EXPENSE_COMMENT_COLUMN, expenseComment);
+
+        TextView date = (TextView) findViewById(R.id.eTxtExpDate);
+        String expenseDate = date.getText().toString();
+
+        newValues.put(DatabaseHelper.EXPENSE_DATE_COLUMN, expenseDate);
+
+        Date curDate = new Date();
+        String expenseAddTime = curDate.toString();
+        newValues.put(DatabaseHelper.EXPENSE_ADD_TIME_COLUMN, expenseAddTime);
+
+        mSqLiteDatabase.insert("expenses", null, newValues);
+        Log.i("LOG_TAG", "New expense added");
+
+    }
+
+    public void addNewIncome(View v) {
+        ContentValues newValues = new ContentValues();
+
+        TextView name = (TextView) findViewById(R.id.eTxtIncName);
+        String incomeName = name.getText().toString();
+        newValues.put(DatabaseHelper.INCOME_NAME_COLUMN, incomeName);
+
+        TextView sum = (TextView) findViewById(R.id.eTxtIncSum);
+        String incomeSum = sum.getText().toString();
+        newValues.put(DatabaseHelper.INCOME_SUM_COLUMN, incomeSum);
+
+        TextView comment = (TextView) findViewById(R.id.eTxtIncComment);
+        String incomeComment = comment.getText().toString();
+        newValues.put(DatabaseHelper.INCOME_COMMENT_COLUMN, incomeComment);
+
+        TextView date = (TextView) findViewById(R.id.eTxtIncDate);
+        String incomeDate = date.getText().toString();
+        newValues.put(DatabaseHelper.INCOME_DATE_COLUMN, incomeDate);
+
+        Date curDate = new Date();
+        String incomeAddTime = curDate.toString();
+        newValues.put(DatabaseHelper.INCOME_ADD_TIME_COLUMN, incomeAddTime);
+
+        mSqLiteDatabase.insert("incomes", null, newValues);
+        Log.i("LOG_TAG", "New income added");
+    }
+
+    public void addNewRegExpense(View v) {
+
+        ContentValues newValues = new ContentValues();
+
+        TextView name = (TextView) findViewById(R.id.eTxtExpName);
+        String expenseName = name.getText().toString();
+
+        newValues.put(DatabaseHelper.EXPENSE_NAME_COLUMN, expenseName);
+
+        TextView categoryTextView = (TextView) findViewById(R.id.eTxtExpCategory);
+        String category = categoryTextView.getText().toString();
+
+        int categoryId = parseCategory(category);
+        if (categoryId == 0) {
+            categoryId = addCategory(category);
+        }
+        newValues.put(DatabaseHelper.EXPENSE_CATEGORY_COLUMN, categoryId);
+
+        TextView sum = (TextView) findViewById(R.id.eTxtExpSum);
+        String expenseSum = sum.getText().toString();
+
+        newValues.put(DatabaseHelper.EXPENSE_SUM_COLUMN, expenseSum);
+
+        TextView comment = (TextView) findViewById(R.id.eTxtExpComment);
+        String expenseComment = comment.getText().toString();
+        newValues.put(DatabaseHelper.EXPENSE_COMMENT_COLUMN, expenseComment);
+
+        TextView date = (TextView) findViewById(R.id.eTxtExpDate);
+        String expenseDate = date.getText().toString();
+
+        newValues.put(DatabaseHelper.EXPENSE_DATE_COLUMN, expenseDate);
+
+        Date curDate = new Date();
+        String expenseAddTime = curDate.toString();
+        newValues.put(DatabaseHelper.EXPENSE_ADD_TIME_COLUMN, expenseAddTime);
+
+        mSqLiteDatabase.insert("expenses", null, newValues);
+        Log.i("LOG_TAG", "New expense added");
+
     }
 
     @Override
