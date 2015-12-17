@@ -23,8 +23,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import ru.spbau.mit.starlab.financialassistant.fragments.CreditsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.ExpensesFragment;
@@ -54,6 +56,10 @@ public class MainActivity extends AppCompatActivity
     private ToolsFragment toolsFragment;
     private WantedExpensesFragment wantedExpensesFragment;
 
+    List<String> dateList = new ArrayList<>();
+    List<String> categoryNameList = new ArrayList<>();
+    List<Double> sumList = new ArrayList<>();
+
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new ru.spbau.mit.starlab.financialassistant.fragments.DatePicker();
         Bundle args = new Bundle();
@@ -76,6 +82,54 @@ public class MainActivity extends AppCompatActivity
         }
         fragment.setArguments(args);
         fragment.show(getFragmentManager(), "showStatistics");
+    }
+
+    public void getDataForStatistics(View v) {
+        List<Integer> categoryIdList = new ArrayList<>();
+        String query = "SELECT " + DatabaseHelper._ID + ", "
+                + DatabaseHelper.EXPENSE_DATE_COLUMN + ", "
+                + DatabaseHelper.EXPENSE_CATEGORY_COLUMN + ", "
+                + DatabaseHelper.EXPENSE_SUM_COLUMN + " FROM expenses";
+        Cursor cursor = mSqLiteDatabase.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor
+                    .getColumnIndex(DatabaseHelper._ID));
+            int categoryId = cursor.getInt(cursor
+                    .getColumnIndex(DatabaseHelper.EXPENSE_CATEGORY_COLUMN));
+            String date = cursor.getString(cursor
+                    .getColumnIndex(DatabaseHelper.EXPENSE_DATE_COLUMN));
+            Double sum = cursor.getDouble(cursor
+                    .getColumnIndex(DatabaseHelper.EXPENSE_SUM_COLUMN));
+
+            categoryIdList.add(categoryId);
+            dateList.add(date);
+            sumList.add(sum);
+
+            Log.i("LOG_TAG", "New data added: categoryId: " + categoryId + " date: " + date
+                    + " sum: " + sum);
+        }
+        cursor.close();
+
+        for (int i = 0; i < categoryIdList.size(); i++) {
+            String queryForCategory = "SELECT " + DatabaseHelper._ID + ", "
+                    + DatabaseHelper.CATEGORY_NAME_COLUMN + " FROM categories WHERE "
+                    + DatabaseHelper._ID + " = " + categoryIdList.get(i);
+            Cursor cursor2 = mSqLiteDatabase.rawQuery(queryForCategory, null);
+
+            while (cursor2.moveToNext()) {
+                int id = cursor2.getInt(cursor2
+                        .getColumnIndex(DatabaseHelper._ID));
+                String categoryName = cursor2.getString(cursor2
+                        .getColumnIndex(DatabaseHelper.CATEGORY_NAME_COLUMN));
+
+                categoryNameList.add(categoryName);
+
+                Log.i("LOG_TAG", "New data added: categoryName: " + categoryName + " id: " + id);
+
+            }
+            cursor2.close();
+        }
     }
 
     @Override
@@ -112,7 +166,7 @@ public class MainActivity extends AppCompatActivity
 
     public void onClick(View v) {
         Cursor cursor = mSqLiteDatabase.query("expenses", new String[]{
-                        DatabaseHelper._ID, DatabaseHelper.EXPENSE_CATEGORY_COLUMN}, null,
+                        DatabaseHelper._ID, DatabaseHelper.EXPENSE_NAME_COLUMN}, null,
                 null,
                 null,
                 null,
@@ -121,26 +175,17 @@ public class MainActivity extends AppCompatActivity
 
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
-            int name = cursor.getInt(cursor
-                    .getColumnIndex(DatabaseHelper.EXPENSE_CATEGORY_COLUMN));
+            String name = cursor.getString(cursor
+                    .getColumnIndex(DatabaseHelper.EXPENSE_NAME_COLUMN));
 
-            TextView infoTextView = (TextView) findViewById(R.id.txtComment);
-            infoTextView.setText("Категория траты: " + name);
+            //TextView infoTextView = (TextView) findViewById(R.id.txtComment);
+            //infoTextView.setText("Категория траты: " + name);
 
-            Log.i("LOG_TAG", "Трата " + id + " имеет категорию " + name);
+            Log.i("LOG_TAG", "Трата " + name + " имеет id " + id);
         }
         cursor.close();
-        /**cursor.moveToFirst();
-
-         String categoryName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.NAME_COLUMN));
-
-
-         TextView infoTextView = (TextView)findViewById(R.id.txtComment);
-         infoTextView.setText("Категория " + categoryName);
-
-         // не забываем закрывать курсор
-         cursor.close();*/
     }
+
     public int parseCategory(String category) {
         int category_id = 0;
         Cursor cursor = mSqLiteDatabase.query("categories", new String[]{
