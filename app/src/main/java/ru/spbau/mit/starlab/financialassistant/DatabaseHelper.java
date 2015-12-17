@@ -11,7 +11,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
 
     private static final String DATABASE_NAME = "finance.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     //------------------Create table category------------------
     private static final String CATEGORIES_TABLE = "categories";
@@ -143,6 +143,21 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
             + " integer primary key autoincrement, " + LOGIN_USERNAME_COLUMN
             + " text not null, " + LOGIN_PASSWORD_COLUMN + " text not null);";
 
+    //---------------Create last actions table----------------------------
+    private static final String LAST_ACTIONS_TABLE = "last_actions";
+    public static final String LAST_ACTIONS_ID_COLUMN = "last_action_id";
+    public static final String LAST_ACTIONS_CATEGORY_COLUMN = "last_action_category";
+    public static final String LAST_ACTIONS_NAME_COLUMN = "last_action_name";
+    public static final String LAST_ACTIONS_SUM_COLUMN = "last_action_sum";
+
+    private static final String LAST_ACTIONS_CREATE_SCRIPT = "create table "
+            + LAST_ACTIONS_TABLE + " (" + BaseColumns._ID
+            + " integer primary key autoincrement, " + LAST_ACTIONS_ID_COLUMN
+            + " integer, " + LAST_ACTIONS_CATEGORY_COLUMN + " text not null, "
+            + LAST_ACTIONS_NAME_COLUMN + " text not null, " + LAST_ACTIONS_SUM_COLUMN
+            + " real);";
+
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -167,6 +182,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
         db.execSQL(WANTED_EXPENSES_CREATE_SCRIPT);
         db.execSQL(CREDITS_CREATE_SCRIPT);
         db.execSQL(LOGIN_CREATE_SCRIPT);
+        db.execSQL(LAST_ACTIONS_CREATE_SCRIPT);
     }
 
     @Override
@@ -181,6 +197,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
         db.execSQL("DROP TABLE IF EXISTS " + CREDITS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + WANTED_EXPENSES_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + LOGIN_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + LAST_ACTIONS_TABLE);
 
         onCreate(db);
     }
