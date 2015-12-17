@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mDatabaseHelper = new DatabaseHelper(this, "finance.db", null, 4);
+        mDatabaseHelper = new DatabaseHelper(this, "finance.db", null, 5);
         mSqLiteDatabase = mDatabaseHelper.getWritableDatabase();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -245,6 +245,18 @@ public class MainActivity extends AppCompatActivity
         return categoryId;
     }
 
+    public void addDataToLastActions(int id, String category, String name, String sum){
+        ContentValues newValues = new ContentValues();
+
+        newValues.put(DatabaseHelper.LAST_ACTIONS_ID_COLUMN, id);
+        newValues.put(DatabaseHelper.LAST_ACTIONS_CATEGORY_COLUMN, category);
+        newValues.put(DatabaseHelper.LAST_ACTIONS_NAME_COLUMN, name);
+        newValues.put(DatabaseHelper.LAST_ACTIONS_SUM_COLUMN, sum);
+
+        mSqLiteDatabase.insert("last_actions", null, newValues);
+        Log.i("LOG_TAG", "New last_action added");
+    }
+
     public void addNewExpense(View v) {
 
         ContentValues newValues = new ContentValues();
@@ -284,6 +296,18 @@ public class MainActivity extends AppCompatActivity
         mSqLiteDatabase.insert("expenses", null, newValues);
         Log.i("LOG_TAG", "New expense added");
 
+        String query = "SELECT " + DatabaseHelper._ID + " FROM expenses";
+        Cursor cursor = mSqLiteDatabase.rawQuery(query, null);
+
+        int idExp = 0;
+        while (cursor.moveToNext()) {
+            idExp = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
+        }
+        cursor.close();
+
+        String categoryExp = "Трата";
+        addDataToLastActions(idExp, categoryExp, expenseName, expenseSum);
+
     }
 
     public void addNewIncome(View v) {
@@ -311,6 +335,18 @@ public class MainActivity extends AppCompatActivity
 
         mSqLiteDatabase.insert("incomes", null, newValues);
         Log.i("LOG_TAG", "New income added");
+
+        String query = "SELECT " + DatabaseHelper._ID + " FROM incomes";
+        Cursor cursor = mSqLiteDatabase.rawQuery(query, null);
+
+        int idInc = 0;
+        while (cursor.moveToNext()) {
+            idInc = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
+        }
+        cursor.close();
+
+        String categoryInc = "Доход";
+        addDataToLastActions(idInc, categoryInc, incomeName, incomeSum);
     }
 
     public void addNewRegExpense(View v) {
