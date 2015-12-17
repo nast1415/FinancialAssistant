@@ -292,11 +292,45 @@ public class MainActivity extends AppCompatActivity
         newValues.put(DatabaseHelper.REG_EXPENSE_COMMENT_COLUMN, regExpenseComment);
 
         Date curDate = new Date();
-        String expenseAddTime = curDate.toString();
-        newValues.put(DatabaseHelper.EXPENSE_ADD_TIME_COLUMN, expenseAddTime);
+        String regExpenseAddTime = curDate.toString();
+        newValues.put(DatabaseHelper.REG_EXPENSE_ADD_TIME_COLUMN, regExpenseAddTime);
 
         mSqLiteDatabase.insert("reg_expenses", null, newValues);
         Log.i("LOG_TAG", "New regular expense added");
+
+    }
+
+    public void addNewRegIncome(View v) {
+
+        ContentValues newValues = new ContentValues();
+
+        TextView name = (TextView) findViewById(R.id.eTxtRegIncName);
+        String regIncName = name.getText().toString();
+        newValues.put(DatabaseHelper.REG_INCOME_NAME_COLUMN, regIncName);
+
+        TextView sum = (TextView) findViewById(R.id.eTxtRegIncSum);
+        String regIncSum = sum.getText().toString();
+
+        newValues.put(DatabaseHelper.REG_INCOME_SUM_COLUMN, regIncSum);
+
+        TextView startPeriod = (TextView) findViewById(R.id.eTxtRegIncStartPeriod);
+        String regIncStartPeriod = startPeriod.getText().toString();
+        newValues.put(DatabaseHelper.REG_INCOME_START_PERIOD_COLUMN, regIncStartPeriod);
+
+        TextView endPeriod = (TextView) findViewById(R.id.eTxtRegIncEndPeriod);
+        String regIncEndPeriod = endPeriod.getText().toString();
+        newValues.put(DatabaseHelper.REG_INCOME_END_PERIOD_COLUMN, regIncEndPeriod);
+
+        TextView comment = (TextView) findViewById(R.id.eTxtRegIncComment);
+        String regIncComment = comment.getText().toString();
+        newValues.put(DatabaseHelper.REG_INCOME_COMMENT_COLUMN, regIncComment);
+
+        Date curDate = new Date();
+        String regIncomeAddTime = curDate.toString();
+        newValues.put(DatabaseHelper.REG_INCOME_ADD_TIME_COLUMN, regIncomeAddTime);
+
+        mSqLiteDatabase.insert("reg_incomes", null, newValues);
+        Log.i("LOG_TAG", "New regular income added");
 
     }
 

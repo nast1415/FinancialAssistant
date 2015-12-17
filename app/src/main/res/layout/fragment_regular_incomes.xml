@@ -7,6 +7,7 @@
     <Button
         android:id="@+id/btnAddRegIncome"
         style="@style/ButtonStyle"
+        android:onClick="addNewRegIncome"
         android:text="@string/add" />
 
 
@@ -35,21 +36,12 @@
         android:text="@string/name" />
 
     <TextView
-        android:id="@+id/txtRegIncCategory"
-        style="@style/UsualTextStyle"
-        android:layout_alignLeft="@id/txtRegIncPeriod"
-        android:layout_alignStart="@+id/txtRegIncPeriod"
-        android:layout_below="@+id/txtRegIncPeriod"
-        android:layout_marginTop="105dp"
-        android:text="@string/category" />
-
-    <TextView
         android:id="@+id/txtRegIncSum"
         style="@style/UsualTextStyle"
         android:layout_alignLeft="@id/txtRegIncPeriod"
         android:layout_alignStart="@+id/txtRegIncPeriod"
         android:layout_below="@+id/txtRegIncPeriod"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="105dp"
         android:text="@string/sum" />
 
     <TextView
@@ -87,16 +79,6 @@
         android:layout_marginTop="5dp"
         android:inputType="text" />
 
-    <EditText
-        android:id="@+id/eTxtRegIncCategory"
-        style="@style/TextBoxesStyle"
-        android:layout_alignLeft="@+id/txtRegIncPeriod"
-        android:layout_alignStart="@+id/txtRegIncPeriod"
-        android:layout_below="@id/txtRegIncCategory"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:inputType="text" />
 
     <EditText
         android:id="@+id/eTxtRegIncSum"
@@ -115,7 +97,7 @@
         android:layout_alignLeft="@id/txtRegIncPeriod"
         android:layout_alignStart="@+id/txtRegIncPeriod"
         android:layout_below="@+id/txtRegIncPeriod"
-        android:layout_marginTop="235dp"
+        android:layout_marginTop="170dp"
         android:text="@string/comment" />
 
     <ScrollView
