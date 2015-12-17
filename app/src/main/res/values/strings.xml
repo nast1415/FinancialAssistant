@@ -11,6 +11,7 @@
     <string name="expenses_fragment">Траты</string>
     <string name="incomes_fragment">Доходы</string>
     <string name="regular_expenses_fragment">Регулярные траты</string>
+    <string name="regular_incomes_fragment">Регулярные доходы</string>
     <string name="wanted_expenses_fragment">Желаемые покупки</string>
     <string name="recent_actions_fragment">Последние действия</string>
     <string name="credits_fragment">Кредиты</string>
@@ -24,6 +25,7 @@
     <string name="add_expense">Добавить трату</string>
     <string name="add_income">Добавить доход</string>
     <string name="add_regular_exp">Добавить регулярную трату</string>
+    <string name="add_regular_inc">Добавить регулярный доход</string>
     <string name="add_wanted">Добавить желаемую покупку</string>
     <string name="add_credit">Добавить кредит</string>
     <string name="tools">Настройки</string>
