@@ -46,6 +46,7 @@
             android:name=".EditActionActivity"
             android:label="@string/title_activity_edit_action" >
         </activity>
+
     </application>
 
 </manifest>

@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     tools:context="ru.spbau.mit.starlab.financialassistant.fragments.ExpensesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <Button
         android:id="@+id/btnAddExpense"
         style="@style/ButtonStyle"

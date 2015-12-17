@@ -21,6 +21,7 @@ import android.app.DialogFragment;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -45,16 +46,12 @@ public class MainActivity extends AppCompatActivity
 
     private DatabaseHelper mDatabaseHelper;
     private SQLiteDatabase mSqLiteDatabase;
-
     private CreditsFragment creditsFragment;
     private ExpensesFragment expensesFragment;
     private IncomesFragment incomesFragment;
     private RecentActionsFragment recentActionsFragment;
-    private RegularExpensesFragment regularExpensesFragment;
-    private RegularIncomesFragment regularIncomesFragment;
     private StatisticsFragment statisticsFragment;
     private ToolsFragment toolsFragment;
-    private WantedExpensesFragment wantedExpensesFragment;
 
     List<String> dateList = new ArrayList<>();
     List<String> categoryNameList = new ArrayList<>();
@@ -156,11 +153,8 @@ public class MainActivity extends AppCompatActivity
         expensesFragment = new ExpensesFragment();
         incomesFragment = new IncomesFragment();
         recentActionsFragment = new RecentActionsFragment();
-        regularExpensesFragment = new RegularExpensesFragment();
-        regularIncomesFragment = new RegularIncomesFragment();
         statisticsFragment = new StatisticsFragment();
         toolsFragment = new ToolsFragment();
-        wantedExpensesFragment = new WantedExpensesFragment();
 
     }
 
@@ -296,6 +290,10 @@ public class MainActivity extends AppCompatActivity
         String categoryExp = "Трата";
         addDataToLastActions(idExp, categoryExp, expenseName, expenseSum);
 
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Трата " + expenseName + " успешно добавлена", Toast.LENGTH_SHORT);
+        toast.show();
+
     }
 
     public void addNewIncome(View v) {
@@ -335,6 +333,10 @@ public class MainActivity extends AppCompatActivity
 
         String categoryInc = "Доход";
         addDataToLastActions(idInc, categoryInc, incomeName, incomeSum);
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Доход " + incomeName + " успешно добавлен", Toast.LENGTH_SHORT);
+        toast.show();
+
     }
 
     public void addNewRegExpense(View v) {
@@ -464,16 +466,10 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.container, incomesFragment);
         } else if (id == R.id.nav_recent_actions) {
             fragmentTransaction.replace(R.id.container, recentActionsFragment);
-        } else if (id == R.id.nav_regular_expenses) {
-            fragmentTransaction.replace(R.id.container, regularExpensesFragment);
         } else if (id == R.id.nav_statistics) {
             fragmentTransaction.replace(R.id.container, statisticsFragment);
         } else if (id == R.id.nav_tools) {
             fragmentTransaction.replace(R.id.container, toolsFragment);
-        } else if (id == R.id.nav_wanted_expenses) {
-            fragmentTransaction.replace(R.id.container, wantedExpensesFragment);
-        } else if (id == R.id.nav_regular_incomes) {
-            fragmentTransaction.replace(R.id.container, regularIncomesFragment);
         }
         fragmentTransaction.commit();
 
