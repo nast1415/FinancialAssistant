@@ -1,6 +1,7 @@
 package ru.spbau.mit.starlab.financialassistant.multicolumnlistview;
 import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.FIRST_COLUMN;
 import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.SECOND_COLUMN;
+import static ru.spbau.mit.starlab.financialassistant.multicolumnlistview.Constants.THIRD_COLUMN;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class ListViewAdapter extends BaseAdapter{
     Activity activity;
     TextView txtFirst;
     TextView txtSecond;
+    TextView txtThird;
     public ListViewAdapter(Activity activity,ArrayList<HashMap<String, String>> list){
         super();
         this.activity=activity;
@@ -58,14 +60,16 @@ public class ListViewAdapter extends BaseAdapter{
 
             convertView=inflater.inflate(R.layout.listview_row, null);
 
-            txtFirst=(TextView) convertView.findViewById(R.id.name);
-            txtSecond=(TextView) convertView.findViewById(R.id.sum);
+            txtFirst=(TextView) convertView.findViewById(R.id.category);
+            txtSecond=(TextView) convertView.findViewById(R.id.name);
+            txtThird=(TextView) convertView.findViewById(R.id.sum);
 
         }
 
         HashMap<String, String> map=list.get(position);
         txtFirst.setText(map.get(FIRST_COLUMN));
         txtSecond.setText(map.get(SECOND_COLUMN));
+        txtThird.setText(map.get(THIRD_COLUMN));
 
         return convertView;
     }

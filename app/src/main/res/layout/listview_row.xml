@@ -4,10 +4,25 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/pid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/name"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
     <TextView
@@ -15,20 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:textSize="25sp"
         android:textStyle="bold" />
-
-    <ImageButton
-        android:id="@+id/edit"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_dialog_info"
-        android:layout_width="0dp"
-        android:layout_weight="0.3" />
-
-    <ImageButton
-        android:id="@+id/delete"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_delete"
-        android:layout_width="0dp"
-        android:layout_weight="0.3" />
 
 </LinearLayout>
