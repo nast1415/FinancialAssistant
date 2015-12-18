@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity
     private IncomesFragment incomesFragment;
     private RegularExpensesFragment regularExpensesFragment;
     private RegularIncomesFragment regularIncomesFragment;
-    private RecentActionsFragment recentActionsFragment;
     private StatisticsFragment statisticsFragment;
     private ToolsFragment toolsFragment;
     private InformationFragment informationFragment;
@@ -197,7 +196,6 @@ public class MainActivity extends AppCompatActivity
         incomesFragment = new IncomesFragment();
         regularIncomesFragment = new RegularIncomesFragment();
         regularExpensesFragment = new RegularExpensesFragment();
-        recentActionsFragment = new RecentActionsFragment();
         statisticsFragment = new StatisticsFragment();
         toolsFragment = new ToolsFragment();
         informationFragment = new InformationFragment();
@@ -656,6 +654,7 @@ public class MainActivity extends AppCompatActivity
             args.putStringArray("categories", categories);
             args.putStringArray("names", names);
             args.putDoubleArray("sums", sums);
+            RecentActionsFragment recentActionsFragment = new RecentActionsFragment();
             recentActionsFragment.setArguments(args);
             fragmentTransaction.replace(R.id.container, recentActionsFragment);
         } else if (id == R.id.nav_statistics) {
