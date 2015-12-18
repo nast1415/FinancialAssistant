@@ -11,7 +11,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
 
     private static final String DATABASE_NAME = "finance.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     //------------------Create table category------------------
     private static final String CATEGORIES_TABLE = "categories";
