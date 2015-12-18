@@ -24,6 +24,7 @@
 
     <!-- Headers for fragments -->
     <string name="add_expense">Добавить трату</string>
+    <string name="edit_expense">Изменить трату</string>
     <string name="add_income">Добавить доход</string>
     <string name="add_regular_exp">Добавить регулярную трату</string>
     <string name="add_regular_inc">Добавить регулярный доход</string>
@@ -38,6 +39,8 @@
     <!-- Strings related to buttons -->
     <string name="add">Записать</string>
     <string name="show">Показать</string>
+    <string name="edit">Изменить</string>
+    <string name="delete">Удалить</string>
 
 
     <!-- Strings related to fragments' content -->
