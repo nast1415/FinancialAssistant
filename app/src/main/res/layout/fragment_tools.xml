@@ -18,7 +18,7 @@
         android:id="@+id/txt"
         android:layout_marginTop="100dp"
         android:layout_marginLeft="10dp"
-        android:layout_below="@+id/txtStatistics"
+        android:layout_below="@+id/txtTools"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="20sp"/>

@@ -1,6 +1,5 @@
 package ru.spbau.mit.starlab.financialassistant.fragments;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,10 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,13 +116,19 @@ public class RecentActionsFragment extends Fragment {
                 String pid = ((TextView) view.findViewById(R.id.pid)).getText()
                         .toString();
 
-                // Запускаем новый intent который покажет нам Activity
-                Intent in = new Intent(getActivity().getApplicationContext(), EditActionActivity.class);
-                // отправляем pid в следующий activity
-                in.putExtra("pid", pid);
+                if (((TextView) view.findViewById(R.id.category)).getText().toString().equals("Трата")) {
+                    // Запускаем новый intent который покажет нам Activity
+                    Intent in = new Intent(getActivity().getApplicationContext(), EditActionActivity.class);
+                    // отправляем pid в следующий activity
+                    in.putExtra("pid", pid);
 
-                // запуская новый Activity ожидаем ответ обратно
-                startActivityForResult(in, 100);
+                    // запуская новый Activity ожидаем ответ обратно
+                    startActivityForResult(in, 100);
+                } else {
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                            "функция в разработке", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
 
