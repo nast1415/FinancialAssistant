@@ -4,6 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
@@ -16,6 +19,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -32,11 +37,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.spbau.mit.starlab.financialassistant.fragments.ExpensesFragment;
+
 public class SignInActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+
+    ExpensesFragment expensesFragment;
 
     private UserLoginTask mAuthTask = null;
 
@@ -50,6 +59,8 @@ public class SignInActivity extends AppCompatActivity implements LoaderCallbacks
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        expensesFragment = new ExpensesFragment();
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -280,6 +291,12 @@ public class SignInActivity extends AppCompatActivity implements LoaderCallbacks
 
             if (success) {
                 finish();
+
+                //Fragment fragment1 = getFragmentManager().findFragmentById(R.id.nav_expenses);
+                //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                //fragmentTransaction.replace(R.id.container, expensesFragment);
+                //fragmentTransaction.commit();
+
                 Intent myIntent = new Intent(SignInActivity.this, MainActivity.class);
                 SignInActivity.this.startActivity(myIntent);
             } else {

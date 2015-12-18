@@ -17,7 +17,7 @@
     <string name="credits_fragment">Кредиты</string>
     <string name="statistics_fragment">Статистика</string>
     <string name="help_fragment">Справка</string>
-    <string name="tools_fragment">Настройки</string>
+    <string name="tools_fragment">Параметры</string>
     <string name="title_activity_login">Следить за финансами легко!</string>
 
 
@@ -28,7 +28,7 @@
     <string name="add_regular_inc">Добавить регулярный доход</string>
     <string name="add_wanted">Добавить желаемую покупку</string>
     <string name="add_credit">Добавить кредит</string>
-    <string name="tools">Настройки</string>
+    <string name="tools">Параметры</string>
     <string name="main_header">Рады вас видеть!</string>
     <string name="advices_header">Нет советов на сегодня</string>
     <string name="statistics_header">Статистика и прогнозы</string>

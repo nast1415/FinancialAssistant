@@ -45,6 +45,8 @@
         android:layout_marginTop="5dp"
         android:hint="@string/startDate"
         android:inputType="none"
+
+        android:text=""
         android:onClick="showDatePickerDialog" />
 
 
