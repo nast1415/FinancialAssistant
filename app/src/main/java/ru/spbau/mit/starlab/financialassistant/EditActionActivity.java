@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 public class EditActionActivity extends AppCompatActivity {
 
@@ -12,7 +14,11 @@ public class EditActionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_action);
     }
-
+    public void updateExpenses(View v) {
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Сожалеем, функция на стадии разработки", Toast.LENGTH_SHORT);
+        toast.show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

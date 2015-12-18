@@ -278,6 +278,43 @@ public class MainActivity extends AppCompatActivity
         return categoryId;
     }
 
+
+
+    /** public void updateExpense(View v) {
+        TextView categoryView = (TextView) findViewById(R.id.eTxtEditExpCategory);
+        String category = categoryView.getText().toString();
+
+        TextView dateView = (TextView) findViewById(R.id.eTxtEditExpDate);
+        String date = dateView.getText().toString();
+
+        TextView nameView = (TextView) findViewById(R.id.eTxtEditExpName);
+        String name = nameView.getText().toString();
+
+        TextView sumView = (TextView) findViewById(R.id.eTxtEditExpSum);
+        String sum = sumView.getText().toString();
+
+        TextView commentView = (TextView) findViewById(R.id.eTxtEditExpComment);
+        String comment = commentView.getText().toString();
+
+
+        String query = "UPDATE expenses SET" + DatabaseHelper.EXPENSE_CATEGORY_COLUMN + " = '"
+                + category + "', " + DatabaseHelper.EXPENSE_DATE_COLUMN + " = '" + date + "', "
+                + DatabaseHelper.EXPENSE_NAME_COLUMN + " = '" + name + "', " + DatabaseHelper.EXPENSE_SUM_COLUMN
+                + " = '" + sum + "', " + DatabaseHelper.EXPENSE_COMMENT_COLUMN + " = '" + comment
+                + "' WHERE " + DatabaseHelper._ID + " = '" + ;
+
+        Cursor cursor = mSqLiteDatabase.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            int idExp = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
+        }
+        cursor.close();
+
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Трата " + name + " успешно изменена", Toast.LENGTH_SHORT);
+        toast.show();
+    }*/
+
     public void addDataToLastActions(int id, String category, String name, String sum) {
         ContentValues newValues = new ContentValues();
 
@@ -580,6 +617,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer1.closeDrawer(GravityCompat.START);
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -660,7 +698,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.container, statisticsFragment);
         } else if (id == R.id.nav_tools) {
             fragmentTransaction.replace(R.id.container, toolsFragment);
-        }else if (id == R.id.nav_info) {
+        } else if (id == R.id.nav_info) {
             fragmentTransaction.replace(R.id.container, informationFragment);
         }
         fragmentTransaction.commit();
