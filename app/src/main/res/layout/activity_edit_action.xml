@@ -14,9 +14,9 @@
         android:layout_alignLeft="@+id/scrollView3"
         android:layout_alignStart="@+id/scrollView3"
         android:layout_below="@+id/scrollView3"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginTop="20dp"
-        android:onClick=""
+        android:onClick="updateExpenses"
         android:text="@string/edit" />
 
     <Button
@@ -25,8 +25,8 @@
         android:layout_alignEnd="@+id/scrollView3"
         android:layout_alignRight="@+id/scrollView3"
         android:layout_alignTop="@+id/btnEditExpense"
-        android:layout_marginBottom="10dp"
-        android:onClick=""
+        android:layout_marginBottom="40dp"
+        android:onClick="updateExpenses"
         android:text="@string/delete" />
 
     <TextView
@@ -73,7 +73,7 @@
 
 
     <EditText
-        android:id="@+id/eTxtExpCategory"
+        android:id="@+id/eTxtEditExpCategory"
         style="@style/TextBoxesStyle"
         android:layout_alignLeft="@+id/txtCategory"
         android:layout_alignStart="@+id/txtCategory"
@@ -85,7 +85,7 @@
         android:text="Обеды" />
 
     <TextView
-        android:id="@+id/eTxtExpDate"
+        android:id="@+id/eTxtEditExpDate"
         style="@style/TextBoxesStyle"
         android:layout_alignLeft="@+id/txtCategory"
         android:layout_alignStart="@+id/txtCategory"
@@ -98,7 +98,7 @@
 
 
     <EditText
-        android:id="@+id/eTxtExpName"
+        android:id="@+id/eTxtEditExpName"
         style="@style/TextBoxesStyle"
         android:layout_alignLeft="@+id/txtCategory"
         android:layout_alignStart="@+id/txtCategory"
@@ -111,7 +111,7 @@
 
 
     <EditText
-        android:id="@+id/eTxtExpSum"
+        android:id="@+id/eTxtEditExpSum"
         style="@style/TextBoxesStyle"
         android:layout_alignLeft="@+id/txtCategory"
         android:layout_alignStart="@+id/txtCategory"
@@ -144,7 +144,7 @@
 
 
         <EditText
-            android:id="@+id/eTxtExpComment"
+            android:id="@+id/eTxtEditExpComment"
             style="@style/CommentBoxStyle"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"

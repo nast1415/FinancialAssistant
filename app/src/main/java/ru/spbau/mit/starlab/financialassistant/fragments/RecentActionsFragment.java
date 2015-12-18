@@ -126,7 +126,7 @@ public class RecentActionsFragment extends Fragment {
                     startActivityForResult(in, 100);
                 } else {
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-                            "функция в разработке", Toast.LENGTH_SHORT);
+                            "Сожалеем, функция пока в разработке", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
