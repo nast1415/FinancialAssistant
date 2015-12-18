@@ -9,15 +9,9 @@
 
     <TextView
         android:id="@+id/txtRecentActions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="Последние действия"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="24sp" />
-
+        style="@style/FragmentHeader"
+        android:text="Последние действия" />
+    
     <ListView
         android:id="@+id/listView1"
         android:layout_width="wrap_content"

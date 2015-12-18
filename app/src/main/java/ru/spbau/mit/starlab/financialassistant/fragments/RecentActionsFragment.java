@@ -167,11 +167,6 @@ public class RecentActionsFragment extends Fragment {
                 list.add(temp);
             }
 
-            HashMap<String, String> temp1 = new HashMap<>();
-            temp1.put(FIRST_COLUMN, "Расход");
-            temp1.put(SECOND_COLUMN, "Кот");
-            temp1.put(THIRD_COLUMN, "100500");
-            list.add(temp1);
             return null;
         }
 
