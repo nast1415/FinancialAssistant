@@ -2,6 +2,7 @@ package ru.spbau.mit.starlab.financialassistant;
 
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -47,10 +48,14 @@ public class MainActivity extends AppCompatActivity
     private CreditsFragment creditsFragment;
     private ExpensesFragment expensesFragment;
     private IncomesFragment incomesFragment;
+    private RegularExpensesFragment regularExpensesFragment;
+    private RegularIncomesFragment regularIncomesFragment;
     private RecentActionsFragment recentActionsFragment;
     private StatisticsFragment statisticsFragment;
     private ToolsFragment toolsFragment;
     private InformationFragment informationFragment;
+
+    static private int flag = 0;
 
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new ru.spbau.mit.starlab.financialassistant.fragments.DatePicker();
@@ -190,6 +195,8 @@ public class MainActivity extends AppCompatActivity
         creditsFragment = new CreditsFragment();
         expensesFragment = new ExpensesFragment();
         incomesFragment = new IncomesFragment();
+        regularIncomesFragment = new RegularIncomesFragment();
+        regularExpensesFragment = new RegularExpensesFragment();
         recentActionsFragment = new RecentActionsFragment();
         statisticsFragment = new StatisticsFragment();
         toolsFragment = new ToolsFragment();
@@ -428,6 +435,73 @@ public class MainActivity extends AppCompatActivity
         mSqLiteDatabase.insert("reg_expenses", null, newValues);
         Log.i("LOG_TAG", "New regular expense added");
 
+        String query = "SELECT " + DatabaseHelper._ID + " FROM reg_expenses";
+        Cursor cursor = mSqLiteDatabase.rawQuery(query, null);
+
+        int idRegExp = 0;
+        while (cursor.moveToNext()) {
+            idRegExp = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
+        }
+        cursor.close();
+
+        String categoryRegExp = "Регулярная трата";
+        addDataToLastActions(idRegExp, categoryRegExp, regExpenseName, regExpenseSum);
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Регулярная трата " + regExpenseName + " успешно добавлена", Toast.LENGTH_SHORT);
+        toast.show();
+
+    }
+
+    public void addNewCredit(View v) {
+
+        ContentValues newValues = new ContentValues();
+
+        TextView name = (TextView) findViewById(R.id.eTxtCreditName);
+        String creditName = name.getText().toString();
+        newValues.put(DatabaseHelper.CREDIT_NAME_COLUMN, creditName);
+
+        TextView deposit = (TextView) findViewById(R.id.eTxtCreditDeposit);
+        String creditDeposit = deposit.getText().toString();
+        newValues.put(DatabaseHelper.CREDIT_INIT_PAYMENT_COLUMN, creditDeposit);
+
+        TextView percent = (TextView) findViewById(R.id.eTxtCreditPercent);
+        String creditPercent = percent.getText().toString();
+        newValues.put(DatabaseHelper.CREDIT_PERCENT_COLUMN, creditPercent);
+
+        TextView sum = (TextView) findViewById(R.id.eTxtCreditSum);
+        String creditSum = sum.getText().toString();
+        newValues.put(DatabaseHelper.CREDIT_SUM_COLUMN, creditSum);
+
+        TextView startPeriod = (TextView) findViewById(R.id.eTxtCreditStartPeriod);
+        String creditStartPeriod = startPeriod.getText().toString();
+        newValues.put(DatabaseHelper.CREDIT_START_PERIOD_COLUMN, creditStartPeriod);
+
+        TextView endPeriod = (TextView) findViewById(R.id.eTxtCreditEndPeriod);
+        String creditEndPeriod = endPeriod.getText().toString();
+        newValues.put(DatabaseHelper.CREDIT_END_PERIOD_COLUMN, creditEndPeriod);
+
+        Date curDate = new Date();
+        String creditAddTime = curDate.toString();
+        newValues.put(DatabaseHelper.CREDIT_ADD_TIME_COLUMN, creditAddTime);
+
+        mSqLiteDatabase.insert("credits", null, newValues);
+        Log.i("LOG_TAG", "New credit added");
+
+        String query = "SELECT " + DatabaseHelper._ID + " FROM credits";
+        Cursor cursor = mSqLiteDatabase.rawQuery(query, null);
+
+        int idCredit = 0;
+        while (cursor.moveToNext()) {
+            idCredit = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
+        }
+        cursor.close();
+
+        String categoryCredit = "Кредит";
+        addDataToLastActions(idCredit, categoryCredit, creditName, creditSum);
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Кредит " + creditName + " успешно добавлен", Toast.LENGTH_SHORT);
+        toast.show();
+
     }
 
     public void addNewRegIncome(View v) {
@@ -462,8 +536,22 @@ public class MainActivity extends AppCompatActivity
         mSqLiteDatabase.insert("reg_incomes", null, newValues);
         Log.i("LOG_TAG", "New regular income added");
 
-    }
+        String query = "SELECT " + DatabaseHelper._ID + " FROM reg_incomes";
+        Cursor cursor = mSqLiteDatabase.rawQuery(query, null);
 
+        int idRegInc = 0;
+        while (cursor.moveToNext()) {
+            idRegInc = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
+        }
+        cursor.close();
+
+        String categoryRegInc = "Регулярный доход";
+        addDataToLastActions(idRegInc, categoryRegInc, regIncName, regIncSum);
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Регулярный доход " + regIncName + " успешно добавлен", Toast.LENGTH_SHORT);
+        toast.show();
+
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -511,6 +599,10 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.container, expensesFragment);
         } else if (id == R.id.nav_incomes) {
             fragmentTransaction.replace(R.id.container, incomesFragment);
+        } else if (id == R.id.nav_reg_expenses) {
+            fragmentTransaction.replace(R.id.container, regularExpensesFragment);
+        } else if (id == R.id.nav_reg_incomes) {
+            fragmentTransaction.replace(R.id.container, regularIncomesFragment);
         } else if (id == R.id.nav_recent_actions) {
             Bundle args = new Bundle();
             List<String> categoryList = new ArrayList<>();
