@@ -509,6 +509,24 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_incomes) {
             fragmentTransaction.replace(R.id.container, incomesFragment);
         } else if (id == R.id.nav_recent_actions) {
+            Bundle args = new Bundle();
+            List<String> categoryList = new ArrayList<>();
+            ArrayList<String> nameList = new ArrayList<>();
+            List<Double> sumList = new ArrayList<>();
+
+            getLastActions(categoryList, nameList, sumList);
+            String[] categories = new String[sumList.size()];
+            String[] names = new String[sumList.size()];
+            double[] sums = new double[sumList.size()];
+            for (int i = 0; i < sumList.size(); i++) {
+                categories[i] = categoryList.get(i);
+                names[i] = nameList.get(i);
+                sums[i] = sumList.get(i);
+            }
+            args.putStringArray("categories", categories);
+            args.putStringArray("names", names);
+            args.putDoubleArray("sums", sums);
+            recentActionsFragment.setArguments(args);
             fragmentTransaction.replace(R.id.container, recentActionsFragment);
         } else if (id == R.id.nav_statistics) {
             fragmentTransaction.replace(R.id.container, statisticsFragment);
