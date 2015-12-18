@@ -348,6 +348,13 @@ public class MainActivity extends AppCompatActivity
                 "Трата " + expenseName + " успешно добавлена", Toast.LENGTH_SHORT);
         toast.show();
 
+
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, informationFragment);
+        fragmentTransaction.commit();
+
+        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer1.closeDrawer(GravityCompat.START);
     }
 
     public void addNewIncome(View v) {
@@ -391,6 +398,12 @@ public class MainActivity extends AppCompatActivity
                 "Доход " + incomeName + " успешно добавлен", Toast.LENGTH_SHORT);
         toast.show();
 
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, informationFragment);
+        fragmentTransaction.commit();
+
+        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer1.closeDrawer(GravityCompat.START);
     }
 
     public void addNewRegExpense(View v) {
@@ -450,6 +463,12 @@ public class MainActivity extends AppCompatActivity
                 "Регулярная трата " + regExpenseName + " успешно добавлена", Toast.LENGTH_SHORT);
         toast.show();
 
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, informationFragment);
+        fragmentTransaction.commit();
+
+        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer1.closeDrawer(GravityCompat.START);
     }
 
     public void addNewCredit(View v) {
@@ -502,6 +521,12 @@ public class MainActivity extends AppCompatActivity
                 "Кредит " + creditName + " успешно добавлен", Toast.LENGTH_SHORT);
         toast.show();
 
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, informationFragment);
+        fragmentTransaction.commit();
+
+        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer1.closeDrawer(GravityCompat.START);
     }
 
     public void addNewRegIncome(View v) {
@@ -551,6 +576,12 @@ public class MainActivity extends AppCompatActivity
                 "Регулярный доход " + regIncName + " успешно добавлен", Toast.LENGTH_SHORT);
         toast.show();
 
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, informationFragment);
+        fragmentTransaction.commit();
+
+        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer1.closeDrawer(GravityCompat.START);
     }
     @Override
     public void onBackPressed() {
@@ -558,7 +589,11 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.container, informationFragment);
+            fragmentTransaction.commit();
+
+            drawer.closeDrawer(GravityCompat.START);
         }
     }
 
