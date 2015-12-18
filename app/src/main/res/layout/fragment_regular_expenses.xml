@@ -39,7 +39,7 @@
     <TextView
         android:id="@+id/txtRegExpCategory"
         style="@style/UsualTextStyle"
-        android:layout_alignLeft="@id/txtPeriod"
+        android:layout_alignLeft="@id/txtRegExpPeriod"
         android:layout_alignStart="@+id/txtRegExpPeriod"
         android:layout_below="@+id/txtRegExpPeriod"
         android:layout_marginTop="105dp"

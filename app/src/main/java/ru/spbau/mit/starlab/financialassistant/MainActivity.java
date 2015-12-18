@@ -93,6 +93,33 @@ public class MainActivity extends AppCompatActivity
         fragment.show(getFragmentManager(), "showStatistics");
     }
 
+    public void getLastActions(List<String> categoryList, List<String> nameList, List<Double> sumList) {
+        String query = "SELECT " + DatabaseHelper._ID + ", "
+                + DatabaseHelper.LAST_ACTIONS_CATEGORY_COLUMN + ", "
+                + DatabaseHelper.LAST_ACTIONS_NAME_COLUMN + ", "
+                + DatabaseHelper.LAST_ACTIONS_SUM_COLUMN + " FROM last_actions";
+        Cursor cursor = mSqLiteDatabase.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor
+                    .getColumnIndex(DatabaseHelper._ID));
+            String category = cursor.getString(cursor
+                    .getColumnIndex(DatabaseHelper.LAST_ACTIONS_CATEGORY_COLUMN));
+            String name = cursor.getString(cursor
+                    .getColumnIndex(DatabaseHelper.LAST_ACTIONS_NAME_COLUMN));
+            Double sum = cursor.getDouble(cursor
+                    .getColumnIndex(DatabaseHelper.LAST_ACTIONS_SUM_COLUMN));
+
+            categoryList.add(category);
+            nameList.add(name);
+            sumList.add(sum);
+
+            Log.i("LOG_TAG", "New last_action added: category: " + category + " name: " + name
+                    + " sum: " + sum);
+        }
+        cursor.close();
+    }
+
     public void getDataForStatistics(List<String> dateList, List<String> categoryNameList, List<Double> sumList) {
         List<Integer> categoryIdList = new ArrayList<>();
         String query = "SELECT " + DatabaseHelper._ID + ", "
@@ -148,6 +175,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /**final Calendar c = Calendar.getInstance();
+         int year = c.get(Calendar.YEAR);
+         int month = c.get(Calendar.MONTH) + 1;
+         int day = c.get(Calendar.DAY_OF_MONTH);*/
+
         mDatabaseHelper = new DatabaseHelper(this, "finance.db", null, 5);
         mSqLiteDatabase = mDatabaseHelper.getWritableDatabase();
 
@@ -167,7 +199,6 @@ public class MainActivity extends AppCompatActivity
         recentActionsFragment = new RecentActionsFragment();
         statisticsFragment = new StatisticsFragment();
         toolsFragment = new ToolsFragment();
-
     }
 
     public void onClick(View v) {
@@ -239,7 +270,7 @@ public class MainActivity extends AppCompatActivity
         return categoryId;
     }
 
-    public void addDataToLastActions(int id, String category, String name, String sum){
+    public void addDataToLastActions(int id, String category, String name, String sum) {
         ContentValues newValues = new ContentValues();
 
         newValues.put(DatabaseHelper.LAST_ACTIONS_ID_COLUMN, id);
@@ -351,6 +382,8 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    // Methods addNewRegExpense and addNewRegIncome for future
+
     public void addNewRegExpense(View v) {
 
         ContentValues newValues = new ContentValues();
@@ -426,6 +459,58 @@ public class MainActivity extends AppCompatActivity
 
         mSqLiteDatabase.insert("reg_incomes", null, newValues);
         Log.i("LOG_TAG", "New regular income added");
+
+    }
+
+    public void addNewCredit(View v) {
+
+        ContentValues newValues = new ContentValues();
+
+        TextView name = (TextView) findViewById(R.id.eTxtCreditName);
+        String creditName = name.getText().toString();
+        newValues.put(DatabaseHelper.CREDIT_NAME_COLUMN, creditName);
+
+        TextView initPayment = (TextView) findViewById(R.id.eTxtCreditDeposit);
+        String creditInitPayment = initPayment.getText().toString();
+        newValues.put(DatabaseHelper.CREDIT_INIT_PAYMENT_COLUMN, creditInitPayment);
+
+        TextView percent = (TextView) findViewById(R.id.eTxtCreditPercent);
+        String creditPercent = percent.getText().toString();
+        newValues.put(DatabaseHelper.CREDIT_PERCENT_COLUMN, creditPercent);
+
+        TextView sum = (TextView) findViewById(R.id.eTxtCreditSum);
+        String creditSum = sum.getText().toString();
+        newValues.put(DatabaseHelper.CREDIT_SUM_COLUMN, creditSum);
+
+        TextView startPeriod = (TextView) findViewById(R.id.eTxtCreditStartPeriod);
+        String creditStartPeriod = startPeriod.getText().toString();
+        newValues.put(DatabaseHelper.CREDIT_START_PERIOD_COLUMN, creditStartPeriod);
+
+        TextView endPeriod = (TextView) findViewById(R.id.eTxtCreditEndPeriod);
+        String creditEndPeriod = endPeriod.getText().toString();
+        newValues.put(DatabaseHelper.CREDIT_END_PERIOD_COLUMN, creditEndPeriod);
+
+        Date curDate = new Date();
+        String creditAddTime = curDate.toString();
+        newValues.put(DatabaseHelper.CREDIT_ADD_TIME_COLUMN, creditAddTime);
+
+        mSqLiteDatabase.insert("credits", null, newValues);
+        Log.i("LOG_TAG", "New credit added");
+
+        String query = "SELECT " + DatabaseHelper._ID + " FROM credits";
+        Cursor cursor = mSqLiteDatabase.rawQuery(query, null);
+
+        int idCredit = 0;
+        while (cursor.moveToNext()) {
+            idCredit = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
+        }
+        cursor.close();
+
+        String categoryCred = "Кредит";
+        addDataToLastActions(idCredit, categoryCred, creditName, creditSum);
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Кредит " + creditName + " успешно добавлен", Toast.LENGTH_SHORT);
+        toast.show();
 
     }
 
