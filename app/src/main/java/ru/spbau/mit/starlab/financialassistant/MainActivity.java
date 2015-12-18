@@ -1,7 +1,5 @@
 package ru.spbau.mit.starlab.financialassistant;
 
-import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -25,7 +23,6 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -119,7 +116,7 @@ public class MainActivity extends AppCompatActivity
         }
         cursor.close();
     }
-    
+
     public void getDataForStatistics(List<String> dateList, List<String> categoryNameList, List<Double> sumList) {
         List<Integer> categoryIdList = new ArrayList<>();
         String query = "SELECT " + DatabaseHelper._ID + ", "
@@ -175,7 +172,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mDatabaseHelper = new DatabaseHelper(this, "finance.db", null, 5);
+        mDatabaseHelper = new DatabaseHelper(this, "finance.db", null, 6);
         mSqLiteDatabase = mDatabaseHelper.getWritableDatabase();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -194,6 +191,14 @@ public class MainActivity extends AppCompatActivity
         recentActionsFragment = new RecentActionsFragment();
         statisticsFragment = new StatisticsFragment();
         toolsFragment = new ToolsFragment();
+
+
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, toolsFragment);
+        fragmentTransaction.commit();
+
+        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer1.closeDrawer(GravityCompat.START);
 
     }
 
@@ -266,7 +271,7 @@ public class MainActivity extends AppCompatActivity
         return categoryId;
     }
 
-    public void addDataToLastActions(int id, String category, String name, String sum){
+    public void addDataToLastActions(int id, String category, String name, String sum) {
         ContentValues newValues = new ContentValues();
 
         newValues.put(DatabaseHelper.LAST_ACTIONS_ID_COLUMN, id);
