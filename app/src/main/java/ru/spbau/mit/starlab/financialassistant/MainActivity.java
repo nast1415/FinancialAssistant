@@ -168,6 +168,14 @@ public class MainActivity extends AppCompatActivity
         statisticsFragment = new StatisticsFragment();
         toolsFragment = new ToolsFragment();
 
+
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, toolsFragment);
+        fragmentTransaction.commit();
+
+        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer1.closeDrawer(GravityCompat.START);
+
     }
 
     public void onClick(View v) {
