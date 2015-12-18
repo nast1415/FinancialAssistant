@@ -292,12 +292,7 @@ public class SignInActivity extends AppCompatActivity implements LoaderCallbacks
             if (success) {
                 finish();
 
-                //Fragment fragment1 = getFragmentManager().findFragmentById(R.id.nav_expenses);
-                //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                //fragmentTransaction.replace(R.id.container, expensesFragment);
-                //fragmentTransaction.commit();
-
-                Intent myIntent = new Intent(SignInActivity.this, MainActivity.class);
+               Intent myIntent = new Intent(SignInActivity.this, MainActivity.class);
                 SignInActivity.this.startActivity(myIntent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

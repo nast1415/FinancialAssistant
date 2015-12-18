@@ -30,6 +30,7 @@ import ru.spbau.mit.starlab.financialassistant.fragments.CreditsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.ExpensesFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.HelpFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.IncomesFragment;
+import ru.spbau.mit.starlab.financialassistant.fragments.InformationFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.RecentActionsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.RegularExpensesFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.RegularIncomesFragment;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity
     private RecentActionsFragment recentActionsFragment;
     private StatisticsFragment statisticsFragment;
     private ToolsFragment toolsFragment;
+    private InformationFragment informationFragment;
 
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new ru.spbau.mit.starlab.financialassistant.fragments.DatePicker();
@@ -191,10 +193,11 @@ public class MainActivity extends AppCompatActivity
         recentActionsFragment = new RecentActionsFragment();
         statisticsFragment = new StatisticsFragment();
         toolsFragment = new ToolsFragment();
+        informationFragment = new InformationFragment();
 
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, toolsFragment);
+        fragmentTransaction.replace(R.id.container, informationFragment);
         fragmentTransaction.commit();
 
         DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -532,6 +535,8 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.container, statisticsFragment);
         } else if (id == R.id.nav_tools) {
             fragmentTransaction.replace(R.id.container, toolsFragment);
+        }else if (id == R.id.nav_info) {
+            fragmentTransaction.replace(R.id.container, informationFragment);
         }
         fragmentTransaction.commit();
 

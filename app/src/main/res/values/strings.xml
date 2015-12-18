@@ -14,6 +14,7 @@
     <string name="regular_incomes_fragment">Регулярные доходы</string>
     <string name="wanted_expenses_fragment">Желаемые покупки</string>
     <string name="recent_actions_fragment">Последние действия</string>
+    <string name="info_fragment">Информация</string>
     <string name="credits_fragment">Кредиты</string>
     <string name="statistics_fragment">Статистика</string>
     <string name="help_fragment">Справка</string>
