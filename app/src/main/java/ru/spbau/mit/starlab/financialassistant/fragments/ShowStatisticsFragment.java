@@ -217,17 +217,8 @@ public class ShowStatisticsFragment extends DialogFragment {
             }
             */
 
-            for (int i = 0; i < 5; i++) {
-                values2.add(new Entry(extrapolate(categories1.get(i)), i));
-            }
-            xVals2.add("еда");
-            xVals2.add("кот");
-            xVals2.add("железо");
-            xVals2.add("транспорт");
-            xVals2.add("что-то еще");
-
             updateLineChart(chart, values, xVals, "прогноз расходов по месяцам");
-            updatePieChart(pieChart, values2, xVals2, "");
+            pieChart.setNoDataText("диаграмма на стадии разработки");
         }
 
         // Inflate the layout for this fragment
