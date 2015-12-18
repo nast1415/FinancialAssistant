@@ -154,11 +154,18 @@ public class RecentActionsFragment extends Fragment {
         protected String doInBackground(String... args) {
             // Будет хранить параметры
 
-            HashMap<String, String> temp = new HashMap<>();
-            temp.put(FIRST_COLUMN, "Расход");
-            temp.put(SECOND_COLUMN, "Железо");
-            temp.put(THIRD_COLUMN, "100");
-            list.add(temp);
+            Bundle arguments = getArguments();
+            String[] categories = arguments.getStringArray("categories");
+            String[] names = arguments.getStringArray("names");
+            double[] sums = arguments.getDoubleArray("sums");
+
+            for (int i = 0; i < categories.length; i++) {
+                HashMap<String, String> temp = new HashMap<>();
+                temp.put(FIRST_COLUMN, categories[i]);
+                temp.put(SECOND_COLUMN, names[i]);
+                temp.put(THIRD_COLUMN, String.valueOf(sums[i]));
+                list.add(temp);
+            }
 
             HashMap<String, String> temp1 = new HashMap<>();
             temp1.put(FIRST_COLUMN, "Расход");
