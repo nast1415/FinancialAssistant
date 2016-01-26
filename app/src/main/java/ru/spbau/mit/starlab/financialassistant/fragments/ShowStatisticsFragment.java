@@ -144,6 +144,7 @@ public class ShowStatisticsFragment extends DialogFragment {
                 }
             }
 
+            // Calculate data for LineChart
             if (duration < 90) {    // Show statistics per day
                 lineChartName = "расходы по дням";
                 Calendar curCal = Calendar.getInstance();
@@ -220,7 +221,7 @@ public class ShowStatisticsFragment extends DialogFragment {
         return ll;
     }
 
-    private Calendar findMinDate(String[] dates) {
+    Calendar findMinDate(String[] dates) {
         Calendar res = Calendar.getInstance();
         for (String date : dates) {
             Calendar calDate = Calendar.getInstance();
@@ -236,11 +237,11 @@ public class ShowStatisticsFragment extends DialogFragment {
         return res;
     }
 
-    private int getSumOnDay(Calendar cal, String[] dates, double[] sums) {
+    int getSumOnDay(Calendar cal, String[] dates, double[] sums) {
         return getSumOnPeriod(cal, cal, dates, sums);
     }
 
-    private int getSumOnMonth(Calendar cal, String[] dates, double[] sums) {
+    int getSumOnMonth(Calendar cal, String[] dates, double[] sums) {
         Calendar endPeriodCal = Calendar.getInstance();
         endPeriodCal.setTime(cal.getTime());
         endPeriodCal.add(Calendar.MONTH, 1);
@@ -248,7 +249,7 @@ public class ShowStatisticsFragment extends DialogFragment {
         return getSumOnPeriod(cal, endPeriodCal, dates, sums);
     }
 
-    private int getSumOnPeriod(Calendar beginCal, Calendar endCal, String[] dates, double[] sums) {
+    int getSumOnPeriod(Calendar beginCal, Calendar endCal, String[] dates, double[] sums) {
         int res = 0;
         for (int i = 0; i < dates.length; i++) {
             Calendar curCal = Calendar.getInstance();
@@ -264,7 +265,7 @@ public class ShowStatisticsFragment extends DialogFragment {
         return res;
     }
 
-    private int getSumCategoryOnMonth(Calendar cal, String category, String[] categories, String[] dates, double[] sums) {
+    int getSumCategoryOnMonth(Calendar cal, String category, String[] categories, String[] dates, double[] sums) {
         Calendar endPeriodCal = Calendar.getInstance();
         endPeriodCal.setTime(cal.getTime());
         endPeriodCal.add(Calendar.MONTH, 1);
@@ -272,7 +273,7 @@ public class ShowStatisticsFragment extends DialogFragment {
         return getSumCategoryOnPeriod(cal, endPeriodCal, category, categories, dates, sums);
     }
 
-    private int getSumCategoryOnPeriod(Calendar beginCal, Calendar endCal, String category, String[] categories, String[] dates, double[] sums) {
+    int getSumCategoryOnPeriod(Calendar beginCal, Calendar endCal, String category, String[] categories, String[] dates, double[] sums) {
         int res = 0;
         for (int i = 0; i < dates.length; i++) {
             if (categories[i].equals(category)) {
@@ -316,7 +317,7 @@ public class ShowStatisticsFragment extends DialogFragment {
         chart.invalidate();
     }
 
-    private int extrapolate(List<Double> list) {
+    int extrapolate(List<Double> list) {
         int x = list.size();
         double res;
 
@@ -370,12 +371,12 @@ public class ShowStatisticsFragment extends DialogFragment {
         return (int) res;
     }
 
-    private String getMonthName(int x) {
+    String getMonthName(int x) {
         String[] months = {"янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"};
         return months[x % 12];
     }
 
-    private String getDayName(Calendar calendar) {
+    String getDayName(Calendar calendar) {
         return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + getMonthName(calendar.get(Calendar.MONTH));
     }
 
