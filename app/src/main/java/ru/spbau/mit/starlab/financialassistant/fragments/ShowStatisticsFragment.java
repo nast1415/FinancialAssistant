@@ -107,6 +107,7 @@ public class ShowStatisticsFragment extends DialogFragment {
         Set<String> categories = new HashSet<>();
         Collections.addAll(categories, categoryNameList);
 
+
         if (args.getBoolean("isStatistics")) {
             getDialog().setTitle("Статистика");
 
@@ -118,7 +119,6 @@ public class ShowStatisticsFragment extends DialogFragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            beginCal.add(Calendar.MONTH, -1);
 
             String end = args.getString("dateEnd");
             Calendar endCal = Calendar.getInstance();
@@ -127,42 +127,39 @@ public class ShowStatisticsFragment extends DialogFragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            endCal.add(Calendar.MONTH, -1);
 
             int duration = endCal.get(Calendar.YEAR) * 12 * 30 + endCal.get(Calendar.MONTH) * 30 + endCal.get(Calendar.DATE) -
-                    (beginCal.get(Calendar.YEAR) * 12 * 30 + beginCal.get(Calendar.MONTH) * 30 + beginCal.get(Calendar.DATE));
+                    (beginCal.get(Calendar.YEAR) * 12 * 30 + beginCal.get(Calendar.MONTH) * 30 + beginCal.get(Calendar.DATE)) + 1;
+
+
+            int categoriesCount = 0;
+            for (String category : categories) {
+                int sum = getSumCategoryOnPeriod(beginCal, endCal, category, categoryNameList, dateList, sumList);
+                if (sum > 0) {
+                    values2.add(new Entry(sum, categoriesCount++));
+                    xVals2.add(category);
+                }
+            }
 
             if (duration < 90) {
-                for (int i = 0; i < duration + 1; i++) {
-                    values.add(new Entry(getSumOnDay(beginCal, i, dateList, sumList), i));
-                    xVals.add(i, String.valueOf(getDaysAfter(beginCal, i)));
-                }
-
-                int i = 0;
-                for (String category : categories) {
-                    values2.add(new Entry(getSumCategoryOnPeriod(beginCal, endCal, category, categoryNameList, dateList, sumList), i++));
-                    xVals2.add(category);
+                Calendar curCal = Calendar.getInstance();
+                curCal.setTime(beginCal.getTime());
+                for (int i = 0; !endCal.before(curCal); i++) {
+                    values.add(new Entry(getSumOnDay(curCal, 0, dateList, sumList), i));
+                    xVals.add(i, String.valueOf(getDayName(curCal)));
+                    curCal.add(Calendar.DATE, 1);
                 }
 
                 updateLineChart(chart, values, xVals, "расходы по дням");
                 updatePieChart(pieChart, values2, xVals2, "");
             } else {
-                Calendar newBeginCal = Calendar.getInstance();
-                newBeginCal.setTime(beginCal.getTime());
-                newBeginCal.set(Calendar.DATE, 1);
-                for (int i = 0; i < endCal.get(Calendar.MONTH) - beginCal.get(Calendar.MONTH) +
-                        (endCal.get(Calendar.YEAR) - beginCal.get(Calendar.YEAR)) * 12 + 1; i++) {
-                    values.add(new Entry(getSumOnMonth(newBeginCal, i, dateList, sumList), i));
-                    xVals.add(i, String.valueOf(getMonth(newBeginCal.get(Calendar.MONTH) + i + 1)));
-                }
-
-                int i = 0;
-                for (String category : categories) {
-                    int sum = getSumCategoryOnPeriod(beginCal, endCal, category, categoryNameList, dateList, sumList);
-                    if (sum > 0) {
-                        values2.add(new Entry(sum, i++));
-                        xVals2.add(category);
-                    }
+                Calendar curCal = Calendar.getInstance();
+                curCal.setTime(beginCal.getTime());
+                curCal.set(Calendar.DATE, 1);
+                for (int i = 0; !endCal.before(curCal); i++) {
+                    values.add(new Entry(getSumOnMonth(curCal, dateList, sumList), i));
+                    xVals.add(i, String.valueOf(getMonthName(curCal.get(Calendar.MONTH))));
+                    curCal.add(Calendar.MONTH, 1);
                 }
 
                 updateLineChart(chart, values, xVals, "расходы по месяцам");
@@ -179,15 +176,15 @@ public class ShowStatisticsFragment extends DialogFragment {
             curCal.set(Calendar.DATE, 1);
 
             Calendar todayCal = Calendar.getInstance();
-            while (curCal.before(todayCal)) {
-                prevExpenses.add(Math.max(1.0, getSumOnMonth(curCal, 0, dateList, sumList)));
-                //System.err.println(Math.max(1.0, getSumOnMonth(curCal, 0, dateList, sumList)));
+            todayCal.set(Calendar.DATE, 1);
+
+            while (!todayCal.before(curCal)) {
+                prevExpenses.add(Math.max(1.0, getSumOnMonth(curCal, dateList, sumList)));
                 curCal.add(Calendar.MONTH, 1);
-                //System.err.println(curCal.get(Calendar.DATE) + " " + curCal.get(Calendar.MONTH) + " " + curCal.get(Calendar.YEAR));
             }
-            //System.err.println("AAAAAAAAAAAAAAA");
 
             /*
+             It will be test
             for (int i = 0; i < 50; i++) {
                 if (i % 2 == 0) {
                     prevExpenses.add((double) i * i);
@@ -195,7 +192,6 @@ public class ShowStatisticsFragment extends DialogFragment {
                     prevExpenses.add((double) Math.max(10, 1000 - i * i));
                 }
             }
-*/
 
             List<List<Double>> categories1 = new ArrayList<>();
             for (int i = 0; i < 5; i++) {
@@ -205,17 +201,13 @@ public class ShowStatisticsFragment extends DialogFragment {
                 }
                 categories1.add(list);
             }
+*/
 
             for (int i = 0; i < 12; i++) {
                 values.add(new Entry(extrapolate(prevExpenses), i));
-                xVals.add(i, getMonth(curCal.get(Calendar.MONTH) + i));
+                xVals.add(i, getMonthName(curCal.get(Calendar.MONTH) + i));
             }
 
-            /*
-            for (int i = 0; i < prevExpenses.size(); i++) {
-                System.err.println(prevExpenses.get(i));
-            }
-            */
 
             updateLineChart(chart, values, xVals, "прогноз расходов по месяцам");
             pieChart.setNoDataText("диаграмма на стадии разработки");
@@ -232,7 +224,6 @@ public class ShowStatisticsFragment extends DialogFragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        res.add(Calendar.MONTH, -1);
         for (int i = 1; i < dates.length; i++) {
             Calendar calDate = Calendar.getInstance();
             try {
@@ -240,7 +231,6 @@ public class ShowStatisticsFragment extends DialogFragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            calDate.add(Calendar.MONTH, -1);
             if (calDate.before(res)) {
                 res = calDate;
             }
@@ -260,7 +250,6 @@ public class ShowStatisticsFragment extends DialogFragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            calDate.add(Calendar.MONTH, -1);
             if (calDate.equals(cal1)) {
                 res += sums[i];
             }
@@ -274,18 +263,12 @@ public class ShowStatisticsFragment extends DialogFragment {
 
         for (int i = 0; i < dates.length; i++) {
             if (categories[i].equals(category)) {
-                System.err.println("WTF!!!");
-                System.err.println(dates[i]);
                 Calendar cal1 = Calendar.getInstance();
                 try {
                     cal1.setTime(sdf.parse(dates[i]));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                cal1.add(Calendar.MONTH, -1);
-
-                System.err.println(beginCal.before(cal1));
-                System.err.println(cal1.before(endCal));
 
                 if (beginCal.getTimeInMillis() <= cal1.getTimeInMillis() && cal1.getTimeInMillis() <= endCal.getTimeInMillis()) {
                     res += sums[i];
@@ -295,14 +278,13 @@ public class ShowStatisticsFragment extends DialogFragment {
         return res;
     }
 
-    int getSumOnMonth(Calendar beginCal, int x, String[] dates, double[] sums) {
+    int getSumOnMonth(Calendar calendar, String[] dates, double[] sums) {
         int res = 0;
         Calendar startPeriodCal = Calendar.getInstance();
-        startPeriodCal.setTime(beginCal.getTime());
-        startPeriodCal.add(Calendar.MONTH, x);
+        startPeriodCal.setTime(calendar.getTime());
         Calendar endPeriodCal = Calendar.getInstance();
-        endPeriodCal.setTime(beginCal.getTime());
-        endPeriodCal.add(Calendar.MONTH, x + 1);
+        endPeriodCal.setTime(calendar.getTime());
+        endPeriodCal.add(Calendar.MONTH, 1);
 
         for (int i = 0; i < dates.length; i++) {
             Calendar cal1 = Calendar.getInstance();
@@ -311,7 +293,6 @@ public class ShowStatisticsFragment extends DialogFragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            cal1.add(Calendar.MONTH, -1);
 
             if (startPeriodCal.getTimeInMillis() <= cal1.getTimeInMillis() && cal1.getTimeInMillis() < endPeriodCal.getTimeInMillis()) {
                 res += sums[i];
@@ -400,16 +381,13 @@ public class ShowStatisticsFragment extends DialogFragment {
         return (int) res;
     }
 
-    private String getMonth(int x) {
+    private String getMonthName(int x) {
         String[] months = {"янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"};
         return months[x % 12];
     }
 
-    private String getDaysAfter(Calendar beginCal, int x) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(beginCal.getTime());
-        c.add(Calendar.DATE, x);
-        return String.valueOf(c.get(Calendar.DAY_OF_MONTH)) + getMonth(c.get(Calendar.MONTH) + 1);
+    private String getDayName(Calendar calendar) {
+        return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + getMonthName(calendar.get(Calendar.MONTH));
     }
 
     // TODO: Rename method, update argument and hook method into UI event

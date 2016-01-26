@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mDatabaseHelper = new DatabaseHelper(this, "finance.db", null, 6);
+        mDatabaseHelper = new DatabaseHelper(this, "finance.db", null, 7);
         mSqLiteDatabase = mDatabaseHelper.getWritableDatabase();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
