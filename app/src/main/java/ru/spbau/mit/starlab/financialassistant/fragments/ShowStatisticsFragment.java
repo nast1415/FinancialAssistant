@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class ShowStatisticsFragment extends DialogFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -93,22 +94,25 @@ public class ShowStatisticsFragment extends DialogFragment {
         Bundle args = getArguments();
 
         LineChart chart = (LineChart) ll.findViewById(R.id.chart);
-        List<Entry> values = new ArrayList<>();
-        List<String> xVals = new ArrayList<>();
+        List<Entry> lineChartYValues = new ArrayList<>();
+        List<String> lineChartXValues = new ArrayList<>();
 
         PieChart pieChart = (PieChart) ll.findViewById(R.id.pie_chart);
-        List<Entry> values2 = new ArrayList<>();
-        List<String> xVals2 = new ArrayList<>();
+        List<Entry> pieChartYValues = new ArrayList<>();
+        List<String> pieChartXValues = new ArrayList<>();
 
         String[] dateList = args.getStringArray("dateList");
         String[] categoryNameList = args.getStringArray("categoryNameList");
         double[] sumList = args.getDoubleArray("sumList");
+        String lineChartName;
+        int pieChartCategoriesCount = 0;
 
         Set<String> categories = new HashSet<>();
-        Collections.addAll(categories, categoryNameList);
+        if (categoryNameList != null) {
+            Collections.addAll(categories, categoryNameList);
+        }
 
-
-        if (args.getBoolean("isStatistics")) {
+        if (args.getBoolean("isStatistics")) {  // Show statistics
             getDialog().setTitle("Статистика");
 
             String begin = args.getString("dateBegin");
@@ -131,45 +135,41 @@ public class ShowStatisticsFragment extends DialogFragment {
             int duration = endCal.get(Calendar.YEAR) * 12 * 30 + endCal.get(Calendar.MONTH) * 30 + endCal.get(Calendar.DATE) -
                     (beginCal.get(Calendar.YEAR) * 12 * 30 + beginCal.get(Calendar.MONTH) * 30 + beginCal.get(Calendar.DATE)) + 1;
 
-
-            int categoriesCount = 0;
+            // Calculate data for PieChart
             for (String category : categories) {
                 int sum = getSumCategoryOnPeriod(beginCal, endCal, category, categoryNameList, dateList, sumList);
                 if (sum > 0) {
-                    values2.add(new Entry(sum, categoriesCount++));
-                    xVals2.add(category);
+                    pieChartYValues.add(new Entry(sum, pieChartCategoriesCount++));
+                    pieChartXValues.add(category);
                 }
             }
 
-            if (duration < 90) {
+            if (duration < 90) {    // Show statistics per day
+                lineChartName = "расходы по дням";
                 Calendar curCal = Calendar.getInstance();
                 curCal.setTime(beginCal.getTime());
                 for (int i = 0; !endCal.before(curCal); i++) {
-                    values.add(new Entry(getSumOnDay(curCal, 0, dateList, sumList), i));
-                    xVals.add(i, String.valueOf(getDayName(curCal)));
+                    lineChartYValues.add(new Entry(getSumOnDay(curCal, dateList, sumList), i));
+                    lineChartXValues.add(i, String.valueOf(getDayName(curCal)));
                     curCal.add(Calendar.DATE, 1);
                 }
-
-                updateLineChart(chart, values, xVals, "расходы по дням");
-                updatePieChart(pieChart, values2, xVals2, "");
-            } else {
+            } else {    // Show statistics per month
+                lineChartName = "расходы по месяцам";
                 Calendar curCal = Calendar.getInstance();
                 curCal.setTime(beginCal.getTime());
                 curCal.set(Calendar.DATE, 1);
                 for (int i = 0; !endCal.before(curCal); i++) {
-                    values.add(new Entry(getSumOnMonth(curCal, dateList, sumList), i));
-                    xVals.add(i, String.valueOf(getMonthName(curCal.get(Calendar.MONTH))));
+                    lineChartYValues.add(new Entry(getSumOnMonth(curCal, dateList, sumList), i));
+                    lineChartXValues.add(i, String.valueOf(getMonthName(curCal.get(Calendar.MONTH))));
                     curCal.add(Calendar.MONTH, 1);
                 }
-
-                updateLineChart(chart, values, xVals, "расходы по месяцам");
-                updatePieChart(pieChart, values2, xVals2, "");
             }
-        } else {
+        } else {    // Show predictions
             getDialog().setTitle("Прогнозы");
 
+            // Calculate data for lineChart
+            lineChartName = "прогноз расходов по месяцам";
             List<Double> prevExpenses = new ArrayList<>();
-
             prevExpenses.add(0.0);
 
             Calendar curCal = findMinDate(dateList);
@@ -179,38 +179,41 @@ public class ShowStatisticsFragment extends DialogFragment {
             todayCal.set(Calendar.DATE, 1);
 
             while (!todayCal.before(curCal)) {
-                prevExpenses.add(Math.max(1.0, getSumOnMonth(curCal, dateList, sumList)));
+                prevExpenses.add(Math.max(0.1, getSumOnMonth(curCal, dateList, sumList)));
                 curCal.add(Calendar.MONTH, 1);
             }
 
-            /*
-             It will be test
-            for (int i = 0; i < 50; i++) {
-                if (i % 2 == 0) {
-                    prevExpenses.add((double) i * i);
-                } else {
-                    prevExpenses.add((double) Math.max(10, 1000 - i * i));
-                }
-            }
-
-            List<List<Double>> categories1 = new ArrayList<>();
-            for (int i = 0; i < 5; i++) {
-                List<Double> list = new ArrayList<>();
-                for (int j = 0; j < 100; j++) {
-                    list.add((double) Math.max(100, 10 * i + j * (i % 2) - j * ((i + 1) % 2)));
-                }
-                categories1.add(list);
-            }
-*/
-
             for (int i = 0; i < 12; i++) {
-                values.add(new Entry(extrapolate(prevExpenses), i));
-                xVals.add(i, getMonthName(curCal.get(Calendar.MONTH) + i));
+                lineChartYValues.add(new Entry(extrapolate(prevExpenses), i));
+                lineChartXValues.add(i, getMonthName(curCal.get(Calendar.MONTH) + i));
             }
 
+            // Calculate data for pieChart
+            for (String category : categories) {
+                List<Double> prevExpensesForCategory = new ArrayList<>();
+                prevExpensesForCategory.add(0.0);
 
-            updateLineChart(chart, values, xVals, "прогноз расходов по месяцам");
-            pieChart.setNoDataText("диаграмма на стадии разработки");
+                curCal = findMinDate(dateList);
+                curCal.set(Calendar.DATE, 1);
+
+                while (!todayCal.before(curCal)) {
+                    prevExpensesForCategory.add(Math.max(0.1, getSumCategoryOnMonth(curCal, category, categoryNameList, dateList, sumList)));
+                    curCal.add(Calendar.MONTH, 1);
+                }
+
+                int sum = extrapolate(prevExpensesForCategory);
+                if (sum > 0) {
+                    pieChartYValues.add(new Entry(sum, pieChartCategoriesCount++));
+                    pieChartXValues.add(category);
+                }
+            }
+        }
+
+        updateLineChart(chart, lineChartYValues, lineChartXValues, lineChartName);
+        if (pieChartCategoriesCount > 0) {
+            updatePieChart(pieChart, pieChartYValues, pieChartXValues, "");
+        } else {
+            pieChart.setNoDataText("Недостаточно данных для диаграммы");
         }
 
         // Inflate the layout for this fragment
@@ -219,15 +222,10 @@ public class ShowStatisticsFragment extends DialogFragment {
 
     private Calendar findMinDate(String[] dates) {
         Calendar res = Calendar.getInstance();
-        try {
-            res.setTime(sdf.parse(dates[0]));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        for (int i = 1; i < dates.length; i++) {
+        for (String date : dates) {
             Calendar calDate = Calendar.getInstance();
             try {
-                calDate.setTime(sdf.parse(dates[i]));
+                calDate.setTime(sdf.parse(date));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -238,64 +236,55 @@ public class ShowStatisticsFragment extends DialogFragment {
         return res;
     }
 
-    private int getSumOnDay(Calendar cal, int x, String[] dates, double[] sums) {
+    private int getSumOnDay(Calendar cal, String[] dates, double[] sums) {
+        return getSumOnPeriod(cal, cal, dates, sums);
+    }
+
+    private int getSumOnMonth(Calendar cal, String[] dates, double[] sums) {
+        Calendar endPeriodCal = Calendar.getInstance();
+        endPeriodCal.setTime(cal.getTime());
+        endPeriodCal.add(Calendar.MONTH, 1);
+        endPeriodCal.add(Calendar.DATE, -1);
+        return getSumOnPeriod(cal, endPeriodCal, dates, sums);
+    }
+
+    private int getSumOnPeriod(Calendar beginCal, Calendar endCal, String[] dates, double[] sums) {
         int res = 0;
-        Calendar cal1 = Calendar.getInstance();
-        cal1.setTime(cal.getTime());
-        cal1.add(Calendar.DATE, x);
         for (int i = 0; i < dates.length; i++) {
-            Calendar calDate = Calendar.getInstance();
+            Calendar curCal = Calendar.getInstance();
             try {
-                calDate.setTime(sdf.parse(dates[i]));
+                curCal.setTime(sdf.parse(dates[i]));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if (calDate.equals(cal1)) {
+            if (!curCal.before(beginCal) && !endCal.before(curCal)) {
                 res += sums[i];
             }
-
         }
         return res;
+    }
+
+    private int getSumCategoryOnMonth(Calendar cal, String category, String[] categories, String[] dates, double[] sums) {
+        Calendar endPeriodCal = Calendar.getInstance();
+        endPeriodCal.setTime(cal.getTime());
+        endPeriodCal.add(Calendar.MONTH, 1);
+        endPeriodCal.add(Calendar.DATE, -1);
+        return getSumCategoryOnPeriod(cal, endPeriodCal, category, categories, dates, sums);
     }
 
     private int getSumCategoryOnPeriod(Calendar beginCal, Calendar endCal, String category, String[] categories, String[] dates, double[] sums) {
         int res = 0;
-
         for (int i = 0; i < dates.length; i++) {
             if (categories[i].equals(category)) {
-                Calendar cal1 = Calendar.getInstance();
+                Calendar curCal = Calendar.getInstance();
                 try {
-                    cal1.setTime(sdf.parse(dates[i]));
+                    curCal.setTime(sdf.parse(dates[i]));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-                if (beginCal.getTimeInMillis() <= cal1.getTimeInMillis() && cal1.getTimeInMillis() <= endCal.getTimeInMillis()) {
+                if (!curCal.before(beginCal) && !endCal.before(curCal)) {
                     res += sums[i];
                 }
-            }
-        }
-        return res;
-    }
-
-    int getSumOnMonth(Calendar calendar, String[] dates, double[] sums) {
-        int res = 0;
-        Calendar startPeriodCal = Calendar.getInstance();
-        startPeriodCal.setTime(calendar.getTime());
-        Calendar endPeriodCal = Calendar.getInstance();
-        endPeriodCal.setTime(calendar.getTime());
-        endPeriodCal.add(Calendar.MONTH, 1);
-
-        for (int i = 0; i < dates.length; i++) {
-            Calendar cal1 = Calendar.getInstance();
-            try {
-                cal1.setTime(sdf.parse(dates[i]));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            if (startPeriodCal.getTimeInMillis() <= cal1.getTimeInMillis() && cal1.getTimeInMillis() < endPeriodCal.getTimeInMillis()) {
-                res += sums[i];
             }
         }
         return res;
