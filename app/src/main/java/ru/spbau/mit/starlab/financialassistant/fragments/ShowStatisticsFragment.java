@@ -155,7 +155,7 @@ public class ShowStatisticsFragment extends DialogFragment {
 
     void calcStatisticsForPieChart(Calendar beginCal, Calendar endCal,
                                    String[] categoryNameList, String[] dateList, double[] sumList,
-                                   List<String> pieChartXValues, List<Entry> pieChartYValues) {
+                                   List<String> xs, List<Entry> ys) {
         Set<String> categories = new HashSet<>();
         if (categoryNameList != null) {
             Collections.addAll(categories, categoryNameList);
@@ -164,8 +164,8 @@ public class ShowStatisticsFragment extends DialogFragment {
         for (String category : categories) {
             int sum = getSumCategoryOnPeriod(beginCal, endCal, category, categoryNameList, dateList, sumList);
             if (sum > 0) {
-                pieChartYValues.add(new Entry(sum, i++));
-                pieChartXValues.add(category);
+                ys.add(new Entry(sum, i++));
+                xs.add(category);
             }
         }
     }
@@ -214,7 +214,7 @@ public class ShowStatisticsFragment extends DialogFragment {
     }
 
     void calcPredictionsForPieChart(String[] categoryNameList, String[] dateList, double[] sumList,
-                                    List<String> pieChartXValues, List<Entry> pieChartYValues) {
+                                    List<String> xs, List<Entry> ys) {
         Set<String> categories = new HashSet<>();
         if (categoryNameList != null) {
             Collections.addAll(categories, categoryNameList);
@@ -236,8 +236,8 @@ public class ShowStatisticsFragment extends DialogFragment {
 
             int sum = extrapolate(prevExpensesForCategory);
             if (sum > 0) {
-                pieChartYValues.add(new Entry(sum, i++));
-                pieChartXValues.add(category);
+                ys.add(new Entry(sum, i++));
+                xs.add(category);
             }
         }
     }

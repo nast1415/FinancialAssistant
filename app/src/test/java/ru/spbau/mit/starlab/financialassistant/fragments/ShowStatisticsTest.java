@@ -1,11 +1,15 @@
 package ru.spbau.mit.starlab.financialassistant.fragments;
 
+import com.github.mikephil.charting.data.Entry;
+
 import org.junit.Test;
 
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import static org.junit.Assert.*;
@@ -87,4 +91,77 @@ public class ShowStatisticsTest {
         cal.set(2016, 11, 10);
         assertEquals("10дек", fragment.getDayName(cal));
     }
+
+    @Test
+    public void testCalcStatisticsForPieChart() throws Exception {
+        Calendar beginCal = Calendar.getInstance();
+        beginCal.set(2016, 0, 1, 0, 0, 0);
+        beginCal.set(Calendar.MILLISECOND, 0);
+        Calendar endCal = Calendar.getInstance();
+        endCal.set(2016, 11, 1, 0, 0, 0);
+        endCal.set(Calendar.MILLISECOND, 0);
+        String[] dates = {"01.01.2015", "02.02.2016", "01.01.2016", "01.12.2016", "02.12.2016"};
+        double[] sums = {1, 2, 3, 4, 5};
+        String[] categories = {"cat1", "cat2", "cat3", "cat1", "cat1"};
+        List<String> xs = new ArrayList<>();
+        List<Entry> ys = new ArrayList<>();
+        fragment.calcStatisticsForPieChart(beginCal, endCal, categories, dates, sums, xs, ys);
+        assertTrue(xs.size() == 3);
+        assertTrue(ys.size() == 3);
+        assertTrue(xs.contains("cat1"));
+        assertTrue(xs.contains("cat2"));
+        assertTrue(xs.contains("cat3"));
+    }
+
+    @Test
+    public void testCalcDaysStatisticsForLineChart() throws Exception {
+        Calendar beginCal = Calendar.getInstance();
+        beginCal.set(2016, 0, 1, 0, 0, 0);
+        beginCal.set(Calendar.MILLISECOND, 0);
+        Calendar endCal = Calendar.getInstance();
+        endCal.set(2016, 0, 3, 0, 0, 0);
+        endCal.set(Calendar.MILLISECOND, 0);
+        String[] dates = {"01.01.2015", "02.02.2016", "01.01.2016", "01.12.2016", "02.12.2016"};
+        double[] sums = {1, 2, 3, 4, 5};
+        List<String> xs = new ArrayList<>();
+        List<Entry> ys = new ArrayList<>();
+        fragment.calcDaysStatisticsForLineChart(beginCal, endCal, dates, sums, xs, ys);
+        assertEquals(3, xs.size());
+        assertEquals(3, ys.size());
+        assertTrue(xs.contains("1янв"));
+        assertTrue(xs.contains("2янв"));
+        assertTrue(xs.contains("3янв"));
+    }
+
+    @Test
+    public void testCalcMonthsStatisticsForLineChart() throws Exception {
+        Calendar beginCal = Calendar.getInstance();
+        beginCal.set(2016, 0, 1, 0, 0, 0);
+        beginCal.set(Calendar.MILLISECOND, 0);
+        Calendar endCal = Calendar.getInstance();
+        endCal.set(2016, 0, 3, 0, 0, 0);
+        endCal.set(Calendar.MILLISECOND, 0);
+        String[] dates = {"01.01.2015", "02.02.2016", "01.01.2016", "01.12.2016", "02.12.2016"};
+        double[] sums = {1, 2, 3, 4, 5};
+        List<String> xs = new ArrayList<>();
+        List<Entry> ys = new ArrayList<>();
+        fragment.calcMonthsStatisticsForLineChart(beginCal, endCal, dates, sums, xs, ys);
+        assertEquals(1, xs.size());
+        assertEquals(1, ys.size());
+        assertTrue(xs.contains("янв"));
+    }
+
+    @Test
+    public void testCalcPredictionsForLineChart() throws Exception {
+        String[] dates = {"01.01.2015", "02.02.2016", "01.01.2016", "01.12.2016", "02.12.2016"};
+        double[] sums = {1, 2, 3, 4, 5};
+        List<String> xs = new ArrayList<>();
+        List<Entry> ys = new ArrayList<>();
+        fragment.calcPredictionsForLineChart(dates, sums, xs, ys);
+        assertEquals(12, xs.size());
+        assertEquals(12, ys.size());
+        assertTrue(xs.contains("янв"));
+        assertTrue(xs.contains("дек"));
+    }
+
 }
