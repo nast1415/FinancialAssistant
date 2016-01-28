@@ -105,113 +105,45 @@ public class ShowStatisticsFragment extends DialogFragment {
         String[] categoryNameList = args.getStringArray("categoryNameList");
         double[] sumList = args.getDoubleArray("sumList");
         String lineChartName;
-        int pieChartCategoriesCount = 0;
-
-        Set<String> categories = new HashSet<>();
-        if (categoryNameList != null) {
-            Collections.addAll(categories, categoryNameList);
-        }
 
         if (args.getBoolean("isStatistics")) {  // Show statistics
             getDialog().setTitle("Статистика");
 
             String begin = args.getString("dateBegin");
-            Calendar beginCal = Calendar.getInstance();
-
-            try {
-                beginCal.setTime(sdf.parse(begin));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
             String end = args.getString("dateEnd");
+            Calendar beginCal = Calendar.getInstance();
             Calendar endCal = Calendar.getInstance();
             try {
+                beginCal.setTime(sdf.parse(begin));
                 endCal.setTime(sdf.parse(end));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
+            calcStatisticsForPieChart(beginCal, endCal, categoryNameList, dateList, sumList,
+                    pieChartXValues, pieChartYValues);
+
             int duration = endCal.get(Calendar.YEAR) * 12 * 30 + endCal.get(Calendar.MONTH) * 30 + endCal.get(Calendar.DATE) -
                     (beginCal.get(Calendar.YEAR) * 12 * 30 + beginCal.get(Calendar.MONTH) * 30 + beginCal.get(Calendar.DATE)) + 1;
 
-            // Calculate data for PieChart
-            for (String category : categories) {
-                int sum = getSumCategoryOnPeriod(beginCal, endCal, category, categoryNameList, dateList, sumList);
-                if (sum > 0) {
-                    pieChartYValues.add(new Entry(sum, pieChartCategoriesCount++));
-                    pieChartXValues.add(category);
-                }
-            }
-
-            // Calculate data for LineChart
-            if (duration < 90) {    // Show statistics per day
+            if (duration < 90) {    // Calculate statistics per day
                 lineChartName = "расходы по дням";
-                Calendar curCal = Calendar.getInstance();
-                curCal.setTime(beginCal.getTime());
-                for (int i = 0; !endCal.before(curCal); i++) {
-                    lineChartYValues.add(new Entry(getSumOnDay(curCal, dateList, sumList), i));
-                    lineChartXValues.add(i, String.valueOf(getDayName(curCal)));
-                    curCal.add(Calendar.DATE, 1);
-                }
-            } else {    // Show statistics per month
+                calcDaysStatisticsForLineChart(beginCal, endCal, dateList, sumList,
+                        lineChartXValues, lineChartYValues);
+            } else {    // Calculate statistics per month
                 lineChartName = "расходы по месяцам";
-                Calendar curCal = Calendar.getInstance();
-                curCal.setTime(beginCal.getTime());
-                curCal.set(Calendar.DATE, 1);
-                for (int i = 0; !endCal.before(curCal); i++) {
-                    lineChartYValues.add(new Entry(getSumOnMonth(curCal, dateList, sumList), i));
-                    lineChartXValues.add(i, String.valueOf(getMonthName(curCal.get(Calendar.MONTH))));
-                    curCal.add(Calendar.MONTH, 1);
-                }
+                calcMonthsStatisticsForLineChart(beginCal, endCal, dateList, sumList,
+                        lineChartXValues, lineChartYValues);
             }
         } else {    // Show predictions
             getDialog().setTitle("Прогнозы");
-
-            // Calculate data for lineChart
             lineChartName = "прогноз расходов по месяцам";
-            List<Double> prevExpenses = new ArrayList<>();
-            prevExpenses.add(0.0);
-
-            Calendar curCal = findMinDate(dateList);
-            curCal.set(Calendar.DATE, 1);
-
-            Calendar todayCal = Calendar.getInstance();
-            todayCal.set(Calendar.DATE, 1);
-
-            while (!todayCal.before(curCal)) {
-                prevExpenses.add(Math.max(0.1, getSumOnMonth(curCal, dateList, sumList)));
-                curCal.add(Calendar.MONTH, 1);
-            }
-
-            for (int i = 0; i < 12; i++) {
-                lineChartYValues.add(new Entry(extrapolate(prevExpenses), i));
-                lineChartXValues.add(i, getMonthName(curCal.get(Calendar.MONTH) + i));
-            }
-
-            // Calculate data for pieChart
-            for (String category : categories) {
-                List<Double> prevExpensesForCategory = new ArrayList<>();
-                prevExpensesForCategory.add(0.0);
-
-                curCal = findMinDate(dateList);
-                curCal.set(Calendar.DATE, 1);
-
-                while (!todayCal.before(curCal)) {
-                    prevExpensesForCategory.add(Math.max(0.1, getSumCategoryOnMonth(curCal, category, categoryNameList, dateList, sumList)));
-                    curCal.add(Calendar.MONTH, 1);
-                }
-
-                int sum = extrapolate(prevExpensesForCategory);
-                if (sum > 0) {
-                    pieChartYValues.add(new Entry(sum, pieChartCategoriesCount++));
-                    pieChartXValues.add(category);
-                }
-            }
+            calcPredictionsForLineChart(dateList, sumList, lineChartXValues, lineChartYValues);
+            calcPredictionsForPieChart(categoryNameList, dateList, sumList, pieChartXValues, pieChartYValues);
         }
 
         updateLineChart(chart, lineChartYValues, lineChartXValues, lineChartName);
-        if (pieChartCategoriesCount > 0) {
+        if (!pieChartXValues.isEmpty()) {
             updatePieChart(pieChart, pieChartYValues, pieChartXValues, "");
         } else {
             pieChart.setNoDataText("Недостаточно данных для диаграммы");
@@ -219,6 +151,95 @@ public class ShowStatisticsFragment extends DialogFragment {
 
         // Inflate the layout for this fragment
         return ll;
+    }
+
+    void calcStatisticsForPieChart(Calendar beginCal, Calendar endCal,
+                                   String[] categoryNameList, String[] dateList, double[] sumList,
+                                   List<String> pieChartXValues, List<Entry> pieChartYValues) {
+        Set<String> categories = new HashSet<>();
+        if (categoryNameList != null) {
+            Collections.addAll(categories, categoryNameList);
+        }
+        int i = 0;
+        for (String category : categories) {
+            int sum = getSumCategoryOnPeriod(beginCal, endCal, category, categoryNameList, dateList, sumList);
+            if (sum > 0) {
+                pieChartYValues.add(new Entry(sum, i++));
+                pieChartXValues.add(category);
+            }
+        }
+    }
+
+    void calcDaysStatisticsForLineChart(Calendar beginCal, Calendar endCal, String[] dateList, double[] sumList,
+                                        List<String> xs, List<Entry> ys) {
+        Calendar curCal = Calendar.getInstance();
+        curCal.setTime(beginCal.getTime());
+        for (int i = 0; !endCal.before(curCal); i++) {
+            ys.add(new Entry(getSumOnDay(curCal, dateList, sumList), i));
+            xs.add(i, String.valueOf(getDayName(curCal)));
+            curCal.add(Calendar.DATE, 1);
+        }
+    }
+
+    void calcMonthsStatisticsForLineChart(Calendar beginCal, Calendar endCal, String[] dateList, double[] sumList,
+                                          List<String> xs, List<Entry> ys) {
+        Calendar curCal = Calendar.getInstance();
+        curCal.setTime(beginCal.getTime());
+        curCal.set(Calendar.DATE, 1);
+        for (int i = 0; !endCal.before(curCal); i++) {
+            ys.add(new Entry(getSumOnMonth(curCal, dateList, sumList), i));
+            xs.add(i, String.valueOf(getMonthName(curCal.get(Calendar.MONTH))));
+            curCal.add(Calendar.MONTH, 1);
+        }
+    }
+
+    void calcPredictionsForLineChart(String[] dateList, double[] sumList, List<String> xs, List<Entry> ys) {
+        List<Double> prevExpenses = new ArrayList<>();
+        prevExpenses.add(0.0);
+
+        Calendar curCal = findMinDate(dateList);
+        curCal.set(Calendar.DATE, 1);
+        Calendar todayCal = Calendar.getInstance();
+        todayCal.set(Calendar.DATE, 1);
+
+        while (!todayCal.before(curCal)) {
+            prevExpenses.add(Math.max(0.1, getSumOnMonth(curCal, dateList, sumList)));
+            curCal.add(Calendar.MONTH, 1);
+        }
+
+        for (int i = 0; i < 12; i++) {
+            ys.add(new Entry(extrapolate(prevExpenses), i));
+            xs.add(i, getMonthName(curCal.get(Calendar.MONTH) + i));
+        }
+    }
+
+    void calcPredictionsForPieChart(String[] categoryNameList, String[] dateList, double[] sumList,
+                                    List<String> pieChartXValues, List<Entry> pieChartYValues) {
+        Set<String> categories = new HashSet<>();
+        if (categoryNameList != null) {
+            Collections.addAll(categories, categoryNameList);
+        }
+        int i = 0;
+        for (String category : categories) {
+            List<Double> prevExpensesForCategory = new ArrayList<>();
+            prevExpensesForCategory.add(0.0);
+
+            Calendar curCal = findMinDate(dateList);
+            curCal.set(Calendar.DATE, 1);
+            Calendar todayCal = Calendar.getInstance();
+            todayCal.set(Calendar.DATE, 1);
+
+            while (!todayCal.before(curCal)) {
+                prevExpensesForCategory.add(Math.max(0.1, getSumCategoryOnMonth(curCal, category, categoryNameList, dateList, sumList)));
+                curCal.add(Calendar.MONTH, 1);
+            }
+
+            int sum = extrapolate(prevExpensesForCategory);
+            if (sum > 0) {
+                pieChartYValues.add(new Entry(sum, i++));
+                pieChartXValues.add(category);
+            }
+        }
     }
 
     Calendar findMinDate(String[] dates) {
