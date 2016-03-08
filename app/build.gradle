@@ -7,6 +7,7 @@ android {
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         applicationId "ru.spbau.mit.starlab.financialassistant"
+        multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
@@ -17,6 +18,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
     }
 }
 
@@ -38,6 +44,7 @@ dependencies {
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.google.android.gms:play-services:7.8.0'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
+    compile 'com.firebase:firebase-client-android:2.5.2+'
 }
 
 repositories {
