@@ -663,16 +663,10 @@ public class MainActivity extends AppCompatActivity
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
-        if (id == R.id.nav_credits) {
-            fragmentTransaction.replace(R.id.container, creditsFragment);
-        } else if (id == R.id.nav_expenses) {
+        if (id == R.id.nav_expenses) {
             fragmentTransaction.replace(R.id.container, expensesFragment);
         } else if (id == R.id.nav_incomes) {
             fragmentTransaction.replace(R.id.container, incomesFragment);
-        } else if (id == R.id.nav_reg_expenses) {
-            fragmentTransaction.replace(R.id.container, regularExpensesFragment);
-        } else if (id == R.id.nav_reg_incomes) {
-            fragmentTransaction.replace(R.id.container, regularIncomesFragment);
         } else if (id == R.id.nav_recent_actions) {
             Bundle args = new Bundle();
             List<String> categoryList = new ArrayList<>();
