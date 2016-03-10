@@ -2,7 +2,6 @@ package ru.spbau.mit.starlab.financialassistant;
 
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -31,24 +30,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ru.spbau.mit.starlab.financialassistant.fragments.CreditsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.ExpensesFragment;
-import ru.spbau.mit.starlab.financialassistant.fragments.HelpFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.IncomesFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.InformationFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.RecentActionsFragment;
-import ru.spbau.mit.starlab.financialassistant.fragments.RegularExpensesFragment;
-import ru.spbau.mit.starlab.financialassistant.fragments.RegularIncomesFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.ShowStatisticsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.StatisticsFragment;
 import ru.spbau.mit.starlab.financialassistant.fragments.ToolsFragment;
-import ru.spbau.mit.starlab.financialassistant.fragments.WantedExpensesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DatabaseHelper mDatabaseHelper;
-    private SQLiteDatabase mSqLiteDatabase;
     private ExpensesFragment expensesFragment;
     private IncomesFragment incomesFragment;
     private StatisticsFragment statisticsFragment;
@@ -102,7 +94,8 @@ public class MainActivity extends AppCompatActivity
 
     //Function to show last actions
     public void getLastActions(List<String> categoryList, List<String> nameList, List<Double> sumList) {
-        String query = "SELECT " + DatabaseHelper._ID + ", "
+        //This function will be changed soon
+        /*String query = "SELECT " + DatabaseHelper._ID + ", "
                 + DatabaseHelper.LAST_ACTIONS_CATEGORY_COLUMN + ", "
                 + DatabaseHelper.LAST_ACTIONS_NAME_COLUMN + ", "
                 + DatabaseHelper.LAST_ACTIONS_SUM_COLUMN + " FROM last_actions";
@@ -125,12 +118,13 @@ public class MainActivity extends AppCompatActivity
             Log.i("LOG_TAG", "New last_action added: category: " + category + " name: " + name
                     + " sum: " + sum);
         }
-        cursor.close();
+        cursor.close();*/
     }
 
     //Function, that get data for statistics from DB
     public void getDataForStatistics(List<String> dateList, List<String> categoryNameList, List<Double> sumList) {
-        List<Integer> categoryIdList = new ArrayList<>();
+        //This function will be changed soon
+       /* List<Integer> categoryIdList = new ArrayList<>();
         String query = "SELECT " + DatabaseHelper._ID + ", "
                 + DatabaseHelper.EXPENSE_DATE_COLUMN + ", "
                 + DatabaseHelper.EXPENSE_CATEGORY_COLUMN + ", "
@@ -174,7 +168,7 @@ public class MainActivity extends AppCompatActivity
 
             }
             cursor2.close();
-        }
+        }*/
     }
 
     @Override
@@ -183,9 +177,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mDatabaseHelper = new DatabaseHelper(this, "finance.db", null, 7);
-        mSqLiteDatabase = mDatabaseHelper.getWritableDatabase();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -214,27 +205,12 @@ public class MainActivity extends AppCompatActivity
 
     public void onClick(View v) {
         Firebase.setAndroidContext(this);
-        Cursor cursor = mSqLiteDatabase.query("expenses", new String[]{
-                        DatabaseHelper._ID, DatabaseHelper.EXPENSE_NAME_COLUMN}, null,
-                null,
-                null,
-                null,
-                null
-        );
-
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
-            String name = cursor.getString(cursor
-                    .getColumnIndex(DatabaseHelper.EXPENSE_NAME_COLUMN));
-
-            Log.i("LOG_TAG", "Трата " + name + " имеет id " + id);
-        }
-        cursor.close();
     }
 
     //Function, that add data from the DB to the RecentActionsFragment
     public void addDataToLastActions(int id, String category, String name, String sum) {
-        ContentValues newValues = new ContentValues();
+        //This function will be changed soon
+        /*ContentValues newValues = new ContentValues();
 
         newValues.put(DatabaseHelper.LAST_ACTIONS_ID_COLUMN, id);
         newValues.put(DatabaseHelper.LAST_ACTIONS_CATEGORY_COLUMN, category);
@@ -242,7 +218,7 @@ public class MainActivity extends AppCompatActivity
         newValues.put(DatabaseHelper.LAST_ACTIONS_SUM_COLUMN, sum);
 
         mSqLiteDatabase.insert("last_actions", null, newValues);
-        Log.i("LOG_TAG", "New last_action added");
+        Log.i("LOG_TAG", "New last_action added");*/
     }
 
     //Function, that add data from the ExpensesFragment to the Firebase DB
@@ -276,17 +252,6 @@ public class MainActivity extends AppCompatActivity
         expense.put("dateExp", expenseDate);
         expense.put("addTimeExp", expenseAddTime);
         newExp.setValue(expense);
-
-        /*
-        int idExp = 0;
-        while (cursor.moveToNext()) {
-            idExp = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
-        }
-        cursor.close();
-
-        String categoryExp = "Трата";
-        addDataToLastActions(idExp, categoryExp, expenseName, expenseSum);
-        */
 
         Toast toast = Toast.makeText(getApplicationContext(),
                 "Трата " + expenseName + " успешно добавлена", Toast.LENGTH_SHORT);
@@ -332,17 +297,6 @@ public class MainActivity extends AppCompatActivity
         income.put("dateInc", incomeDate);
         income.put("addTimeInc", incomeAddTime);
         newInc.setValue(income);
-
-        /*
-        int idInc = 0;
-        while (cursor.moveToNext()) {
-            idInc = cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID));
-        }
-        cursor.close();
-
-        String categoryInc = "Доход";
-        addDataToLastActions(idInc, categoryInc, incomeName, incomeSum);
-        */
 
         Toast toast = Toast.makeText(getApplicationContext(),
                 "Доход " + incomeName + " успешно добавлен", Toast.LENGTH_SHORT);
